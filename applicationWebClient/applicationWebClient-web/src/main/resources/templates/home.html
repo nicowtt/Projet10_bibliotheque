@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:insert="_include/head.html"></div>
+</head>
+
+<header class="raw">
+    <div th:insert="_include/header.html"></div>
+</header>
+
+<body>
+
+<div class="container">
+    <div class="row">
+        <div th:each="b : ${books}" class="col-xs-4 col-sm-3 col-md-2">
+            <p></p>
+            <!-- cover and description (mouse over) -->
+            <img th:src="${b.bookPictureUrl}" style="width:150px;height:200px; border:0px;" class="img-rounded"
+                 th:title="'*Nom:'+${b.bookName}+' *Auteur:'+${b.bookAuthor}+' *Description:'+${b.bookDescription}">
+            <!-- tag -->
+            <div>
+            <span class="label label-default" id="label" th:text="${b.bookLabel}"></span>
+            </div>
+            <!-- disponibility -->
+            <div>
+                <a th:href="@{'/book/'+${b.id}+'/library/'+${library}}" type="button" class="btn btn-xs btn-primary" id="onBook"
+                    th:if="${!b.allBookReserved}">Disponible</a>
+                <span class="label label-danger" id="onBookNoDispo" th:if="${b.allBookReserved}">Non Disponible</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <div th:insert="_include/footer.html"></div>
+</footer>
+
+</body>
+</html>

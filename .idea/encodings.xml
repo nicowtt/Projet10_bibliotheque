@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/applicationWebClient" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/applicationWebClient/applicationWebClient-business" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/applicationWebClient/applicationWebClient-model" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/applicationWebClient/applicationWebClient-proxies" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/applicationWebClient/applicationWebClient-web" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/batchMail" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/batchMail/batchMail-business" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/batchMail/batchMail-model" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/batchMail/batchMail-proxies" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/commons/libraries-model" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/microserviceBDD" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/microserviceBDD/microserviceBdd-business" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/microserviceBDD/microserviceBdd-dao" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/microserviceBDD/microserviceBdd-model" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/microserviceBDD/microserviceBdd-web" charset="UTF-8" />
+  </component>
+</project>

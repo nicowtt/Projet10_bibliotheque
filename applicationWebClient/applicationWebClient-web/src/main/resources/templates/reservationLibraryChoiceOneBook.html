@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <div th:insert="_include/head.html"></div>
+</head>
+
+<header class="raw">
+    <div th:insert="_include/header.html"></div>
+</header>
+
+<body>
+
+<div class="container">
+    <div class="row">
+        <div th:each="b:${books}">
+            <b th:if="${b.id.getBookIteration() > 0}"><span>Il y a </span><span th:text="${b.id.bookIteration}"></span> livre(s) disponible dans la bibliotheque <span th:text="${b.library.libraryName}"></span> :</b>
+            <p><a th:href="@{'/bookReservation/'+ ${b.book.id} +'/'+ ${b.library.id}} " type="button" class="label label-default" id="label"
+                  th:if="${b.id.getBookIteration() > 0}">Emprunter un exemplaire pour 4 semaines</a></p>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <div th:insert="_include/footer.html"></div>
+</footer>
+
+</body>
+</html>

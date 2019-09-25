@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="FUSUsageTrigger">
+    <session id="-141348912">
+      <usages-collector id="statistics.spring.boot.run.usages">
+        <counts>
+          <entry key="LiveBeansNavigationHandler.fromCode" value="2" />
+        </counts>
+      </usages-collector>
+    </session>
+  </component>
+  <component name="FrameworkDetectionExcludesConfiguration">
+    <file type="web" url="file://$PROJECT_DIR$/applicationWebClient/applicationWebClient-web" />
+    <file type="web" url="file://$PROJECT_DIR$/microserviceBDD/microserviceBdd-web" />
+    <file type="web" url="file://$PROJECT_DIR$/microserviceBDD/moduleWeb" />
+  </component>
+  <component name="JavaScriptSettings">
+    <option name="languageLevel" value="ES6" />
+  </component>
+  <component name="MavenProjectsManager">
+    <option name="originalFiles">
+      <list>
+        <option value="$PROJECT_DIR$/microserviceBDD/pom.xml" />
+        <option value="$PROJECT_DIR$/microserviceBDD/moduleDao/pom.xml" />
+        <option value="$PROJECT_DIR$/microserviceBDD/moduleModel/pom.xml" />
+        <option value="$PROJECT_DIR$/microserviceBDD/moduleWeb/pom.xml" />
+        <option value="$PROJECT_DIR$/microserviceBDD/microserviceBdd-dao/pom.xml" />
+        <option value="$PROJECT_DIR$/microserviceBDD/microserviceBdd-model/pom.xml" />
+        <option value="$PROJECT_DIR$/microserviceBDD/microserviceBdd-web/pom.xml" />
+        <option value="$PROJECT_DIR$/applicationWebClient/pom.xml" />
+        <option value="$PROJECT_DIR$/applicationWebClient/applicationWebClient-business/pom.xml" />
+        <option value="$PROJECT_DIR$/applicationWebClient/applicationWebClient-model/pom.xml" />
+        <option value="$PROJECT_DIR$/applicationWebClient/applicationWebClient-proxies/pom.xml" />
+        <option value="$PROJECT_DIR$/applicationWebClient/applicationWebClient-web/pom.xml" />
+        <option value="$PROJECT_DIR$/batchMail/pom.xml" />
+        <option value="$PROJECT_DIR$/batchMail/batchMail-business/pom.xml" />
+        <option value="$PROJECT_DIR$/batchMail/batchMail-proxies/pom.xml" />
+        <option value="$PROJECT_DIR$/batchMail/batchMail-model/pom.xml" />
+        <option value="$PROJECT_DIR$/commons/libraries-model/pom.xml" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" project-jdk-name="1.8" project-jdk-type="JavaSDK" />
+</project>

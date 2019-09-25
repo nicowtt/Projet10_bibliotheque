@@ -1,0 +1,57 @@
+<!DOCTYPE HTML>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<link rel="stylesheet" th:href="@{/main.css}" />
+
+<!-- Navigation
+================================================== -->
+<nav class="navbar navbar-inverse " role="navigation">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand page-top" href="/home">Bibliothèques OcVille</a>
+    </div>
+    <!-- All elements on navbar -->
+    <div class="collapse navbar-collapse">
+        <ul class="nav navbar-nav">
+            <!-- for search book with name -->
+            <li><p></p><form action='#' th:action="@{/SearchByBookName}"
+                             th:object="${bookName}" method="POST">
+                <input type="text" id="searchBookName" placeholder="Chercher un nom de livre" th:field="*{bookName}">
+                <input type="submit" value="Envoyer" style="display: none"></form></li>
+
+            <li><a th:href="@{/Search}">Filtrer par bibliothéque / label</a></li>
+        </ul>
+
+        <!-- identification -->
+        <ul class="nav navbar-nav navbar-right" > <li class="dropdown">
+
+            <!-- if user is login -->
+            <div th:if="${log}!=null"> <div style="color:white" th:text="${log.userEmail}"></div>
+                <a th:href="@{/PersonalSpace}">Mon espace personnel</a><br>
+                <p></p>
+                <a href="/logout">Se deconnecter </a>
+            </div>
+
+            <!-- if user not login -->
+            <div th:if ="${log}==null">
+                <br><a href="#" class="dropdown-toggle" data-toggle="dropdown">S'identifier <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li class="dropdown-header">Vous n'êtes pas identifié.</li>
+                    <li><form class="navbar-form" method="post" action="/login" modelAttribute="userSession">
+                        <input type="text" class="form-control" name="userEmail" placeholder="email" /><br />
+                        <input type="password" class="form-control" name="userPassword" placeholder="Mot de passe"/>
+                        <input type="submit" class="btn btn-primary btn-xs btn-block" /></form></li>
+                    <li class="disabled"><a href="#">Mot de passe oublié ?</a></li>
+                    <li class="enable"><a href="/newUser">Créer un compte...</a></li>
+                </ul>
+            </div>
+        </li>
+        </ul>
+    </div>
+</nav>

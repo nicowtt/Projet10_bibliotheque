@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <div th:insert="_include/head.html"></div>
+</head>
+
+<header class="raw">
+    <div th:insert="_include/header.html"></div>
+</header>
+
+<body>
+
+<div class="container">
+    <p>Réservation en cours:</p>
+
+    <div id="listerTopoPapier">
+        <table class="table">
+            <tr>
+                <th>Livre</th>
+                <th>Auteur</th>
+                <th>date début prêt</th>
+                <th>Date de retour max</th>
+                <th>Prolonger 1 mois</th>
+                <th>Bibliothèque</th>
+            </tr>
+            <tr th:each="r:${reservation}" th:if="${!r.bookBack}">
+                <td th:text="${r.book.bookName}" id="bookName"></td>
+                <td th:text="${r.book.bookAuthor}" id="bookAuthor"></td>
+                <td th:text="${r.beginOfReservationDate}" id="beginReservationDate"></td>
+                <td th:text="${r.endOfReservationDate}" id="endOfReservationDate"></td>
+                <td th:if="${!r.extensionOfReservation}"> <a th:href="@{'/ExtendTime/'+ ${r.id}}">prolonger</a></td>
+                <td th:if="${r.extensionOfReservation}"> plus disponible</td>
+                <td th:text="${r.library.libraryName}" id="libraryName"></td>
+                <td><a th:href="@{'/BookBack/' + ${r.getId()}}">Finir le prêt</td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<footer>
+    <div th:insert="_include/footer.html"></div>
+</footer>
+
+</body>
+</html>

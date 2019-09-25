@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <div th:insert="_include/head.html"></div>
+</head>
+
+<header class="raw">
+    <div th:insert="_include/header.html"></div>
+</header>
+
+<body>
+<div class="container">
+
+    <!-- Body
+   ================================================== -->
+    <!-- display for write new user -->
+    <br>
+    <div id="Search">
+        <h3>Affiner la recherche de livre:</h3>
+        <p></p>
+        <form action="#" th:action="@{/SearchPost}"  method='POST'>
+            <div class="form-group">
+                <p>Par bibliothèque:</p>
+                <p></p>
+                <select th:object="${library}" th:field="*{libraryName}" class="form-control" style="width: auto">
+                    <option value=""> -- </option>
+                    <option th:each="l : ${libraries}"
+                            th:value="${l.libraryName}"
+                            th:text="${l.libraryName.toString()}"></option>
+                </select>
+                <p></p>
+                <p>par genre:</p>
+                <select th:object="${book}" th:field="*{bookLabel}" class="form-control" style="width: auto">
+                <option value=""> -- </option>
+                <option th:each="b : ${books}"
+                        th:value="${b.bookLabel}"
+                        th:text="${b.bookLabel.toString()}"></option>
+                </select>
+                <p></p>
+                <button type="submit" class="btn btn-primary">Envoyer</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<footer>
+    <div th:insert="_include/footer.html"></div>
+</footer>
+
+</body>
+</html>

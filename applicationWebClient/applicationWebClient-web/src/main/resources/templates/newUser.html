@@ -1,0 +1,66 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <div th:insert="_include/head.html"></div>
+</head>
+
+<header class="raw">
+    <div th:insert="_include/header.html"></div>
+</header>
+
+<body>
+
+<div class="container">
+
+    <!-- Body
+   ================================================== -->
+
+    <!-- display for write new user -->
+    <br>
+    <div id="NewUser">
+        <h3>Inscription nouvel utilisateur:</h3>
+        <p></p>
+        <form action='#' th:action="@{/newUserPost}"
+              th:object="${newUser}" method="POST">
+            <table class="lignesEspacees">
+                <tr>
+                     <!--display for "nom"-->
+                    <td>Votre prénom:*: <input type="text" th:field="*{userFirstName}"></td>
+                    <td class="errors" th:if="${#fields.hasErrors('*')}" th:errors="*{userFirstName}"></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <!-- display for "prenom" -->
+                    <td>Votre Nom:*: <input type="text" th:field="*{userName}"></td>
+                    <td class="errors" th:if="${#fields.hasErrors('*')}" th:errors="*{userName}"></td>
+                </tr>
+                <tr>
+                    <!-- display for "mot de passe" -->
+                    <td>Choisissez un mot de passe:*: <input type="password" th:field="*{userPassword}"></td>
+                    <td class="errors" th:if="${#fields.hasErrors('*')}" th:errors="*{userPassword}"></td>
+                </tr>
+                <tr>
+                    <!-- display for "email" -->
+                    <td>Votre E-mail:*: <input type="email" th:field="*{userEmail}"></td>
+                    <td class="errors" th:if="${#fields.hasErrors('*')}" th:errors="*{userEmail}"></td>
+                </tr>
+            </table>
+            <p></p>
+            <p>(*) obligatoire</p>
+            <p></p>
+            <input type="submit" value="Envoyer">
+
+        </form>
+    </div>
+
+
+</div>
+
+<footer>
+    <div th:insert="_include/footer.html"></div>
+</footer>
+
+</body>
+</html>

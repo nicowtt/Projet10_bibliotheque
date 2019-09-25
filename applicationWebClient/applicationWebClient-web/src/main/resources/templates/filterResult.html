@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <div th:insert="_include/head.html"></div>
+</head>
+
+<header class="raw">
+    <div th:insert="_include/header.html"></div>
+</header>
+
+<body>
+
+
+<div class="container">
+
+    <div class="row">
+        <!-- display filter -->
+        <div class="displayFilter">
+            <td>
+                <span th:if="${library} != null or ${label} != null"><b>Filtre actif :</b></span>
+            </td>
+            <div th:if="${library} != null">
+                - Bibliothèque <span th:text="${library}"></span>
+            </div>
+            <div th:if="${label} != null">
+                - Genre: <span th:text="${label}"></span>
+            </div>
+            <p></p>
+        </div>
+        <!-- display book(s) -->
+        <div th:each="l : ${libraryCatalog}" class="col-xs-4 col-sm-3 col-md-2">
+            <!-- cover and description (mouse over) -->
+            <img th:src="${l.book.bookPictureUrl}" style="width:150px;height:200px; border:0px;" class="img-rounded"
+                 th:title="'*Nom:' +${l.book.bookName} + ' *Auteur:' + ${l.book.bookAuthor} + ' *Description:' + ${l.book.bookDescription}">
+            <!-- tag -->
+            <div>
+            <span class="label label-default" id="label" th:text="${l.book.bookLabel}"></span>
+            </div>
+            <!-- disponibility -->
+            <div><a th:href="@{'/book/'+ ${l.book.id} + '/library/' + ${library}}" type="button" class="btn btn-xs btn-primary" id="onBook"
+                    th:if="${!l.book.allBookReserved}">Emprunter</a></div>
+            <span class="label label-danger" id="onBookNoDispo" th:if="${l.book.allBookReserved}">Non Disponible</span>
+        </div>
+    </div>
+</div>
+
+
+<footer>
+    <div th:insert="_include/footer.html"></div>
+</footer>
+
+
+</body>
+</html>

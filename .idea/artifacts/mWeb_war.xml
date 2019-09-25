@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="mWeb:war">
+    <output-path>$PROJECT_DIR$/microserviceBDD/moduleWeb/target</output-path>
+    <root id="archive" name="moduleWeb-0.0.1-SNAPSHOT.war">
+      <element id="artifact" artifact-name="mWeb:war exploded" />
+    </root>
+  </artifact>
+</component>
