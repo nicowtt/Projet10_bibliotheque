@@ -10,7 +10,7 @@
 	<parent>
 		<groupId>com.eLibraryClient</groupId>
 		<artifactId>applicationWebClient</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
+		<version>1.0.1</version>
 	</parent>
 
 	<!-- ===== Informations Maven ===== -->
@@ -20,7 +20,7 @@
 	<!-- ===== Informations générales ===== -->
 	<name>applicationWebClient-web</name>
 	<description>model web</description>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.1</version>
 
 	<!-- =============================================================== -->
 	<!-- Propriétés -->
@@ -38,19 +38,19 @@
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>applicationWebClient-business</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>1.0.1</version>
 		</dependency>
 
 		<dependency>
 			<groupId>com.eLibraryModel</groupId>
 			<artifactId>libraries-model</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>1.0.1</version>
 		</dependency>
 
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>applicationWebClient-proxies</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>1.0.1</version>
 		</dependency>
 
 		<!-- ===== Bibliothèques tierces ===== -->

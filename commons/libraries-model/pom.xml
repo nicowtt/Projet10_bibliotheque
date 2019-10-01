@@ -14,7 +14,7 @@
 	<!-- ===== Informations générales ===== -->
 	<name>libraries-model</name>
 	<description>model module</description>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.1</version>
 
 	<!-- =============================================================== -->
 	<!-- Propriétés -->
