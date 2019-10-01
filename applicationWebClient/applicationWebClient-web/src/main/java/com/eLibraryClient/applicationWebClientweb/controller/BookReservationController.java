@@ -1,5 +1,6 @@
 package com.eLibraryClient.applicationWebClientweb.controller;
 
+import com.eLibraryClient.applicationWebClientbusiness.Enums.CompareDate;
 import com.eLibraryClient.applicationWebClientbusiness.contract.*;
 import com.eLibraryModel.beans.BookBean;
 import com.eLibraryModel.beans.BookReservationBean;
@@ -108,23 +109,31 @@ public class BookReservationController {
     public String extendReservationTime(@PathVariable Integer reservationId,
                                         @SessionAttribute(value = "userSession", required = false) LibraryUserBean userSession,
                                         Model model) {
+        CompareDate compareDate;
         LibraryUserBean beanUserOnSession = libraryUserManager.getOneUser(userSession.getUserEmail());
 
         BookReservationBean bookReservationBeanToUpdate = bookReservationManager.getOneBookReservation(reservationId);
-        String extendDate = dateManager.addDaysOnOneDate(bookReservationBeanToUpdate.getEndOfReservationDate(), 28);
-        bookReservationBeanToUpdate.setExtensionOfReservation(true);
-        bookReservationBeanToUpdate.setEndOfReservationDate(extendDate);
-        bookReservationManager.updateBookReservation(bookReservationBeanToUpdate);
+        // check if today is after reservation endTime
+        compareDate = dateManager.compareDateWithToday(bookReservationBeanToUpdate.getEndOfReservationDate());
+        if (compareDate == CompareDate.ISAFTER) {
+            model.addAttribute("log", userSession);
+            model.addAttribute("bookName", new BookBean());
+            return "/errorHtml/errorDateExtend";
+        } else {
+            String extendDate = dateManager.addDaysOnOneDate(bookReservationBeanToUpdate.getEndOfReservationDate(), 28);
+            bookReservationBeanToUpdate.setExtensionOfReservation(true);
+            bookReservationBeanToUpdate.setEndOfReservationDate(extendDate);
+            bookReservationManager.updateBookReservation(bookReservationBeanToUpdate);
 
-        List<BookReservationBean> bookReservationListForOneUser = bookReservationManager.bookReservationListForOneUser(beanUserOnSession.getId());
-        model.addAttribute("reservation", bookReservationListForOneUser);
-        model.addAttribute("log", userSession);
-        model.addAttribute("bookName", new BookBean());
+            List<BookReservationBean> bookReservationListForOneUser = bookReservationManager.bookReservationListForOneUser(beanUserOnSession.getId());
+            model.addAttribute("reservation", bookReservationListForOneUser);
+            model.addAttribute("log", userSession);
+            model.addAttribute("bookName", new BookBean());
 
-        logger.info("L'utilisateur " + beanUserOnSession.getUserEmail() + " à prolongé la reservation du livre:"
-        + bookReservationBeanToUpdate.getBook().getBookName() + " dans la bibliothèque:"
-        + bookReservationBeanToUpdate.getLibrary().getLibraryName() + ".");
-
+            logger.info("L'utilisateur " + beanUserOnSession.getUserEmail() + " à prolongé la reservation du livre:"
+                    + bookReservationBeanToUpdate.getBook().getBookName() + " dans la bibliothèque:"
+                    + bookReservationBeanToUpdate.getLibrary().getLibraryName() + ".");
+        }
         return "/PersonalSpace";
     }
 

@@ -10,7 +10,7 @@
 	<parent>
 		<groupId>com.eLibrary</groupId>
 		<artifactId>microserviceBDD</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
+		<version>1.0.1</version>
 	</parent>
 
 	<!-- ===== Informations Maven ===== -->
@@ -21,7 +21,7 @@
 	<!-- ===== Informations générales ===== -->
 	<name>microservice-web</name>
 	<description>module for controllers</description>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.1</version>
 
 	<!-- =============================================================== -->
 	<!-- Propriétés -->
@@ -38,19 +38,19 @@
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>microserviceBdd-business</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>1.0.1</version>
 		</dependency>
 
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>microserviceBdd-dao</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>1.0.1</version>
 		</dependency>
 
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>microserviceBdd-model</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>1.0.1</version>
 		</dependency>
 
 		<!-- ===== Bibliothèques tierces ===== -->
