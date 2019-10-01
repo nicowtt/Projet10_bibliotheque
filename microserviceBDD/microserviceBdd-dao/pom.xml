@@ -10,7 +10,7 @@
 	<parent>
 		<groupId>com.eLibrary</groupId>
 		<artifactId>microserviceBDD</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
+		<version>1.0.1</version>
 	</parent>
 
 	<!-- ===== Informations Maven ===== -->
@@ -19,7 +19,7 @@
 	<!-- ===== Informations générales ===== -->
 	<name>microservice-dao</name>
 	<description>module for BDD</description>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.1</version>
 
 	<!-- =============================================================== -->
 	<!-- Dépendances -->
@@ -29,7 +29,7 @@
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>microserviceBdd-model</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>1.0.1</version>
 		</dependency>
 
 		<!-- ===== Bibliothèques tierces ===== -->
