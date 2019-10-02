@@ -30,8 +30,6 @@ public class BookReservationController {
     private BookReservationManager bookReservationManager;
     @Autowired
     private LibraryCatalogManager libraryCatalogManager;
-    @Autowired
-    private BookUserWaitingReservationManager bookUserWaitingReservationManager;
 
     /**
      * When user choose a book
@@ -154,39 +152,4 @@ public class BookReservationController {
 
         return "/Confirmationhtml/bookBackOk";
     }
-
-    @RequestMapping(value = "/reservation/{bookId}")
-    public String reservationForOneBook( Model model, @PathVariable Integer bookId,
-                                         @SessionAttribute(value = "userSession", required = false)LibraryUserBean userSession) {
-        BookReservationBean bookReservationToDisplay = new BookReservationBean();
-        List<BookUserWaitingReservationBean> bookUserWaitingReservationListToDisplay;
-        Integer countUserWaiting = 0;
-
-        //for display book reservation information
-        List<BookReservationBean> bookReservationInProgressList = bookReservationManager.bookReservationInProgressList();
-        for (BookReservationBean book: bookReservationInProgressList) {
-            if (book.getBookId() == bookId) {
-                bookReservationToDisplay = book;
-            }
-        }
-        //for display user waiting for reservation on this book
-        bookUserWaitingReservationListToDisplay = bookUserWaitingReservationManager.getBookUserWaitingReservation(bookId);
-
-        //count user Waiting
-        if (bookUserWaitingReservationListToDisplay != null) {
-            for (int i = 0; i < bookUserWaitingReservationListToDisplay.size(); i++) {
-                countUserWaiting++;
-            }
-        }
-
-        model.addAttribute("waitReservation", bookReservationToDisplay);
-        model.addAttribute("userWaitReservation", bookUserWaitingReservationListToDisplay);
-        model.addAttribute("bookName", new BookBean());
-        model.addAttribute("nbrUserWaiting", countUserWaiting);
-        model.addAttribute("log", userSession);
-
-        return "/UserReservation";
-    }
-
-
 }
