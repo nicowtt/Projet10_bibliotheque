@@ -9,4 +9,5 @@ import java.util.List;
 public interface BookUserWaitingReservationManager {
 
     List<BookUserWaitingReservationBean> getBookUserWaitingReservation(int bookId);
+    int getNbrOfUserwaitingForReservation(int bookId);
 }

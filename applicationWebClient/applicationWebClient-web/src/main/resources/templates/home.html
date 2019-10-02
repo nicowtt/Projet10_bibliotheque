@@ -27,7 +27,7 @@
                 <a th:href="@{'/book/'+${b.id}+'/library/'+${library}}" type="button" class="btn btn-xs btn-primary" id="onBook"
                     th:if="${!b.allBookReserved}">Disponible</a>
                 <!--<span class="label label-danger" id="onBookNoDispo" th:if="${b.allBookReserved}">Non Disponible</span>-->
-                <a th:href="@{'/reservation/'+${b.id}}" type="button" class="btn btn-xs btn-danger" id="onBookNoDispo"
+                <a th:href="@{'/waitingReservation/'+${b.id}}" type="button" class="btn btn-xs btn-danger" id="onBookNoDispo"
                    th:if="${b.allBookReserved}">Demande de reservation </a>
             </div>
         </div>
