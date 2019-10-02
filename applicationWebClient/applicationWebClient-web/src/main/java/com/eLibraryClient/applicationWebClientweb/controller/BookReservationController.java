@@ -1,10 +1,7 @@
 package com.eLibraryClient.applicationWebClientweb.controller;
 
 import com.eLibraryClient.applicationWebClientbusiness.contract.*;
-import com.eLibraryModel.beans.BookBean;
-import com.eLibraryModel.beans.BookReservationBean;
-import com.eLibraryModel.beans.LibraryCatalogBean;
-import com.eLibraryModel.beans.LibraryUserBean;
+import com.eLibraryModel.beans.*;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,7 +9,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
+import java.util.FormatFlagsConversionMismatchException;
 import java.util.List;
+import java.util.Set;
 
 
 @Controller
@@ -30,6 +30,8 @@ public class BookReservationController {
     private BookReservationManager bookReservationManager;
     @Autowired
     private LibraryCatalogManager libraryCatalogManager;
+    @Autowired
+    private BookUserWaitingReservationManager bookUserWaitingReservationManager;
 
     /**
      * When user choose a book
@@ -151,6 +153,39 @@ public class BookReservationController {
         logger.info("L'utilisateur " + userSession.getUserEmail() + " a rendu le livre de la reservation d'id: " + reservationId);
 
         return "/Confirmationhtml/bookBackOk";
+    }
+
+    @RequestMapping(value = "/reservation/{bookId}")
+    public String reservationForOneBook( Model model, @PathVariable Integer bookId,
+                                         @SessionAttribute(value = "userSession", required = false)LibraryUserBean userSession) {
+        BookReservationBean bookReservationToDisplay = new BookReservationBean();
+        List<BookUserWaitingReservationBean> bookUserWaitingReservationListToDisplay;
+        Integer countUserWaiting = 0;
+
+        //for display book reservation information
+        List<BookReservationBean> bookReservationInProgressList = bookReservationManager.bookReservationInProgressList();
+        for (BookReservationBean book: bookReservationInProgressList) {
+            if (book.getBookId() == bookId) {
+                bookReservationToDisplay = book;
+            }
+        }
+        //for display user waiting for reservation on this book
+        bookUserWaitingReservationListToDisplay = bookUserWaitingReservationManager.getBookUserWaitingReservation(bookId);
+
+        //count user Waiting
+        if (bookUserWaitingReservationListToDisplay != null) {
+            for (int i = 0; i < bookUserWaitingReservationListToDisplay.size(); i++) {
+                countUserWaiting++;
+            }
+        }
+
+        model.addAttribute("waitReservation", bookReservationToDisplay);
+        model.addAttribute("userWaitReservation", bookUserWaitingReservationListToDisplay);
+        model.addAttribute("bookName", new BookBean());
+        model.addAttribute("nbrUserWaiting", countUserWaiting);
+        model.addAttribute("log", userSession);
+
+        return "/UserReservation";
     }
 
 

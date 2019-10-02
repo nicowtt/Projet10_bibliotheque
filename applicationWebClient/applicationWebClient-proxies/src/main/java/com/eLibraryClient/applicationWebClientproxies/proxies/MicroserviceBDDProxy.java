@@ -194,4 +194,16 @@ public interface MicroserviceBDDProxy {
      */
     @GetMapping(value = "/BookBack/{reservationId}")
     void bookBack(@PathVariable("reservationId") Integer reservationId);
+
+    //*******************************************//
+    //************ BookUserWaitingReservation ***//
+    //*******************************************//
+
+    /**
+     * Get User waiting Reservation
+     * @param bookId
+     * @return
+     */
+    @GetMapping(value = "/UserWaitingReservation/{bookId}")
+    List<BookUserWaitingReservationBean> getUserWaitingReservation(@PathVariable("bookId") Integer bookId);
 }
