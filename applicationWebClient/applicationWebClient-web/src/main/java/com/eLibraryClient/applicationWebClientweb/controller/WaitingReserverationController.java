@@ -1,8 +1,6 @@
 package com.eLibraryClient.applicationWebClientweb.controller;
 
-import com.eLibraryClient.applicationWebClientbusiness.contract.BookReservationManager;
-import com.eLibraryClient.applicationWebClientbusiness.contract.BookUserWaitingReservationManager;
-import com.eLibraryClient.applicationWebClientbusiness.contract.WaitingReservationRulesManager;
+import com.eLibraryClient.applicationWebClientbusiness.contract.*;
 import com.eLibraryModel.beans.BookBean;
 import com.eLibraryModel.beans.BookReservationBean;
 import com.eLibraryModel.beans.BookUserWaitingReservationBean;
@@ -27,36 +25,82 @@ public class WaitingReserverationController {
     private BookReservationManager bookReservationManager;
     @Autowired
     private BookUserWaitingReservationManager bookUserWaitingReservationManager;
+    @Autowired
+    private BookManager bookManager;
+    @Autowired
+    private LibraryUserManager libraryUserManager;
+    @Autowired
+    private DateManager dateManager;
 
 
+    /**
+     * For display information about book for add user on waiting list
+     * @param model
+     * @param bookId
+     * @param userSession
+     * @return
+     * @throws Exception
+     */
     @RequestMapping(value = "/waitingReservation/{bookId}")
     public String waitingReservationForOneBook(Model model, @PathVariable Integer bookId,
-                                        @SessionAttribute(value = "userSession", required = false)LibraryUserBean userSession) {
+                                        @SessionAttribute(value = "userSession", required = false)LibraryUserBean userSession) throws Exception {
         BookReservationBean bookReservationToDisplay = new BookReservationBean();
-        Integer countUserWaiting = 0;
-        Integer userWaitingMax = 0;
+        BookBean bookToDisplay;
+        Integer countUserWaiting;
 
         if (userSession != null) {
-            //for display book reservation information
-            List<BookReservationBean> bookReservationInProgressList = bookReservationManager.bookReservationInProgressList();
-            for (BookReservationBean book: bookReservationInProgressList) {
-                if (book.getBookId() == bookId) {bookReservationToDisplay = book;}
+            //check if waiting reservation list is full
+            bookToDisplay = bookManager.getOneBook(bookId);
+            if (bookToDisplay.getWaitReservationFull()) {
+                model.addAttribute("bookName", new BookBean());
+                return "errorHtml/errorWaitingReservationFull";
+            } else {
+                //for display book reservation information
+                List<BookReservationBean> bookReservationInProgressList = bookReservationManager.bookReservationInProgressList();
+                for (BookReservationBean book: bookReservationInProgressList) {
+                    if (book.getBookId() == bookId) {bookReservationToDisplay = book;}
+                }
+                //for display number of user waiting
+                countUserWaiting = bookUserWaitingReservationManager.getNbrOfUserwaitingForReservation(bookId);
+                //model
+                model.addAttribute("waitReservation", bookReservationToDisplay);
+                model.addAttribute("bookName", new BookBean());
+                model.addAttribute("nbrUserWaiting", countUserWaiting);
+                model.addAttribute("log", userSession);
             }
-            //for display number of user waiting
-            countUserWaiting = bookUserWaitingReservationManager.getNbrOfUserwaitingForReservation(bookId);
-
-            //check WaitingReservationRules
-            // todo 1 check if waiting Reservation is possible (max = nbr of book * 2) -> create method on waitingReservationRulesManger -> business module
-
-            model.addAttribute("waitReservation", bookReservationToDisplay);
-            model.addAttribute("bookName", new BookBean());
-            model.addAttribute("nbrUserWaiting", countUserWaiting);
-            model.addAttribute("log", userSession);
         } else {
             model.addAttribute("bookName", new BookBean());
             return "/errorHtml/errorMissAuth";
         }
-
         return "/UserReservation";
+    }
+
+
+    /**
+     * to add user on book waiting List
+     * @param model
+     * @param bookId
+     * @param userSession
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = "/addUserReservation/{bookId}")
+    public String addUserWaitingReservation(Model model, @PathVariable Integer bookId,
+                                            @SessionAttribute(value = "userSession", required = false)LibraryUserBean userSession) throws Exception {
+        BookUserWaitingReservationBean newBookUserWaitingReservation = new BookUserWaitingReservationBean();
+        LibraryUserBean beanUserOnSession = libraryUserManager.getOneUser(userSession.getUserEmail());
+
+        //todo 1 check Waiting Reservation Rules
+        //Add waiting reservation
+        newBookUserWaitingReservation.setBookId(bookId);
+        newBookUserWaitingReservation.setLibraryUserId(beanUserOnSession.getId());
+        newBookUserWaitingReservation.setWaitReservationDate(dateManager.todayDate());
+        bookUserWaitingReservationManager.addBookUserWaitingReservation(newBookUserWaitingReservation);
+
+        //change waitReservationFull boolean on book if needed
+        bookUserWaitingReservationManager.changeBooleanWaitReservationFullIfNeeded(bookId);
+
+        model.addAttribute("bookName", new BookBean());
+        return "confirmationhtml/addUserOnWaitingListOk";
     }
 }

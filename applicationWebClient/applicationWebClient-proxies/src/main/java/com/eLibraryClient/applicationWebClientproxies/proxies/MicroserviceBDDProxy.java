@@ -66,6 +66,15 @@ public interface MicroserviceBDDProxy {
     @GetMapping(value = "/BooksNameList")
     List<String> getListOfBookName();
 
+    /**
+     * change wait reservation disponibility
+     * @param bookId
+     * @param booleanStatus
+     */
+    @GetMapping(value = "/ChangeWaitReservationDisponibility/{bookId}/{booleanStatus}")
+    void changeWaitReservationDisponibility (@PathVariable("bookId") Integer bookId,
+                                             @PathVariable("booleanStatus") boolean booleanStatus);
+
 
     //*******************************************//
     //************ USER *************************//
@@ -206,4 +215,12 @@ public interface MicroserviceBDDProxy {
      */
     @GetMapping(value = "/UserWaitingReservation/{bookId}")
     List<BookUserWaitingReservationBean> getUserWaitingReservation(@PathVariable("bookId") Integer bookId);
+
+    /**
+     * write new wait reservation on microserviceBDD
+     * @param bookUserWaitingReservationBean
+     * @return
+     */
+    @PostMapping(value = "/NewWaitingReservation")
+    BookUserWaitingReservationBean addWaitReservation(@RequestBody BookUserWaitingReservationBean bookUserWaitingReservationBean);
 }

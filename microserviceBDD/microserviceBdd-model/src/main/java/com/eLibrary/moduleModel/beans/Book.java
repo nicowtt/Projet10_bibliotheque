@@ -34,6 +34,9 @@ public class Book {
     @Column(name="allbookreserved")
     private Boolean allBookReserved;
 
+    @Column(name="waitreservationfull")
+    private boolean waitReservationFull;
+
     @ManyToMany(mappedBy = "books", fetch = FetchType.EAGER) //attribut Book books from library
     private Set<Library> libraries = new HashSet<>();
 
@@ -41,13 +44,14 @@ public class Book {
     public Book() {
     }
 
-    public Book(String bookName, String bookAuthor, String bookPictureUrl, String bookDescription, String bookLabel, Boolean allBookReserved, Set<Library> libraries) {
+    public Book(String bookName, String bookAuthor, String bookPictureUrl, String bookDescription, String bookLabel, Boolean allBookReserved, boolean waitReservationFull, Set<Library> libraries) {
         this.bookName = bookName;
         this.bookAuthor = bookAuthor;
         this.bookPictureUrl = bookPictureUrl;
         this.bookDescription = bookDescription;
         this.bookLabel = bookLabel;
         this.allBookReserved = allBookReserved;
+        this.waitReservationFull = waitReservationFull;
         this.libraries = libraries;
     }
 
@@ -106,6 +110,14 @@ public class Book {
 
     public void setAllBookReserved(Boolean allBookReserved) {
         this.allBookReserved = allBookReserved;
+    }
+
+    public boolean isWaitReservationFull() {
+        return waitReservationFull;
+    }
+
+    public void setWaitReservationFull(boolean waitReservationFull) {
+        this.waitReservationFull = waitReservationFull;
     }
 
     public Set<Library> getLibraries() {

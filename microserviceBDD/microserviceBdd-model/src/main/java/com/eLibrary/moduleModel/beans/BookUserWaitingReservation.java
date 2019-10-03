@@ -2,6 +2,7 @@ package com.eLibrary.moduleModel.beans;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.Date;
 
 @Entity
 @Table(name = "bookuserwaitingreservation")
@@ -12,33 +13,28 @@ public class BookUserWaitingReservation {
     @SequenceGenerator(name = "public.bookuserwaitingreservation_id_seq", sequenceName = "public.bookuserwaitingreservation_id_seq", allocationSize = 1)
     private int id;
 
-    @Column(name = "anyreservation")
-    private boolean anyReservation;
-
     @Column(name = "book_id")
     private int bookId;
 
-    @Column(name = "userreservation_id")
-    private int userReservationId;
+    @Column(name = "libraryuser_id")
+    private int libraryUserId;
+
+    @Column(name = "waitreservationdate")
+    private String waitReservationDate;
 
     @ManyToOne //many bookUserWaitingReservation for one book
     @JoinColumn(name = "book_id", referencedColumnName = "id", insertable= false, updatable= false) //fk
     private Book book;
 
-    @OneToMany // one bookUserWaitingReservation for many userReservation
-    @JoinColumn(name = "user_id", referencedColumnName = "id", insertable = false, updatable = false) //fk
-    private Collection<UserReservation> userReservation;
-
     //Constructor
     public BookUserWaitingReservation() {
     }
 
-    public BookUserWaitingReservation(boolean anyReservation, int bookId, int userReservationId, Book book, Collection<UserReservation> userReservation) {
-        this.anyReservation = anyReservation;
+    public BookUserWaitingReservation(int bookId, int libraryUserId, String waitReservationDate, Book book) {
         this.bookId = bookId;
-        this.userReservationId = userReservationId;
+        this.libraryUserId = libraryUserId;
+        this.waitReservationDate = waitReservationDate;
         this.book = book;
-        this.userReservation = userReservation;
     }
 
     //getters and setters
@@ -50,14 +46,6 @@ public class BookUserWaitingReservation {
         this.id = id;
     }
 
-    public boolean isAnyReservation() {
-        return anyReservation;
-    }
-
-    public void setAnyReservation(boolean anyReservation) {
-        this.anyReservation = anyReservation;
-    }
-
     public int getBookId() {
         return bookId;
     }
@@ -66,12 +54,20 @@ public class BookUserWaitingReservation {
         this.bookId = bookId;
     }
 
-    public int getUserReservationId() {
-        return userReservationId;
+    public int getLibraryUserId() {
+        return libraryUserId;
     }
 
-    public void setUserReservationId(int userReservationId) {
-        this.userReservationId = userReservationId;
+    public void setLibraryUserId(int libraryUserId) {
+        this.libraryUserId = libraryUserId;
+    }
+
+    public String getWaitReservationDate() {
+        return waitReservationDate;
+    }
+
+    public void setWaitReservationDate(String waitReservationDate) {
+        this.waitReservationDate = waitReservationDate;
     }
 
     public Book getBook() {
@@ -80,13 +76,5 @@ public class BookUserWaitingReservation {
 
     public void setBook(Book book) {
         this.book = book;
-    }
-
-    public Collection<UserReservation> getUserReservation() {
-        return userReservation;
-    }
-
-    public void setUserReservation(Collection<UserReservation> userReservation) {
-        this.userReservation = userReservation;
     }
 }
