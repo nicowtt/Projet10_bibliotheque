@@ -19,5 +19,6 @@ public interface BookReservationDao extends JpaRepository<BookReservation, Integ
     void changeBookBackToTrueForOneReservation(int reservationId);
 
     List<BookReservation> getBookReservationByBookBackEquals(boolean booleanStatus);
+    List<BookReservation> getBookReservationByBookIdAndBookBackEquals(Integer bookId, boolean bookBack);
 
 }

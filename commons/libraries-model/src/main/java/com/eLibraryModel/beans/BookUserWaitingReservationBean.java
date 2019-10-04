@@ -6,17 +6,21 @@ public class BookUserWaitingReservationBean {
     private int bookId;
     private int libraryUserId;
     private String waitReservationDate;
+    private String closedDateBack;
+    private int standOnWaitingList;
     private BookBean book;
 
     //Constructor
     public BookUserWaitingReservationBean() {
     }
 
-    public BookUserWaitingReservationBean(int id, int bookId, int libraryUserId, String waitReservationDate, BookBean book) {
+    public BookUserWaitingReservationBean(int id, int bookId, int libraryUserId, String waitReservationDate, String closedDateBack, int standOnWaitingList, BookBean book) {
         this.id = id;
         this.bookId = bookId;
         this.libraryUserId = libraryUserId;
         this.waitReservationDate = waitReservationDate;
+        this.closedDateBack = closedDateBack;
+        this.standOnWaitingList = standOnWaitingList;
         this.book = book;
     }
 
@@ -51,6 +55,22 @@ public class BookUserWaitingReservationBean {
 
     public void setWaitReservationDate(String waitReservationDate) {
         this.waitReservationDate = waitReservationDate;
+    }
+
+    public String getClosedDateBack() {
+        return closedDateBack;
+    }
+
+    public void setClosedDateBack(String closedDateBack) {
+        this.closedDateBack = closedDateBack;
+    }
+
+    public int getStandOnWaitingList() {
+        return standOnWaitingList;
+    }
+
+    public void setStandOnWaitingList(int standOnWaitingList) {
+        this.standOnWaitingList = standOnWaitingList;
     }
 
     public BookBean getBook() {

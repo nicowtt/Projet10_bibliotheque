@@ -9,4 +9,5 @@ public interface DateManager {
     String addDaysOnTodayDate(int pNbrOfDay);
     CompareDate compareDateWithToday(String pDate);
     String addDaysOnOneDate(String date, int nbrOfDay);
+    CompareDate compareTwoDate(String pFirstDate, String pSecondDate);
 }

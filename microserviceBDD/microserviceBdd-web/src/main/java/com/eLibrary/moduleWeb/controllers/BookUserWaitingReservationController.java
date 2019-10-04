@@ -21,8 +21,8 @@ public class BookUserWaitingReservationController {
      * @param bookId
      * @return
      */
-    @GetMapping(value = "/UserWaitingReservation/{bookId}")
-    public List<BookUserWaitingReservation> getBookUserWaitingReservation(@PathVariable Integer bookId) {
+    @GetMapping(value = "/UserWaitingReservationByBookId/{bookId}")
+    public List<BookUserWaitingReservation> getBookUserWaitingReservationByBookId(@PathVariable Integer bookId) {
 
         List<BookUserWaitingReservation> bookUserWaitingReservationList =
                 bookUserWaitingReservationDao.getBookUserWaitingReservationByBookId(bookId);
@@ -44,4 +44,34 @@ public class BookUserWaitingReservationController {
         //send 201 CREATED for confirm new reservation is saved
         return new ResponseEntity<BookUserWaitingReservation>(newBookUserWaitingReservation, HttpStatus.CREATED);
     }
+
+    /**
+     * Get a list of waiting user for future reservation
+     * @param userId
+     * @return
+     */
+    @GetMapping(value = "/UserWaitingReservationbyUserId/{userId}")
+    public List<BookUserWaitingReservation> getBookUserWaitingReservationByUser(@PathVariable Integer userId) {
+
+        List<BookUserWaitingReservation> bookUserWaitingReservationList =
+                bookUserWaitingReservationDao.getBookUserWaitingReservationByLibraryUserId(userId);
+
+        return bookUserWaitingReservationList;
+    }
+
+    /**
+     * Write new waiting reservation
+     * @param bookUserWaitingReservation
+     * @return
+     */
+    @RequestMapping(method = RequestMethod.POST, value = "/UpdateWaitingReservation", consumes="application/json")
+    public ResponseEntity<BookUserWaitingReservation> updateWaitReservation(@RequestBody BookUserWaitingReservation bookUserWaitingReservation) {
+
+        //update newBookUserWaitingReservation
+        BookUserWaitingReservation bookUserWaitingReservationToUpdate = bookUserWaitingReservationDao.save(bookUserWaitingReservation);
+
+        //send 201 CREATED for confirm new reservation is saved
+        return new ResponseEntity<BookUserWaitingReservation>(bookUserWaitingReservationToUpdate, HttpStatus.ACCEPTED);
+    }
+
 }

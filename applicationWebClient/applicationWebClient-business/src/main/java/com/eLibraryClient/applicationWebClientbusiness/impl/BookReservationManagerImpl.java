@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import static com.eLibraryClient.applicationWebClientbusiness.Enums.CompareDate.ISAFTER;
@@ -143,6 +144,45 @@ public class BookReservationManagerImpl implements BookReservationManager {
     @Override
     public void bookBack(int reservationId) {
         microserviceBDDProxy.bookBack(reservationId);
+    }
+
+    /**
+     * get book reservation in progress by book ID
+     * @param bookId
+     * @return
+     */
+    @Override
+    public List<BookReservationBean> getBookReservationInProgressByBookId(int bookId) {
+        List<BookReservationBean> bookReservationBeanList = microserviceBDDProxy.getReservationInProgressByBookId(bookId);
+
+        return  bookReservationBeanList;
+    }
+
+    /**
+     * get end reservation date closed than today
+     * @param bookId
+     * @return
+     */
+    @Override
+    public String getEndREservationDateClosedThanToday(int bookId) {
+        String closedFromTodayDate = "";
+        CompareDate compareDateEnum = CompareDate.ISAFTER;
+
+        // get list of reservation for one book
+        List<BookReservationBean> bookReservationList = microserviceBDDProxy.getReservationInProgressByBookId(bookId);
+        if (bookReservationList != null) {
+            closedFromTodayDate = bookReservationList.get(0).getEndOfReservationDate();
+
+            // keep only the closest from today
+            for (int i = 0; i <bookReservationList.size(); i++) {
+                // compare
+                compareDateEnum = dateManager.compareTwoDate(bookReservationList.get(i).getEndOfReservationDate(), closedFromTodayDate);
+                if (compareDateEnum == ISBEFORE) {
+                    closedFromTodayDate = bookReservationList.get(i).getEndOfReservationDate();
+                }
+            }
+        }
+        return  closedFromTodayDate;
     }
 
 }

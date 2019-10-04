@@ -22,6 +22,12 @@ public class BookUserWaitingReservation {
     @Column(name = "waitreservationdate")
     private String waitReservationDate;
 
+    @Column(name = "closeddateback")
+    private String closedDateBack;
+
+    @Column(name = "standonwaitinglist")
+    private Integer standOnWaitingList;
+
     @ManyToOne //many bookUserWaitingReservation for one book
     @JoinColumn(name = "book_id", referencedColumnName = "id", insertable= false, updatable= false) //fk
     private Book book;
@@ -30,10 +36,12 @@ public class BookUserWaitingReservation {
     public BookUserWaitingReservation() {
     }
 
-    public BookUserWaitingReservation(int bookId, int libraryUserId, String waitReservationDate, Book book) {
+    public BookUserWaitingReservation(int bookId, int libraryUserId, String waitReservationDate, String closedDateBack, Integer standOnWaitingList, Book book) {
         this.bookId = bookId;
         this.libraryUserId = libraryUserId;
         this.waitReservationDate = waitReservationDate;
+        this.closedDateBack = closedDateBack;
+        this.standOnWaitingList = standOnWaitingList;
         this.book = book;
     }
 
@@ -68,6 +76,22 @@ public class BookUserWaitingReservation {
 
     public void setWaitReservationDate(String waitReservationDate) {
         this.waitReservationDate = waitReservationDate;
+    }
+
+    public String getClosedDateBack() {
+        return closedDateBack;
+    }
+
+    public void setClosedDateBack(String closedDateBack) {
+        this.closedDateBack = closedDateBack;
+    }
+
+    public Integer getStandOnWaitingList() {
+        return standOnWaitingList;
+    }
+
+    public void setStandOnWaitingList(Integer standOnWaitingList) {
+        this.standOnWaitingList = standOnWaitingList;
     }
 
     public Book getBook() {

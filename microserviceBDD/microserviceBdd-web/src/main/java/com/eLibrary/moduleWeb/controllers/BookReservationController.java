@@ -104,5 +104,18 @@ public class BookReservationController {
         return bookReservationListLate;
     }
 
+    /**
+     * get book reservation in progress by bookId in progress
+     * @param bookId
+     * @return
+     */
+    @GetMapping(value = "/BookReservationInProgressByBookId/{bookId}")
+    public List<BookReservation> bookReservationInProgressByBookId(@PathVariable Integer bookId) {
+
+        List<BookReservation> bookReservationList = bookReservationDao.getBookReservationByBookIdAndBookBackEquals(bookId, false);
+
+        return bookReservationList;
+    }
+
 
 }

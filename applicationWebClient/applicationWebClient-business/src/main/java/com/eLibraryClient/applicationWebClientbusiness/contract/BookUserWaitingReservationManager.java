@@ -14,4 +14,9 @@ public interface BookUserWaitingReservationManager {
     int getMaxOfWaitingReservation(int bookId) throws Exception;
     void changeWaitReservationDisponibility(int bookId, boolean booleanStatus);
     void addBookUserWaitingReservation(BookUserWaitingReservationBean bookUserWaitingReservationBean);
-}
+    boolean checkIfUserHaveReservationInProgressForConcernedBook(int userId, int bookId);
+    List<BookUserWaitingReservationBean> getBookUserWaitingReservationById(int userId);
+    BookUserWaitingReservationBean updateBookUserWaitingReservationWithclosedDateFromToday(BookUserWaitingReservationBean bookUserWaitingReservationToUpdate);
+    int standOnWaitingList(int bookId, int pUserId);
+    BookUserWaitingReservationBean updateBookUserWaitingReservationWithStandOnWaitingList(BookUserWaitingReservationBean bookUserWaitingReservationToUpdate, int pUserId);
+    }

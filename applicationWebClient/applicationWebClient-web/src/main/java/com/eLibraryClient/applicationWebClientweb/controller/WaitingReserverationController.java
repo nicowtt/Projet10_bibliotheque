@@ -52,6 +52,7 @@ public class WaitingReserverationController {
             //check if waiting reservation list is full
             bookToDisplay = bookManager.getOneBook(bookId);
             if (bookToDisplay.getWaitReservationFull()) {
+                model.addAttribute("log", userSession);
                 model.addAttribute("bookName", new BookBean());
                 return "errorHtml/errorWaitingReservationFull";
             } else {
@@ -90,16 +91,23 @@ public class WaitingReserverationController {
         BookUserWaitingReservationBean newBookUserWaitingReservation = new BookUserWaitingReservationBean();
         LibraryUserBean beanUserOnSession = libraryUserManager.getOneUser(userSession.getUserEmail());
 
-        //todo 1 check Waiting Reservation Rules
-        //Add waiting reservation
-        newBookUserWaitingReservation.setBookId(bookId);
-        newBookUserWaitingReservation.setLibraryUserId(beanUserOnSession.getId());
-        newBookUserWaitingReservation.setWaitReservationDate(dateManager.todayDate());
-        bookUserWaitingReservationManager.addBookUserWaitingReservation(newBookUserWaitingReservation);
-
-        //change waitReservationFull boolean on book if needed
-        bookUserWaitingReservationManager.changeBooleanWaitReservationFullIfNeeded(bookId);
-
+        // check if user has a reservation in progress on book
+        boolean bookAlreadyReserved = bookUserWaitingReservationManager.checkIfUserHaveReservationInProgressForConcernedBook(beanUserOnSession.getId(), bookId);
+        if (bookAlreadyReserved) {
+            model.addAttribute("log", userSession);
+            model.addAttribute("bookName", new BookBean());
+            return "errorHtml/errorBookAlreadyReserved";
+        } else {
+            //Add waiting reservation
+            newBookUserWaitingReservation.setBookId(bookId);
+            newBookUserWaitingReservation.setLibraryUserId(beanUserOnSession.getId());
+            newBookUserWaitingReservation.setWaitReservationDate(dateManager.todayDate());
+            bookUserWaitingReservationManager.addBookUserWaitingReservation(newBookUserWaitingReservation);
+            //change waitReservationFull boolean on book if needed
+            bookUserWaitingReservationManager.changeBooleanWaitReservationFullIfNeeded(bookId);
+            logger.info("L'utilisateur" + userSession.getUserEmail() + " ajouté à la liste d'attente pour la reservation du livre d'id: " + bookId);
+        }
+        model.addAttribute("log", userSession);
         model.addAttribute("bookName", new BookBean());
         return "confirmationhtml/addUserOnWaitingListOk";
     }

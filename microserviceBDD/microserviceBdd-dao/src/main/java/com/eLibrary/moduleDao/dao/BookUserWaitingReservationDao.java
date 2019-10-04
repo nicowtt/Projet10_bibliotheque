@@ -10,4 +10,5 @@ import java.util.List;
 public interface BookUserWaitingReservationDao extends JpaRepository<BookUserWaitingReservation, Integer> {
 
     List<BookUserWaitingReservation> getBookUserWaitingReservationByBookId(int bookId);
+    List<BookUserWaitingReservation> getBookUserWaitingReservationByLibraryUserId(int userId);
 }

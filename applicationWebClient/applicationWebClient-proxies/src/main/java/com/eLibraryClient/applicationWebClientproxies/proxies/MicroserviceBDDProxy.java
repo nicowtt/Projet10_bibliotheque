@@ -204,6 +204,14 @@ public interface MicroserviceBDDProxy {
     @GetMapping(value = "/BookBack/{reservationId}")
     void bookBack(@PathVariable("reservationId") Integer reservationId);
 
+    /**
+     * Get Reservation in progress by book id
+     * @param bookId
+     * @return
+     */
+    @GetMapping(value = "/BookReservationInProgressByBookId/{bookId}")
+    List<BookReservationBean> getReservationInProgressByBookId(@PathVariable("bookId") Integer bookId);
+
     //*******************************************//
     //************ BookUserWaitingReservation ***//
     //*******************************************//
@@ -213,8 +221,8 @@ public interface MicroserviceBDDProxy {
      * @param bookId
      * @return
      */
-    @GetMapping(value = "/UserWaitingReservation/{bookId}")
-    List<BookUserWaitingReservationBean> getUserWaitingReservation(@PathVariable("bookId") Integer bookId);
+    @GetMapping(value = "/UserWaitingReservationByBookId/{bookId}")
+    List<BookUserWaitingReservationBean> getUserWaitingReservationByBook(@PathVariable("bookId") Integer bookId);
 
     /**
      * write new wait reservation on microserviceBDD
@@ -223,4 +231,21 @@ public interface MicroserviceBDDProxy {
      */
     @PostMapping(value = "/NewWaitingReservation")
     BookUserWaitingReservationBean addWaitReservation(@RequestBody BookUserWaitingReservationBean bookUserWaitingReservationBean);
+
+    /**
+     * Get User waiting Reservation
+     * @param userId
+     * @return
+     */
+    @GetMapping(value = "/UserWaitingReservationbyUserId/{userId}")
+    List<BookUserWaitingReservationBean> getUserWaitingReservationByUser(@PathVariable("userId") Integer userId);
+
+    /**
+     * update new wait reservation on microserviceBDD
+     * @param bookUserWaitingReservationBean
+     * @return
+     */
+    @PostMapping(value = "/UpdateWaitingReservation")
+    BookUserWaitingReservationBean updateWaitReservation(@RequestBody BookUserWaitingReservationBean bookUserWaitingReservationBean);
+
 }

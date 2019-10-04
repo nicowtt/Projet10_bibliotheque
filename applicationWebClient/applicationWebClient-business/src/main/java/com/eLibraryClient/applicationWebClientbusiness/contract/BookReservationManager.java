@@ -16,4 +16,6 @@ public interface BookReservationManager {
     BookReservationBean getOneBookReservation(int reservationId);
     void updateBookReservation(BookReservationBean bookReservationBean);
     void bookBack(int reservationId);
+    List<BookReservationBean> getBookReservationInProgressByBookId(int bookId);
+    String getEndREservationDateClosedThanToday(int bookId);
 }

@@ -103,4 +103,45 @@ public class DateManagerImpl implements DateManager {
         return CompareDateEnum;
 
     }
+
+    /**
+     * For compare two dates
+     * @param pFirstDate
+     * @param pSecondDate
+     * @return
+     */
+    @Override
+    public CompareDate compareTwoDate(String pFirstDate, String pSecondDate) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        CompareDate CompareDateEnum = CompareDate.ISBEFORE;
+        Date firstDate = new Date();
+        Date secondDate = new Date();
+
+        try {
+            firstDate = simpleDateFormat.parse(pFirstDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            secondDate = simpleDateFormat.parse(pSecondDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        if (pFirstDate.equals(pSecondDate)) {
+            logger.debug(pFirstDate + " is the same as " + pSecondDate);
+            CompareDateEnum = CompareDate.ISTODAY;
+        }
+
+        if (firstDate.after(secondDate)) {
+            logger.debug(pFirstDate + " is after " + pSecondDate);
+            CompareDateEnum = CompareDate.ISAFTER;
+        }
+        if (firstDate.before(secondDate)) {
+            logger.debug(firstDate + " is before " + secondDate);
+            CompareDateEnum = CompareDate.ISBEFORE;
+        }
+        return CompareDateEnum;
+    }
 }
