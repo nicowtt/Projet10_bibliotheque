@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import sun.security.provider.certpath.OCSPResponse;
 
 import java.util.List;
 
@@ -72,6 +73,34 @@ public class BookUserWaitingReservationController {
 
         //send 201 CREATED for confirm new reservation is saved
         return new ResponseEntity<BookUserWaitingReservation>(bookUserWaitingReservationToUpdate, HttpStatus.ACCEPTED);
+    }
+
+    /**
+     * Get a list of waiting user for future reservation
+     * @param waitingReservationId
+     * @return
+     */
+    @GetMapping(value = "/UserWaitingReservationByWaitingReservationId/{waitingReservationId}")
+    public BookUserWaitingReservation getBookUserWaitingReservationByWaitingReservationId(@PathVariable Integer waitingReservationId) {
+
+        BookUserWaitingReservation bookUserWaitingReservationList =
+                bookUserWaitingReservationDao.getBookUserWaitingReservationById(waitingReservationId);
+
+        return bookUserWaitingReservationList;
+    }
+
+    /**
+     * Delete a wait reservation
+     * @param bookUserWaitingReservation
+     * @return
+     */
+    @RequestMapping(method = RequestMethod.POST, value = "/DeleteUserWaitingReservation", consumes="application/json")
+    public ResponseEntity<?> deleteBookUserWaitingReservation(@RequestBody BookUserWaitingReservation bookUserWaitingReservation) {
+
+        bookUserWaitingReservationDao.delete(bookUserWaitingReservation);
+
+        //send 201 Accepted for confirm new Reservation is deleted
+        return (new ResponseEntity<>(HttpStatus.ACCEPTED));
     }
 
 }

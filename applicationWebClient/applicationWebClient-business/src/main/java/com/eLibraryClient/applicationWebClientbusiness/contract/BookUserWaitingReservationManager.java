@@ -1,6 +1,7 @@
 package com.eLibraryClient.applicationWebClientbusiness.contract;
 
 import com.eLibraryModel.beans.BookUserWaitingReservationBean;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,4 +20,6 @@ public interface BookUserWaitingReservationManager {
     BookUserWaitingReservationBean updateBookUserWaitingReservationWithclosedDateFromToday(BookUserWaitingReservationBean bookUserWaitingReservationToUpdate);
     int standOnWaitingList(int bookId, int pUserId);
     BookUserWaitingReservationBean updateBookUserWaitingReservationWithStandOnWaitingList(BookUserWaitingReservationBean bookUserWaitingReservationToUpdate, int pUserId);
+    BookUserWaitingReservationBean getBookUserWaitingReservationByWaitReservationId(int waitReservationId);
+    ResponseEntity<?> deleteBookUserWaitingreservation(BookUserWaitingReservationBean bookUserWaitingReservationBean);
     }

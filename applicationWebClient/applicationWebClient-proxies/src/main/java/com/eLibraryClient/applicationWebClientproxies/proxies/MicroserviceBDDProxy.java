@@ -3,6 +3,7 @@ package com.eLibraryClient.applicationWebClientproxies.proxies;
 
 import com.eLibraryModel.beans.*;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -248,4 +249,19 @@ public interface MicroserviceBDDProxy {
     @PostMapping(value = "/UpdateWaitingReservation")
     BookUserWaitingReservationBean updateWaitReservation(@RequestBody BookUserWaitingReservationBean bookUserWaitingReservationBean);
 
+    /**
+     * Get User waiting Reservation
+     * @param waitingReservationId
+     * @return
+     */
+    @GetMapping(value = "/UserWaitingReservationByWaitingReservationId/{waitingReservationId}")
+    BookUserWaitingReservationBean getUserWaitingReservationByWaitingReservationId(@PathVariable("waitingReservationId") Integer waitingReservationId);
+
+    /**
+     * To delete one Waiting Reservation
+     * @param bookUserWaitingReservationBean
+     * @return
+     */
+    @PostMapping(value = "/DeleteUserWaitingReservation")
+    ResponseEntity<?> deleteUserWaitingReservationByWaitingReservationId(@RequestBody BookUserWaitingReservationBean bookUserWaitingReservationBean);
 }

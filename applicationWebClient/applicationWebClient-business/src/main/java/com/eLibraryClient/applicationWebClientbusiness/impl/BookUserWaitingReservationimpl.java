@@ -12,6 +12,7 @@ import com.eLibraryModel.beans.LibraryCatalogBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -70,23 +71,21 @@ public class BookUserWaitingReservationimpl implements BookUserWaitingReservatio
      */
     @Override
     public void changeBooleanWaitReservationFullIfNeeded(int bookId) throws Exception {
-        List<BookUserWaitingReservationBean> bookUserWaitingReservationBean = new ArrayList<>();
-        int reservationMax = 0;
         int countReservationInProgress = 0;
-        boolean isValid = false;
 
         // check user waiting reservation in progres
-        bookUserWaitingReservationBean = microserviceBDDProxy.getUserWaitingReservationByBook(bookId);
+        List<BookUserWaitingReservationBean> bookUserWaitingReservationBean =
+                microserviceBDDProxy.getUserWaitingReservationByBook(bookId);
         for (BookUserWaitingReservationBean reservation: bookUserWaitingReservationBean) {
             countReservationInProgress++;
         }
-        // check
-        reservationMax = this.getMaxOfWaitingReservation(bookId);
+        int reservationMax = this.getMaxOfWaitingReservation(bookId);
         if (countReservationInProgress < reservationMax) {
+            // change boolean attribute waitReservationFull on Book
+            this.changeWaitReservationDisponibility(bookId, false);
         } else {
-            // change boolean waitReservationFull on Book
-            isValid = true;
-            this.changeWaitReservationDisponibility(bookId, isValid);
+            // change boolean attribute waitReservationFull on Book
+            this.changeWaitReservationDisponibility(bookId, true);
         }
     }
 
@@ -225,5 +224,28 @@ public class BookUserWaitingReservationimpl implements BookUserWaitingReservatio
             }
         }
         return standOnWaitingList;
+    }
+
+    /**
+     * get book user Waiting Reservation by waiting Reservation id
+     * @param waitReservationId
+     * @return
+     */
+    @Override
+    public BookUserWaitingReservationBean getBookUserWaitingReservationByWaitReservationId(int waitReservationId) {
+        BookUserWaitingReservationBean bookUserWaitingReservation = new BookUserWaitingReservationBean();
+        bookUserWaitingReservation = microserviceBDDProxy.getUserWaitingReservationByWaitingReservationId(waitReservationId);
+        return bookUserWaitingReservation;
+    }
+
+    /**
+     * to delete a waiting reservation
+     * @param bookUserWaitingReservationBean
+     * @return
+     */
+    @Override
+    public ResponseEntity<?> deleteBookUserWaitingreservation(BookUserWaitingReservationBean bookUserWaitingReservationBean) {
+        ResponseEntity responseEntity = microserviceBDDProxy.deleteUserWaitingReservationByWaitingReservationId(bookUserWaitingReservationBean);
+        return responseEntity;
     }
 }

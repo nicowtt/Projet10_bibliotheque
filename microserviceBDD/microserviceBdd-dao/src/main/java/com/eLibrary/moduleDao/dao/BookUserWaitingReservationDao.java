@@ -11,4 +11,6 @@ public interface BookUserWaitingReservationDao extends JpaRepository<BookUserWai
 
     List<BookUserWaitingReservation> getBookUserWaitingReservationByBookId(int bookId);
     List<BookUserWaitingReservation> getBookUserWaitingReservationByLibraryUserId(int userId);
+    BookUserWaitingReservation getBookUserWaitingReservationById(int waitingReservationId);
+    BookUserWaitingReservation deleteBookUserWaitingReservationById(int waitingReservationId);
 }
