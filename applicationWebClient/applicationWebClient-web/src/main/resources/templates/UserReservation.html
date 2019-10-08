@@ -23,7 +23,7 @@
                  th:title="'*Nom:'+${waitReservation.book.bookName}+' *Auteur:'+${waitReservation.book.bookAuthor}+' *Description:'+${waitReservation.book.bookDescription}">
             <p></p>
             <!-- information for reservation -->
-            <p th:text="'Disponible le: '+${waitReservation.getEndOfReservationDate()}+' pour la premiere personne en attente.'"></p>
+            <p th:text="'Ce livre sera disponible le: '+${waitReservation.getEndOfReservationDate()}+' pour la premiere personne en attente.'"></p>
             <p th:text="'Il y a '+${nbrUserWaiting}+' personne(s) en attente de reservation.'"></p>
             <p></p>
             <!-- liste -->

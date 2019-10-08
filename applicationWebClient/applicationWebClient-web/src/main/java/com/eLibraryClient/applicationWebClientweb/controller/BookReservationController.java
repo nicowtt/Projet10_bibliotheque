@@ -8,11 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.slf4j.LoggerFactory;
-
-import java.util.ArrayList;
-import java.util.FormatFlagsConversionMismatchException;
 import java.util.List;
-import java.util.Set;
 
 
 @Controller
@@ -30,6 +26,8 @@ public class BookReservationController {
     private BookReservationManager bookReservationManager;
     @Autowired
     private LibraryCatalogManager libraryCatalogManager;
+    @Autowired
+    private BookUserWaitingReservationManager bookUserWaitingReservationManager;
 
     /**
      * When user choose a book
@@ -79,22 +77,33 @@ public class BookReservationController {
     @RequestMapping(value = "/bookReservation/{bookId}/{libraryId}", method = RequestMethod.GET)
     public String bookReservation(@PathVariable Integer bookId,@PathVariable Integer libraryId,
                                   @SessionAttribute(value = "userSession", required = false) LibraryUserBean userSession,
-                                  Model model) {
+                                  Model model) throws Exception {
         BookReservationBean newBookReservation = new BookReservationBean();
+        LibraryUserBean userOnSession = libraryUserManager.getOneUser(userSession.getUserEmail());
+        //check if there is user on waiting reservation
+        boolean userWaitForBook = bookUserWaitingReservationManager.checkIfUserWaitForBook(bookId, userOnSession.getId());
+        if (!userWaitForBook) {
+            LibraryUserBean beanUserOnSession = libraryUserManager.getOneUser(userSession.getUserEmail());
+            newBookReservation.setBookId(bookId);
+            newBookReservation.setUserId(beanUserOnSession.getId());
+            newBookReservation.setLibraryId(libraryId);
+            bookReservationManager.completeWithDate(newBookReservation);
+            logger.info("nouvelle reservation sur livre d'ID: " + bookId + " dans la bibliotheque d'Id " + libraryId);
+            // check book disponibility if needed
+            bookManager.changeDisponibilityForOneBook(bookId);
+            //delete waiting reservation if userInSession have been make a waiting reservation
+            bookUserWaitingReservationManager.deleteBookUserWaitingReservationIfUserInSessionMakeReservation(bookId, userOnSession.getId());
 
-        LibraryUserBean beanUserOnSession = libraryUserManager.getOneUser(userSession.getUserEmail());
-        newBookReservation.setBookId(bookId);
-        newBookReservation.setUserId(beanUserOnSession.getId());
-        newBookReservation.setLibraryId(libraryId);
-        bookReservationManager.completeWithDate(newBookReservation);
-        logger.info("nouvelle reservation sur livre d'ID: " + bookId + " dans la bibliotheque d'Id " + libraryId);
-        // check book disponibility if needed
-        bookManager.changeDisponibilityForOneBook(bookId);
+            model.addAttribute("log", userSession);
+            model.addAttribute("bookName", new BookBean());
+            return "/confirmationhtml/bookReservationOk";
+        } else {
+            model.addAttribute("log", userSession);
+            model.addAttribute("bookName", new BookBean());
+            return "errorHtml/errorUserCantReserveBook";
+        }
 
-        model.addAttribute("log", userSession);
-        model.addAttribute("bookName", new BookBean());
 
-        return "/confirmationhtml/bookReservationOk";
     }
 
     /**
@@ -141,15 +150,18 @@ public class BookReservationController {
                            Model model) {
         BookReservationBean bookReservationBeanToUpdate = bookReservationManager.getOneBookReservation(reservationId);
 
+        // write BookBackDate on BDD
+        String todayDate = dateManager.todayDate();
+        bookReservationBeanToUpdate.setBookBackDate(todayDate);
+        bookReservationManager.updateBookReservation(bookReservationBeanToUpdate);
+        // change bookBack boolean attribute
         bookReservationManager.bookBack(reservationId);
         // check book disponibility
         bookManager.changeDisponibilityForOneBook(bookReservationBeanToUpdate.getBook().getId());
 
         model.addAttribute("log", userSession);
         model.addAttribute("bookName", new BookBean());
-
         logger.info("L'utilisateur " + userSession.getUserEmail() + " a rendu le livre de la reservation d'id: " + reservationId);
-
         return "/Confirmationhtml/bookBackOk";
     }
 }

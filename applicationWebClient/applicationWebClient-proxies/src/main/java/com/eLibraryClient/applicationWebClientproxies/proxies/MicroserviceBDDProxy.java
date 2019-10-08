@@ -213,6 +213,14 @@ public interface MicroserviceBDDProxy {
     @GetMapping(value = "/BookReservationInProgressByBookId/{bookId}")
     List<BookReservationBean> getReservationInProgressByBookId(@PathVariable("bookId") Integer bookId);
 
+    /**
+     * Get Reservation ended by book Id
+     * @param bookId
+     * @return
+     */
+    @GetMapping(value = "/BookReservationEndedByBookId/{bookId}")
+    List<BookReservationBean> getReservationEndedByBookId(@PathVariable("bookId") Integer bookId);
+
     //*******************************************//
     //************ BookUserWaitingReservation ***//
     //*******************************************//

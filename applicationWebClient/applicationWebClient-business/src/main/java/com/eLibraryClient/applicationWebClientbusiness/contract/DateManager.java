@@ -10,4 +10,5 @@ public interface DateManager {
     CompareDate compareDateWithToday(String pDate);
     String addDaysOnOneDate(String date, int nbrOfDay);
     CompareDate compareTwoDate(String pFirstDate, String pSecondDate);
+    int countNbrOfDayBetweenTwoDates(String date1, String date2);
 }

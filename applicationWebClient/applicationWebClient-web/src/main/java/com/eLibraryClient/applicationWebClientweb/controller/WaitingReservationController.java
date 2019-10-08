@@ -1,5 +1,6 @@
 package com.eLibraryClient.applicationWebClientweb.controller;
 
+import com.eLibraryClient.applicationWebClientbusiness.Enums.CompareDate;
 import com.eLibraryClient.applicationWebClientbusiness.contract.*;
 import com.eLibraryModel.beans.BookBean;
 import com.eLibraryModel.beans.BookReservationBean;
@@ -48,8 +49,11 @@ public class WaitingReservationController {
         BookReservationBean bookReservationToDisplay = new BookReservationBean();
         BookBean bookToDisplay;
         Integer countUserWaiting;
+        CompareDate compareDateEnum = CompareDate.ISBEFORE;
 
         if (userSession != null) {
+            //change waitReservationFull boolean on book if needed
+            bookUserWaitingReservationManager.changeBooleanWaitReservationFullIfNeeded(bookId);
             //check if waiting reservation list is full
             bookToDisplay = bookManager.getOneBook(bookId);
             if (bookToDisplay.getWaitReservationFull()) {
@@ -60,7 +64,18 @@ public class WaitingReservationController {
                 //for display book reservation information
                 List<BookReservationBean> bookReservationInProgressList = bookReservationManager.bookReservationInProgressList();
                 for (BookReservationBean book: bookReservationInProgressList) {
-                    if (book.getBookId() == bookId) {bookReservationToDisplay = book;}
+                    if (book.getBookId() == bookId) {
+                        bookReservationToDisplay = book;
+                    }
+                }
+                // for take closed date for bookReservationToDisplay
+                for (BookReservationBean book: bookReservationInProgressList) {
+                    if (book.getBookId() == bookId) {
+                        compareDateEnum = dateManager.compareTwoDate(book.getEndOfReservationDate(), bookReservationToDisplay.getEndOfReservationDate());
+                        if (compareDateEnum == CompareDate.ISBEFORE) {
+                            bookReservationToDisplay = book;
+                        }
+                    }
                 }
                 //for display number of user waiting
                 countUserWaiting = bookUserWaitingReservationManager.getNbrOfUserwaitingForReservation(bookId);

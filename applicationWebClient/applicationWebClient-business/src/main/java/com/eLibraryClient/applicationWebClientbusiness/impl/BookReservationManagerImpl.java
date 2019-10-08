@@ -164,7 +164,7 @@ public class BookReservationManagerImpl implements BookReservationManager {
      * @return
      */
     @Override
-    public String getEndREservationDateClosedThanToday(int bookId) {
+    public String getTheoricalEndReservationDateClosedThanToday(int bookId) {
         String closedFromTodayDate = "";
         CompareDate compareDateEnum = CompareDate.ISAFTER;
 

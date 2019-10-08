@@ -117,5 +117,18 @@ public class BookReservationController {
         return bookReservationList;
     }
 
+    /**
+     * get book reservation ended by bookId
+     * @param bookId
+     * @return
+     */
+    @GetMapping(value = "/BookReservationEndedByBookId/{bookId}")
+    public List<BookReservation> bookReservationEndedByBookId(@PathVariable Integer bookId) {
+
+        List<BookReservation> bookReservationList = bookReservationDao.getBookReservationByBookIdAndBookBackEquals(bookId, true);
+
+        return bookReservationList;
+    }
+
 
 }
