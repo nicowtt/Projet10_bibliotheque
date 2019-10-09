@@ -134,7 +134,7 @@ public class WaitingReservationController {
         BookUserWaitingReservationBean bookUserWaitingReservationConcerned =
                 bookUserWaitingReservationManager.getBookUserWaitingReservationByWaitReservationId(waitReservationId);
         // delete on BDD
-        ResponseEntity responseEntity = bookUserWaitingReservationManager.deleteBookUserWaitingreservation(bookUserWaitingReservationConcerned);
+        ResponseEntity responseEntity = bookUserWaitingReservationManager.deleteBookUserWaitingReservation(bookUserWaitingReservationConcerned);
         if (responseEntity.getStatusCodeValue() == 202) {
             // Book now can have new WaitReservation --> WaitReservation attribute -> false
             bookUserWaitingReservationManager.changeBooleanWaitReservationFullIfNeeded(bookUserWaitingReservationConcerned.getBookId());

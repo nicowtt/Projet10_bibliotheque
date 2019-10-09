@@ -21,7 +21,7 @@ public interface BookUserWaitingReservationManager {
     int standOnWaitingList(int bookId, int pUserId);
     BookUserWaitingReservationBean updateBookUserWaitingReservationWithStandOnWaitingList(BookUserWaitingReservationBean bookUserWaitingReservationToUpdate, int pUserId);
     BookUserWaitingReservationBean getBookUserWaitingReservationByWaitReservationId(int waitReservationId);
-    ResponseEntity<?> deleteBookUserWaitingreservation(BookUserWaitingReservationBean bookUserWaitingReservationBean);
+    ResponseEntity<?> deleteBookUserWaitingReservation(BookUserWaitingReservationBean bookUserWaitingReservationBean);
     boolean checkIfUserWaitForBook(int bookId, int userSessionId);
     void deleteBookUserWaitingReservationIfUserInSessionMakeReservation (int bookId, int userSessionId);
     }

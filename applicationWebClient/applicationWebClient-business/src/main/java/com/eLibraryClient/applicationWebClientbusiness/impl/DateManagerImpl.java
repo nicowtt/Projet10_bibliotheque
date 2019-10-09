@@ -25,7 +25,7 @@ public class DateManagerImpl implements DateManager {
     @Override
     public String todayDate() {
         Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat simpleDate = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
+        SimpleDateFormat simpleDate = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         return simpleDate.format(calendar.getTime());
     }
 
@@ -38,7 +38,7 @@ public class DateManagerImpl implements DateManager {
     @Override
     public String addDaysOnTodayDate(int pNbrOfDay) {
         Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat simpleDate = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
+        SimpleDateFormat simpleDate = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         calendar.add(Calendar.DATE, pNbrOfDay);
         return simpleDate.format(calendar.getTime());
     }
@@ -54,8 +54,8 @@ public class DateManagerImpl implements DateManager {
         Date newDate = new Date();
         DateFormat formatter;
         Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat simpleDate = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
-        formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
+        SimpleDateFormat simpleDate = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         try {
             newDate = (Date) formatter.parse(inputDate);
         } catch (ParseException e) {
@@ -78,7 +78,7 @@ public class DateManagerImpl implements DateManager {
         CompareDate CompareDateEnum = CompareDate.ISBEFORE;
         Calendar todayDate = Calendar.getInstance();
         Calendar dateToCompare = Calendar.getInstance();
-        DateFormat dateFormated = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
+        DateFormat dateFormated = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         try {
             newDate = dateFormated.parse(pDate);
         } catch (ParseException e) {
@@ -112,7 +112,7 @@ public class DateManagerImpl implements DateManager {
      */
     @Override
     public CompareDate compareTwoDate(String pFirstDate, String pSecondDate) {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         CompareDate CompareDateEnum = CompareDate.ISBEFORE;
         Date firstDate = new Date();
         Date secondDate = new Date();
@@ -148,7 +148,7 @@ public class DateManagerImpl implements DateManager {
     @Override
     public int countNbrOfDayBetweenTwoDates(String date1, String date2) {
         int CONST_DURATION_OF_DAY = 1000 * 60 * 60 * 24;
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         Date firstDate = new Date();
         Date secondDate = new Date();
 

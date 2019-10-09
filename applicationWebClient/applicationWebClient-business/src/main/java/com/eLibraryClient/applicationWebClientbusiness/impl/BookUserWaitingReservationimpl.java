@@ -256,8 +256,8 @@ public class BookUserWaitingReservationimpl implements BookUserWaitingReservatio
      * @return
      */
     @Override
-    public ResponseEntity<?> deleteBookUserWaitingreservation(BookUserWaitingReservationBean bookUserWaitingReservationBean) {
-        ResponseEntity responseEntity = microserviceBDDProxy.deleteUserWaitingReservationByWaitingReservationId(bookUserWaitingReservationBean);
+    public ResponseEntity<?> deleteBookUserWaitingReservation(BookUserWaitingReservationBean bookUserWaitingReservationBean) {
+        ResponseEntity responseEntity = microserviceBDDProxy.deleteUserWaitingReservation(bookUserWaitingReservationBean);
         return responseEntity;
     }
 
@@ -296,7 +296,7 @@ public class BookUserWaitingReservationimpl implements BookUserWaitingReservatio
                 microserviceBDDProxy.getUserWaitingReservationByBook(bookId);
         if (bookUserWaitingReservationList.size() != 0) {
             if (bookUserWaitingReservationList.get(0).getLibraryUserId() == userSessionId) {
-                microserviceBDDProxy.deleteUserWaitingReservationByWaitingReservationId(bookUserWaitingReservationList.get(0));
+                microserviceBDDProxy.deleteUserWaitingReservation(bookUserWaitingReservationList.get(0));
             }
         }
     }

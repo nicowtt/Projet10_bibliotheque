@@ -1,5 +1,7 @@
 package com.eLibraryModel.beans;
 
+import java.util.Date;
+
 public class BookUserWaitingReservationBean {
 
     private int id;
@@ -8,19 +10,23 @@ public class BookUserWaitingReservationBean {
     private String waitReservationDate;
     private String closedDateBack;
     private int standOnWaitingList;
+    private boolean mailSend;
+    private Date mailSendDate;
     private BookBean book;
 
     //Constructor
     public BookUserWaitingReservationBean() {
     }
 
-    public BookUserWaitingReservationBean(int id, int bookId, int libraryUserId, String waitReservationDate, String closedDateBack, int standOnWaitingList, BookBean book) {
+    public BookUserWaitingReservationBean(int id, int bookId, int libraryUserId, String waitReservationDate, String closedDateBack, int standOnWaitingList, boolean mailSend, Date mailSendDate, BookBean book) {
         this.id = id;
         this.bookId = bookId;
         this.libraryUserId = libraryUserId;
         this.waitReservationDate = waitReservationDate;
         this.closedDateBack = closedDateBack;
         this.standOnWaitingList = standOnWaitingList;
+        this.mailSend = mailSend;
+        this.mailSendDate = mailSendDate;
         this.book = book;
     }
 
@@ -71,6 +77,22 @@ public class BookUserWaitingReservationBean {
 
     public void setStandOnWaitingList(int standOnWaitingList) {
         this.standOnWaitingList = standOnWaitingList;
+    }
+
+    public boolean isMailSend() {
+        return mailSend;
+    }
+
+    public void setMailSend(boolean mailSend) {
+        this.mailSend = mailSend;
+    }
+
+    public Date getMailSendDate() {
+        return mailSendDate;
+    }
+
+    public void setMailSendDate(Date mailSendDate) {
+        this.mailSendDate = mailSendDate;
     }
 
     public BookBean getBook() {

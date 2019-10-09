@@ -271,5 +271,5 @@ public interface MicroserviceBDDProxy {
      * @return
      */
     @PostMapping(value = "/DeleteUserWaitingReservation")
-    ResponseEntity<?> deleteUserWaitingReservationByWaitingReservationId(@RequestBody BookUserWaitingReservationBean bookUserWaitingReservationBean);
+    ResponseEntity<?> deleteUserWaitingReservation(@RequestBody BookUserWaitingReservationBean bookUserWaitingReservationBean);
 }

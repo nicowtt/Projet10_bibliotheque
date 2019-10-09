@@ -64,4 +64,15 @@ public class UserController {
         userIsValid = userManager.checkIfUserMailAndPassIsOk(user);
           return userIsValid;
     }
+
+    /**
+     * get userEmail withId
+     * @param userId
+     * @return
+     */
+    @GetMapping(value = "/userMail/{userId}")
+    public String getUserEmailWithId(@PathVariable int userId) {
+        String userEmail = libraryUserDao.findById(userId).getUserEmail();
+        return userEmail;
+    }
 }

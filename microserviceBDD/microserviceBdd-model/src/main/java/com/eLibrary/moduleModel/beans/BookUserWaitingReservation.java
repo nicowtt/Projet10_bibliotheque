@@ -28,6 +28,12 @@ public class BookUserWaitingReservation {
     @Column(name = "standonwaitinglist")
     private Integer standOnWaitingList;
 
+    @Column(name = "mailsend")
+    private boolean mailSend;
+
+    @Column(name = "mailsenddate")
+    private Date mailSendDate;
+
     @ManyToOne //many bookUserWaitingReservation for one book
     @JoinColumn(name = "book_id", referencedColumnName = "id", insertable= false, updatable= false) //fk
     private Book book;
@@ -36,12 +42,14 @@ public class BookUserWaitingReservation {
     public BookUserWaitingReservation() {
     }
 
-    public BookUserWaitingReservation(int bookId, int libraryUserId, String waitReservationDate, String closedDateBack, Integer standOnWaitingList, Book book) {
+    public BookUserWaitingReservation(int bookId, int libraryUserId, String waitReservationDate, String closedDateBack, Integer standOnWaitingList, boolean mailSend, Date mailSendDate, Book book) {
         this.bookId = bookId;
         this.libraryUserId = libraryUserId;
         this.waitReservationDate = waitReservationDate;
         this.closedDateBack = closedDateBack;
         this.standOnWaitingList = standOnWaitingList;
+        this.mailSend = mailSend;
+        this.mailSendDate = mailSendDate;
         this.book = book;
     }
 
@@ -92,6 +100,22 @@ public class BookUserWaitingReservation {
 
     public void setStandOnWaitingList(Integer standOnWaitingList) {
         this.standOnWaitingList = standOnWaitingList;
+    }
+
+    public boolean isMailSend() {
+        return mailSend;
+    }
+
+    public void setMailSend(boolean mailSend) {
+        this.mailSend = mailSend;
+    }
+
+    public Date getMailSendDate() {
+        return mailSendDate;
+    }
+
+    public void setMailSendDate(Date mailSendDate) {
+        this.mailSendDate = mailSendDate;
     }
 
     public Book getBook() {

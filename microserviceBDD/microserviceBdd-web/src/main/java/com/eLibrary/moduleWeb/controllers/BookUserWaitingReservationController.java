@@ -32,6 +32,19 @@ public class BookUserWaitingReservationController {
     }
 
     /**
+     * Get a list of waiting user for future reservation
+     * @return
+     */
+    @GetMapping(value = "/UserWaitingReservation")
+    public List<BookUserWaitingReservation> getBookUserWaitingReservation() {
+
+        List<BookUserWaitingReservation> bookWaitingReservationList =
+                bookUserWaitingReservationDao.findAll();
+
+        return bookWaitingReservationList;
+    }
+
+    /**
      * Write new waiting reservation
      * @param bookUserWaitingReservation
      * @return
