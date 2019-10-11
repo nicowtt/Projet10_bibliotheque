@@ -118,6 +118,10 @@ public class WaitingReservationController {
             newBookUserWaitingReservation.setBookId(bookId);
             newBookUserWaitingReservation.setLibraryUserId(beanUserOnSession.getId());
             newBookUserWaitingReservation.setWaitReservationDate(dateManager.todayDate());
+            String closedDateFromToday = bookReservationManager.getTheoricalEndReservationDateClosedThanToday(bookId);
+            newBookUserWaitingReservation.setClosedDateBack(closedDateFromToday);
+            int standOnWaitingList = bookUserWaitingReservationManager.standOnWaitingList(bookId);
+            newBookUserWaitingReservation.setStandOnWaitingList(standOnWaitingList);
             bookUserWaitingReservationManager.addBookUserWaitingReservation(newBookUserWaitingReservation);
             //change waitReservationFull boolean on book if needed
             bookUserWaitingReservationManager.changeBooleanWaitReservationFullIfNeeded(bookId);

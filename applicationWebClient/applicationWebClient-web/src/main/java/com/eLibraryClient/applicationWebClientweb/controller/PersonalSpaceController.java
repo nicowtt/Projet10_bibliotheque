@@ -14,9 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.SessionAttribute;
-
 import java.util.List;
-import java.util.Map;
 
 @Controller
 public class PersonalSpaceController {
@@ -46,11 +44,6 @@ public class PersonalSpaceController {
         List<BookUserWaitingReservationBean> bookUserWaitingReservationList =
                 bookUserWaitingReservationManager.getBookUserWaitingReservationById(userOnSession.getId());
 
-        // update each bookUserWaitingReservationList -> closedDateBack and standOnWaitingList
-        for (int i = 0; i < bookUserWaitingReservationList.size(); i++) {
-            bookUserWaitingReservationManager.updateBookUserWaitingReservationWithclosedDateFromToday(bookUserWaitingReservationList.get(i));
-            bookUserWaitingReservationManager.updateBookUserWaitingReservationWithStandOnWaitingList(bookUserWaitingReservationList.get(i), userOnSession.getId());
-        }
         model.addAttribute("reservation", bookReservationListForOneUser);
         model.addAttribute("waitReservation", bookUserWaitingReservationList);
         model.addAttribute("log", userSession);

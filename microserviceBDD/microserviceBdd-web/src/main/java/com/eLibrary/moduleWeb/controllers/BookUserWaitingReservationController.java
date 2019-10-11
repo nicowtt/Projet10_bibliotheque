@@ -1,5 +1,6 @@
 package com.eLibrary.moduleWeb.controllers;
 
+import com.eLibrary.moduleBusiness.contract.BookUserWaitingManager;
 import com.eLibrary.moduleDao.dao.BookUserWaitingReservationDao;
 import com.eLibrary.moduleModel.beans.BookReservation;
 import com.eLibrary.moduleModel.beans.BookUserWaitingReservation;
@@ -16,6 +17,9 @@ public class BookUserWaitingReservationController {
 
     @Autowired
     private BookUserWaitingReservationDao bookUserWaitingReservationDao;
+
+    @Autowired
+    private BookUserWaitingManager bookUserWaitingManager;
 
     /**
      * Get a list of waiting user for future reservation
@@ -103,13 +107,16 @@ public class BookUserWaitingReservationController {
     }
 
     /**
-     * Delete a wait reservation
+     * Delete a wait reservation and update stand of other user on waiting list
      * @param bookUserWaitingReservation
      * @return
      */
     @RequestMapping(method = RequestMethod.POST, value = "/DeleteUserWaitingReservation", consumes="application/json")
     public ResponseEntity<?> deleteBookUserWaitingReservation(@RequestBody BookUserWaitingReservation bookUserWaitingReservation) {
 
+        // update stand of other user
+        bookUserWaitingManager.updateUsersStand(bookUserWaitingReservation.getBookId());
+        // delete wait reservation
         bookUserWaitingReservationDao.delete(bookUserWaitingReservation);
 
         //send 201 Accepted for confirm new Reservation is deleted

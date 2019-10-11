@@ -1,6 +1,5 @@
 package com.eLibraryClient.applicationWebClientbusiness.impl;
 
-import com.eLibraryClient.applicationWebClientbusiness.Enums.CompareDate;
 import com.eLibraryClient.applicationWebClientbusiness.contract.BookReservationManager;
 import com.eLibraryClient.applicationWebClientbusiness.contract.BookUserWaitingReservationManager;
 import com.eLibraryClient.applicationWebClientbusiness.contract.DateManager;
@@ -175,64 +174,19 @@ public class BookUserWaitingReservationimpl implements BookUserWaitingReservatio
     }
 
     /**
-     * For update book User Waiting reservation bean -> add closedDateBack
-     * @param bookUserWaitingReservationToUpdate
-     * @return
-     */
-    @Override
-    public BookUserWaitingReservationBean updateBookUserWaitingReservationWithclosedDateFromToday(BookUserWaitingReservationBean bookUserWaitingReservationToUpdate) {
-
-        String closedDateFromToday = bookReservationManager.getTheoricalEndReservationDateClosedThanToday(bookUserWaitingReservationToUpdate.getBookId());
-        bookUserWaitingReservationToUpdate.setClosedDateBack(closedDateFromToday);
-        //update BDD
-        microserviceBDDProxy.updateWaitReservation(bookUserWaitingReservationToUpdate);
-
-        return bookUserWaitingReservationToUpdate;
-    }
-
-
-    /**
-     * update book User Waiting reservation bean -> add standOnWaitingList attribute
-     * @param bookUserWaitingReservationToUpdate
-     * @param pUserId
-     * @return
-     */
-    @Override
-    public BookUserWaitingReservationBean updateBookUserWaitingReservationWithStandOnWaitingList(BookUserWaitingReservationBean bookUserWaitingReservationToUpdate, int pUserId) {
-
-        int standOnWaitingList = this.standOnWaitingList(bookUserWaitingReservationToUpdate.getBookId(), pUserId);
-        bookUserWaitingReservationToUpdate.setStandOnWaitingList(standOnWaitingList);
-        //update BDD
-        microserviceBDDProxy.updateWaitReservation(bookUserWaitingReservationToUpdate);
-
-        return bookUserWaitingReservationToUpdate;
-    }
-
-    /**
      * for find stand on waiting List
      * @param bookId
-     * @param pUserId
      * @return
      */
     @Override
-    public int standOnWaitingList(int bookId, int pUserId) {
+    public int standOnWaitingList(int bookId) {
         int standOnWaitingList = 1;
-        String dateWaitingReservationForPuserId;
-        List<BookUserWaitingReservationBean> bookUserWaitingReservationForPuserIdList = new ArrayList<>();
-        CompareDate compareDateEnum = CompareDate.ISAFTER;
 
-        // keep pUserId
-        bookUserWaitingReservationForPuserIdList = microserviceBDDProxy.getUserWaitingReservationByUser(pUserId);
-        if (bookUserWaitingReservationForPuserIdList != null) {
-            dateWaitingReservationForPuserId = bookUserWaitingReservationForPuserIdList.get(0).getWaitReservationDate();
-            // list of bookUserWaitingList for book concerned
-            List<BookUserWaitingReservationBean> listForOneBook = microserviceBDDProxy.getUserWaitingReservationByBook(bookId);
+        // list of bookUserWaitingList for book concerned
+        List<BookUserWaitingReservationBean> listForOneBook = microserviceBDDProxy.getUserWaitingReservationByBook(bookId);
+        if (!listForOneBook.isEmpty()) {
             for (int i = 0; i < listForOneBook.size(); i++) {
-                // comparaison des dates
-                compareDateEnum = dateManager.compareTwoDate(listForOneBook.get(i).getWaitReservationDate(), dateWaitingReservationForPuserId);
-                if (compareDateEnum == CompareDate.ISBEFORE) {
-                    standOnWaitingList++;
-                }
+                standOnWaitingList++;
             }
         }
         return standOnWaitingList;
@@ -262,25 +216,27 @@ public class BookUserWaitingReservationimpl implements BookUserWaitingReservatio
     }
 
     /**
-     * check if user(s) wait for book
+     * check if user(s) wait for book (ok when user In Session is first on waiting list)
      * @param bookId
      * @param userSessionId
      * @return
      */
     @Override
     public boolean checkIfUserWaitForBook(int bookId, int userSessionId) {
-        boolean userWaitBook;
+        boolean userWaitBook = false;
         List<BookUserWaitingReservationBean> bookUserWaitingReservationList =
                 microserviceBDDProxy.getUserWaitingReservationByBook(bookId);
         if (bookUserWaitingReservationList.size() > 0) {
-            //check si userInSession is the next in waiting list-> only this user can reserve book
-            if (bookUserWaitingReservationList.get(0).getLibraryUserId() == userSessionId) {
-                userWaitBook = false;
+            //check if user in session is the first on waiting List -> only this user can reserve book
+            for (int i = 0; i < bookUserWaitingReservationList.size(); i++) {
+                if (bookUserWaitingReservationList.get(i).getStandOnWaitingList() == 1 &&
+                        bookUserWaitingReservationList.get(i).getLibraryUserId() == userSessionId) {
+                    userWaitBook = false;
+                    break;
             } else {
-                userWaitBook = true;
+                    userWaitBook = true;
+                }
             }
-        } else {
-            userWaitBook = false;
         }
         return userWaitBook;
     }

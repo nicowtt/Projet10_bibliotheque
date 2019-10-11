@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Component
@@ -61,18 +62,19 @@ public class EmailService {
             message.setText(text);
             emailSender.send(message);
             logger.info("****************************************************************************************");
-            logger.info("Rappel envoye a: " + lateBookReservation.get(i).getLibraryUser().getUserEmail());
+            logger.info("Rappel pour ramener un livre envoyé a: " + lateBookReservation.get(i).getLibraryUser().getUserEmail());
             logger.info("****************************************************************************************");
     }
         if (lateBookReservation.isEmpty()) {
             logger.info("****************************************************************************************");
-            logger.info("Il n'y a aucun email de rappel a envoyer.");
+            logger.info("Il n'y a aucun email de rappel afin de ramener un livre a envoyer.");
             logger.info("****************************************************************************************");
         }
-        // sendEmailWhenBookBackAndUserOnWaitingList if needeed
-        this.sendEmailWhenBookBackAndUserOnWaitingList();
         // delete user on waiting list if he didn't reserve book since 48h
         this.deleteWaitReservationIfUserDontReservebookSince48HoursAfterMailsend();
+        // sendEmailWhenBookBackAndUserOnWaitingList if needeed
+        this.sendEmailWhenBookBackAndUserOnWaitingList();
+
     }
 
     /**
@@ -88,8 +90,7 @@ public class EmailService {
         // today book back check
         List<BookReservationBean> bookReservationEndedTodayList = microserviceBDDProxy.getBookreservationEndedToday();
         if (!bookReservationEndedTodayList.isEmpty()) {
-            for (BookReservationBean bookReservation : bookReservationEndedTodayList) {
-                listBookBackTodayByBookId.add(bookReservation.getBookId());
+            for (BookReservationBean bookReservation : bookReservationEndedTodayList) {listBookBackTodayByBookId.add(bookReservation.getBookId());
             }
         }
         // wait reservation in progress check
@@ -100,81 +101,97 @@ public class EmailService {
             mailSendtoUser = 0;
             for (int j = 0; j < listBookBackTodayByBookId.size(); j++) {
                 if (bookUserWaitingReservationListInProgress.get(i).getBookId() == listBookBackTodayByBookId.get(j)) {
-                    //sendEmail in order of wait Reservation date -> todo re-check
-                    String userOnWaitingEmail =
-                            microserviceBDDProxy.getUserEmailByUserId(bookUserWaitingReservationListInProgress.get(i).getLibraryUserId());
-                    if (mailSendtoUser < 1) {
-                        //sending Email
-                        to = userOnWaitingEmail;
-                        subject = "Livre disponible !";
-                        text = "Bonjour " + userOnWaitingEmail + "," +
-                                "\nLe livre: " + bookUserWaitingReservationListInProgress.get(i).getBook().getBookName() +
-                                " de l'auteur: " + bookUserWaitingReservationListInProgress.get(i).getBook().getBookAuthor() +
-                                " est disponible, vous avez 2 jours pour l'emprunter." +
-                                "\nAprés ce délai votre place sur la liste d'attente sera supprimé." +
-                                "\nMerci";
+                    //sendEmail in order of stand
+                    if (bookUserWaitingReservationListInProgress.get(i).getStandOnWaitingList() == 1) {
+                        String userOnWaitingEmail =
+                                microserviceBDDProxy.getUserEmailByUserId(bookUserWaitingReservationListInProgress.get(i).getLibraryUserId());
 
-                        SimpleMailMessage message = new SimpleMailMessage();
-                        message.setTo("nicobod31@gmail.com"); //only for development time
-                        // message.setTo(to);
-                        message.setSubject(subject);
-                        message.setText(text);
-                        emailSender.send(message);
-                        logger.info("****************************************************************************************");
-                        logger.info("Reservation possible envoyé à: " + userOnWaitingEmail);
-                        logger.info("****************************************************************************************");
-                        //remove
-                        listBookBackTodayByBookId.remove(j); // one book back is on one mail (one reservation possible)
-                        mailSendtoUser++; // only one mail must be sending by user
-                        //update waiting reservation on bdd
-                        Date todayDatedate = new Date();
-                        bookUserWaitingReservationListInProgress.get(i).setMailSend(true);
-                        bookUserWaitingReservationListInProgress.get(i).setMailSendDate(todayDatedate);
-//                        // just for test set 2days before (Only for developpementTime)
-//                        Date today = new Date();
-//                        Calendar cal = Calendar.getInstance();
-//                        cal.setTime(today);
-//                        cal.add(Calendar.DATE,-2);
-//                        Date forTest = cal.getTime();
-//                        bookUserWaitingReservationListInProgress.get(i).setMailSendDate(forTest);
-                        microserviceBDDProxy.updateWaitReservation(bookUserWaitingReservationListInProgress.get(i));
-                    }
+                        //check if mail was already send one day before
+                        Date emailAlreadySend = bookUserWaitingReservationListInProgress.get(i).getMailSendDate();
+                        if (emailAlreadySend != null) {
+                            mailSendtoUser = 1;
+                        }
+                        if (mailSendtoUser < 1) {
+                            //sending Email
+                            to = userOnWaitingEmail;
+                            subject = "Livre disponible !";
+                            text = "Bonjour " + userOnWaitingEmail + "," +
+                                    "\nLe livre: " + bookUserWaitingReservationListInProgress.get(i).getBook().getBookName() +
+                                    " de l'auteur: " + bookUserWaitingReservationListInProgress.get(i).getBook().getBookAuthor() +
+                                    " est disponible, vous avez 2 jours pour l'emprunter." +
+                                    "\nAprés ce délai votre place sur la liste d'attente sera supprimé." +
+                                    "\nMerci";
+
+                            SimpleMailMessage message = new SimpleMailMessage();
+                            message.setTo("nicobod31@gmail.com"); //only for development time
+                            // message.setTo(to);
+                            message.setSubject(subject);
+                            message.setText(text);
+                            emailSender.send(message);
+                            logger.info("****************************************************************************************");
+                            logger.info("Reservation possible envoyé à: " + userOnWaitingEmail);
+                            logger.info("****************************************************************************************");
+                            //remove
+                            listBookBackTodayByBookId.remove(j); // one book back is on one mail (one reservation possible)
+                            mailSendtoUser++; // only one mail must be sending by user
+                            //update waiting reservation on bdd
+                            Date todayDatedate = new Date();
+                            bookUserWaitingReservationListInProgress.get(i).setMailSend(true);
+                            bookUserWaitingReservationListInProgress.get(i).setMailSendDate(todayDatedate);
+                            microserviceBDDProxy.updateWaitReservation(bookUserWaitingReservationListInProgress.get(i));
+                        }
                     }
                 }
             }
         }
+    }
 
     /**
      * For delete wait reservation have not reserve book (delay is 48h)
      */
     public void deleteWaitReservationIfUserDontReservebookSince48HoursAfterMailsend() {
-        Date todayDatedate = new Date();
+        Date todayDate = new Date();
         Date userReceiveMaildate;
+        List<BookUserWaitingReservationBean> bookUserWaitingReservationListOnlyUserHaveReceiveMail = new ArrayList<>();
         // waiting list in progress check
         List<BookUserWaitingReservationBean> bookUserWaitingReservationListInProgress = microserviceBDDProxy.getBookUserWaitingReservation();
-        // delete user who didn't receive mail
+
+        // keep only user who receive mail
         for (int i = 0; i < bookUserWaitingReservationListInProgress.size(); i++) {
-            if (!bookUserWaitingReservationListInProgress.get(i).isMailSend()) {
-                bookUserWaitingReservationListInProgress.remove(i);
+            if (bookUserWaitingReservationListInProgress.get(i).isMailSend()) {
+                bookUserWaitingReservationListOnlyUserHaveReceiveMail.add(bookUserWaitingReservationListInProgress.get(i));
             }
         }
+
+//        // ***** Only for developpementTime: add 2 days to todayDate  ******
+//        Calendar calDevelop = Calendar.getInstance();
+//        calDevelop.setTime(todayDate);
+//        calDevelop.add(Calendar.DATE,2); // here can set number of day:
+//        // nothing -> book is 48h reserved
+//        // 1 -> mail have been sending yesterday (system not re-send email) -> book is 24h reserved
+//        // 2 -> user waiting reservation is deleted -> book was not reserved
+//        todayDate = calDevelop.getTime();
+//        // ******* Only for developpementTime: add 2 days to todayDate *****
+
         //for each user who receive mail (reservation is possible for 48h)
-        for (int i = 0; i < bookUserWaitingReservationListInProgress.size(); i++) {
-            userReceiveMaildate = bookUserWaitingReservationListInProgress.get(i).getMailSendDate();
+        for (int i = 0; i < bookUserWaitingReservationListOnlyUserHaveReceiveMail.size(); i++) {
+            userReceiveMaildate = bookUserWaitingReservationListOnlyUserHaveReceiveMail.get(i).getMailSendDate();
             //add 2 days (48h)
             Calendar cal = Calendar.getInstance();
             cal.setTime(userReceiveMaildate);
             cal.add(Calendar.DATE,2);
             Date userReceiveMaildatePlusTwoDays = cal.getTime();
             // if this date is after today -> delete user on waiting list (he didn't reserve book when he can (48h))
-            if (todayDatedate.after(userReceiveMaildatePlusTwoDays)) {
+            if (todayDate.after(userReceiveMaildatePlusTwoDays)) {
                 ResponseEntity responseEntity =
-                        microserviceBDDProxy.deleteUserWaitingReservation(bookUserWaitingReservationListInProgress.get(i));
+                        microserviceBDDProxy.deleteUserWaitingReservation(bookUserWaitingReservationListOnlyUserHaveReceiveMail.get(i));
                 if (responseEntity.getStatusCodeValue() == 202) {
+                    String userOnWaitingEmail =
+                            microserviceBDDProxy.getUserEmailByUserId(bookUserWaitingReservationListOnlyUserHaveReceiveMail.get(i).getLibraryUserId());
                     logger.info("****************************************************************************************");
-                    logger.info("L'utilisateur d'id:" + bookUserWaitingReservationListInProgress.get(i).getLibraryUserId()
+                    logger.info("48h écoulé, l'utilisateur " + userOnWaitingEmail
                             + " à été supprimer de la liste d'attente pour le livre: "
-                            + bookUserWaitingReservationListInProgress.get(i).getBook().getBookName() + ".");
+                            + bookUserWaitingReservationListOnlyUserHaveReceiveMail.get(i).getBook().getBookName() + ".");
                     logger.info("****************************************************************************************");
                 }
             }
