@@ -7,6 +7,7 @@ public class BookReservationBean {
     private String endOfReservationDate;
     private boolean extensionOfReservation;
     private boolean bookBack;
+    private String bookBackDate;
     private int userId;
     private int bookId;
     private int libraryId;
@@ -20,12 +21,13 @@ public class BookReservationBean {
     public BookReservationBean() {
     }
 
-    public BookReservationBean(int id, String beginOfReservationDate, String endOfReservationDate, boolean extensionOfReservation, boolean bookBack, int userId, int bookId, int libraryId, LibraryUserBean libraryUser, BookBean book, LibraryBean library) {
+    public BookReservationBean(int id, String beginOfReservationDate, String endOfReservationDate, boolean extensionOfReservation, boolean bookBack, String bookBackDate, int userId, int bookId, int libraryId, LibraryUserBean libraryUser, BookBean book, LibraryBean library) {
         this.id = id;
         this.beginOfReservationDate = beginOfReservationDate;
         this.endOfReservationDate = endOfReservationDate;
         this.extensionOfReservation = extensionOfReservation;
         this.bookBack = bookBack;
+        this.bookBackDate = bookBackDate;
         this.userId = userId;
         this.bookId = bookId;
         this.libraryId = libraryId;
@@ -73,6 +75,14 @@ public class BookReservationBean {
 
     public void setBookBack(boolean bookBack) {
         this.bookBack = bookBack;
+    }
+
+    public String getBookBackDate() {
+        return bookBackDate;
+    }
+
+    public void setBookBackDate(String bookBackDate) {
+        this.bookBackDate = bookBackDate;
     }
 
     public int getUserId() {

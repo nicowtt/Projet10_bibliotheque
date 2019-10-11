@@ -90,4 +90,19 @@ public class BookController {
         return listBooksName;
     }
 
+    /**
+     * for change wait reservation disponibility
+     * @param bookId
+     * @param booleanStatus
+     * @return
+     */
+    @GetMapping(value = "/ChangeWaitReservationDisponibility/{bookId}/{booleanStatus}")
+    public HttpStatus changeWaitReservationDisponibility(@PathVariable int bookId,
+                                                        @PathVariable boolean booleanStatus) {
+        bookDao.changeWaitReservationForOneBook(bookId, booleanStatus);
+
+        //send httpStatus -> ok
+        return HttpStatus.OK;
+    }
+
 }

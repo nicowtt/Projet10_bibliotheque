@@ -25,6 +25,9 @@ public class BookReservation {
     @Column(name = "bookback")
     private boolean bookBack;
 
+    @Column(name = "bookbackdate")
+    private String bookBackDate;
+
     @Column(name = "user_id")
     private int userId;
 
@@ -50,11 +53,12 @@ public class BookReservation {
     public BookReservation() {
     }
 
-    public BookReservation(String beginOfReservationDate, String endOfReservationDate, boolean extensionOfReservation, boolean bookBack, int userId, int bookId, int libraryId, LibraryUser libraryUser, Book book, Library library) {
+    public BookReservation(String beginOfReservationDate, String endOfReservationDate, boolean extensionOfReservation, boolean bookBack, String bookBackDate, int userId, int bookId, int libraryId, LibraryUser libraryUser, Book book, Library library) {
         this.beginOfReservationDate = beginOfReservationDate;
         this.endOfReservationDate = endOfReservationDate;
         this.extensionOfReservation = extensionOfReservation;
         this.bookBack = bookBack;
+        this.bookBackDate = bookBackDate;
         this.userId = userId;
         this.bookId = bookId;
         this.libraryId = libraryId;
@@ -102,6 +106,14 @@ public class BookReservation {
 
     public void setBookBack(boolean bookBack) {
         this.bookBack = bookBack;
+    }
+
+    public String getBookBackDate() {
+        return bookBackDate;
+    }
+
+    public void setBookBackDate(String bookBackDate) {
+        this.bookBackDate = bookBackDate;
     }
 
     public int getUserId() {
@@ -152,7 +164,6 @@ public class BookReservation {
         this.library = library;
     }
 
-
     //to string
     @Override
     public String toString() {
@@ -162,6 +173,7 @@ public class BookReservation {
                 ", endOfReservationDate='" + endOfReservationDate + '\'' +
                 ", extensionOfReservation=" + extensionOfReservation +
                 ", bookBack=" + bookBack +
+                ", bookBackDate" + bookBackDate +
                 ", userId=" + userId +
                 ", bookId=" + bookId +
                 ", libraryId=" + libraryId +

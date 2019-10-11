@@ -3,6 +3,7 @@ package com.eLibraryClient.applicationWebClientproxies.proxies;
 
 import com.eLibraryModel.beans.*;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -65,6 +66,15 @@ public interface MicroserviceBDDProxy {
      */
     @GetMapping(value = "/BooksNameList")
     List<String> getListOfBookName();
+
+    /**
+     * change wait reservation disponibility
+     * @param bookId
+     * @param booleanStatus
+     */
+    @GetMapping(value = "/ChangeWaitReservationDisponibility/{bookId}/{booleanStatus}")
+    void changeWaitReservationDisponibility (@PathVariable("bookId") Integer bookId,
+                                             @PathVariable("booleanStatus") boolean booleanStatus);
 
 
     //*******************************************//
@@ -194,4 +204,72 @@ public interface MicroserviceBDDProxy {
      */
     @GetMapping(value = "/BookBack/{reservationId}")
     void bookBack(@PathVariable("reservationId") Integer reservationId);
+
+    /**
+     * Get Reservation in progress by book id
+     * @param bookId
+     * @return
+     */
+    @GetMapping(value = "/BookReservationInProgressByBookId/{bookId}")
+    List<BookReservationBean> getReservationInProgressByBookId(@PathVariable("bookId") Integer bookId);
+
+    /**
+     * Get Reservation ended by book Id
+     * @param bookId
+     * @return
+     */
+    @GetMapping(value = "/BookReservationEndedByBookId/{bookId}")
+    List<BookReservationBean> getReservationEndedByBookId(@PathVariable("bookId") Integer bookId);
+
+    //*******************************************//
+    //************ BookUserWaitingReservation ***//
+    //*******************************************//
+
+    /**
+     * Get User waiting Reservation
+     * @param bookId
+     * @return
+     */
+    @GetMapping(value = "/UserWaitingReservationByBookId/{bookId}")
+    List<BookUserWaitingReservationBean> getUserWaitingReservationByBook(@PathVariable("bookId") Integer bookId);
+
+    /**
+     * write new wait reservation on microserviceBDD
+     * @param bookUserWaitingReservationBean
+     * @return
+     */
+    @PostMapping(value = "/NewWaitingReservation")
+    BookUserWaitingReservationBean addWaitReservation(@RequestBody BookUserWaitingReservationBean bookUserWaitingReservationBean);
+
+    /**
+     * Get User waiting Reservation
+     * @param userId
+     * @return
+     */
+    @GetMapping(value = "/UserWaitingReservationbyUserId/{userId}")
+    List<BookUserWaitingReservationBean> getUserWaitingReservationByUser(@PathVariable("userId") Integer userId);
+
+    /**
+     * update new wait reservation on microserviceBDD
+     * @param bookUserWaitingReservationBean
+     * @return
+     */
+    @PostMapping(value = "/UpdateWaitingReservation")
+    ResponseEntity<?> updateWaitReservation(@RequestBody BookUserWaitingReservationBean bookUserWaitingReservationBean);
+
+    /**
+     * Get User waiting Reservation
+     * @param waitingReservationId
+     * @return
+     */
+    @GetMapping(value = "/UserWaitingReservationByWaitingReservationId/{waitingReservationId}")
+    BookUserWaitingReservationBean getUserWaitingReservationByWaitingReservationId(@PathVariable("waitingReservationId") Integer waitingReservationId);
+
+    /**
+     * To delete one Waiting Reservation
+     * @param bookUserWaitingReservationBean
+     * @return
+     */
+    @PostMapping(value = "/DeleteUserWaitingReservation")
+    ResponseEntity<?> deleteUserWaitingReservation(@RequestBody BookUserWaitingReservationBean bookUserWaitingReservationBean);
 }

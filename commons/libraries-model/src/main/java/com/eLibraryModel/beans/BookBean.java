@@ -12,6 +12,7 @@ public class BookBean {
     private String bookDescription;
     private String bookLabel;
     private Boolean allBookReserved;
+    private Boolean waitReservationFull;
 
     // LibraryBean
     private Set<LibraryBean> libraries = new HashSet<>();
@@ -20,7 +21,7 @@ public class BookBean {
     public BookBean() {
     }
 
-    public BookBean(int id, String bookName, String bookAuthor, String bookPictureUrl, String bookDescription, String bookLabel, Boolean allBookReserved, Set<LibraryBean> libraries) {
+    public BookBean(int id, String bookName, String bookAuthor, String bookPictureUrl, String bookDescription, String bookLabel, Boolean allBookReserved, Boolean waitReservationFull, Set<LibraryBean> libraries) {
         this.id = id;
         this.bookName = bookName;
         this.bookAuthor = bookAuthor;
@@ -28,6 +29,7 @@ public class BookBean {
         this.bookDescription = bookDescription;
         this.bookLabel = bookLabel;
         this.allBookReserved = allBookReserved;
+        this.waitReservationFull = waitReservationFull;
         this.libraries = libraries;
     }
 
@@ -86,6 +88,14 @@ public class BookBean {
 
     public void setAllBookReserved(Boolean allBookReserved) {
         this.allBookReserved = allBookReserved;
+    }
+
+    public Boolean getWaitReservationFull() {
+        return waitReservationFull;
+    }
+
+    public void setWaitReservationFull(Boolean waitReservationFull) {
+        this.waitReservationFull = waitReservationFull;
     }
 
     public Set<LibraryBean> getLibraries() {

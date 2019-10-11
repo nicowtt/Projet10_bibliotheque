@@ -14,7 +14,7 @@ import java.util.Date;
 public class DateManagerImpl implements DateManager {
 
     /**
-     * for today date (dd/MM/yyyy)
+     * for today date (dd/MM/yyyy HH:mm:ss)
      *
      * @return
      */
@@ -23,7 +23,7 @@ public class DateManagerImpl implements DateManager {
         Calendar calendar = Calendar.getInstance();
 
         //template
-        SimpleDateFormat simpleDate = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat simpleDate = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 
         return simpleDate.format(calendar.getTime());
     }
@@ -42,7 +42,7 @@ public class DateManagerImpl implements DateManager {
         Calendar dateToCompare = Calendar.getInstance(); // 2eme calendar is date to compare
 
         //template
-        DateFormat dateFormated = new SimpleDateFormat("dd/MM/yyyy");
+        DateFormat dateFormated = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 
         // convert input on Date
         try {
