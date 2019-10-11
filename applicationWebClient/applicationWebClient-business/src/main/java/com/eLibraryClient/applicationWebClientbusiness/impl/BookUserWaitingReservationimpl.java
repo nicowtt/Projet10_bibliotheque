@@ -229,7 +229,7 @@ public class BookUserWaitingReservationimpl implements BookUserWaitingReservatio
         if (bookUserWaitingReservationList.size() > 0) {
             //check if user in session is the first on waiting List -> only this user can reserve book
             for (int i = 0; i < bookUserWaitingReservationList.size(); i++) {
-                if (bookUserWaitingReservationList.get(i).getStandOnWaitingList() == 1 &&
+                if (bookUserWaitingReservationList.get(i).isMailSend() &&
                         bookUserWaitingReservationList.get(i).getLibraryUserId() == userSessionId) {
                     userWaitBook = false;
                     break;
@@ -260,9 +260,9 @@ public class BookUserWaitingReservationimpl implements BookUserWaitingReservatio
     public void deleteBookUserWaitingReservationIfUserInSessionMakeReservation (int bookId, int userSessionId) {
         List<BookUserWaitingReservationBean> bookUserWaitingReservationList =
                 microserviceBDDProxy.getUserWaitingReservationByBook(bookId);
-        if (bookUserWaitingReservationList.size() != 0) {
-            if (bookUserWaitingReservationList.get(0).getLibraryUserId() == userSessionId) {
-                microserviceBDDProxy.deleteUserWaitingReservation(bookUserWaitingReservationList.get(0));
+        for (int i = 0; i < bookUserWaitingReservationList.size(); i++) {
+            if (bookUserWaitingReservationList.get(i).getLibraryUserId() == userSessionId) {
+                microserviceBDDProxy.deleteUserWaitingReservation(bookUserWaitingReservationList.get(i));
             }
         }
     }

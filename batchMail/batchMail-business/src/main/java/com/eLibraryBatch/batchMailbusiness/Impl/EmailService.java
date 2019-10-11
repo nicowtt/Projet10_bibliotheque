@@ -17,7 +17,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
 
 
 @Component
@@ -86,6 +85,8 @@ public class EmailService {
         String subject = "";
         String text = "";
         int mailSendtoUser = 0;
+        int stand = 1;
+        boolean standOk = false;
 
         // today book back check
         List<BookReservationBean> bookReservationEndedTodayList = microserviceBDDProxy.getBookreservationEndedToday();
@@ -100,16 +101,21 @@ public class EmailService {
         for (int i = 0; i < bookUserWaitingReservationListInProgress.size(); i++) {
             mailSendtoUser = 0;
             for (int j = 0; j < listBookBackTodayByBookId.size(); j++) {
+                logger.debug("Id du livre liste d'attente in progress: " + bookUserWaitingReservationListInProgress.get(i).getBookId());
+                logger.debug("Id du livre ramené aujourd'hui: " +listBookBackTodayByBookId.get(j));
+                logger.debug("******");
                 if (bookUserWaitingReservationListInProgress.get(i).getBookId() == listBookBackTodayByBookId.get(j)) {
                     //sendEmail in order of stand
-                    if (bookUserWaitingReservationListInProgress.get(i).getStandOnWaitingList() == 1) {
+                    if (bookUserWaitingReservationListInProgress.get(i).getStandOnWaitingList() == stand) {
+                        standOk = true;
                         String userOnWaitingEmail =
                                 microserviceBDDProxy.getUserEmailByUserId(bookUserWaitingReservationListInProgress.get(i).getLibraryUserId());
-
+                        logger.debug("possible envoi à: "+userOnWaitingEmail + " position: " + stand + " de la liste d'attente.");
                         //check if mail was already send one day before
                         Date emailAlreadySend = bookUserWaitingReservationListInProgress.get(i).getMailSendDate();
                         if (emailAlreadySend != null) {
                             mailSendtoUser = 1;
+                            logger.debug(userOnWaitingEmail + " a déja reçu le mail.");
                         }
                         if (mailSendtoUser < 1) {
                             //sending Email
@@ -117,7 +123,7 @@ public class EmailService {
                             subject = "Livre disponible !";
                             text = "Bonjour " + userOnWaitingEmail + "," +
                                     "\nLe livre: " + bookUserWaitingReservationListInProgress.get(i).getBook().getBookName() +
-                                    " de l'auteur: " + bookUserWaitingReservationListInProgress.get(i).getBook().getBookAuthor() +
+                                    ", de l'auteur: " + bookUserWaitingReservationListInProgress.get(i).getBook().getBookAuthor() +
                                     " est disponible, vous avez 2 jours pour l'emprunter." +
                                     "\nAprés ce délai votre place sur la liste d'attente sera supprimé." +
                                     "\nMerci";
@@ -141,6 +147,11 @@ public class EmailService {
                             microserviceBDDProxy.updateWaitReservation(bookUserWaitingReservationListInProgress.get(i));
                         }
                     }
+                    if (standOk) {
+                        stand ++;
+                        standOk = false;
+                    }
+
                 }
             }
         }
