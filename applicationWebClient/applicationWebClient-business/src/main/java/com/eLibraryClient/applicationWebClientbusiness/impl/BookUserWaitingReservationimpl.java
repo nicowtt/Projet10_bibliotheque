@@ -242,6 +242,16 @@ public class BookUserWaitingReservationimpl implements BookUserWaitingReservatio
     }
 
     /**
+     * For update book user waiting reservation bean
+     * @param bookUserWaitingReservationBean
+     */
+    @Override
+    public ResponseEntity<?> updateBookUserWaitingReservation(BookUserWaitingReservationBean bookUserWaitingReservationBean) {
+        ResponseEntity responseEntity = microserviceBDDProxy.updateWaitReservation(bookUserWaitingReservationBean);
+        return responseEntity;
+    }
+
+    /**
      * delete book user waiting reservation if user in session make Reservation
      * @param bookId
      * @param userSessionId

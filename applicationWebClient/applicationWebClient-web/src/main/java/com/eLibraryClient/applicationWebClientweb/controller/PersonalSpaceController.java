@@ -10,6 +10,7 @@ import com.eLibraryModel.beans.LibraryUserBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,6 +41,18 @@ public class PersonalSpaceController {
         LibraryUserBean userOnSession = libraryUserManager.getOneUser(userSession.getUserEmail());
         //display list of reservation in progress
         List<BookReservationBean> bookReservationListForOneUser = bookReservationManager.bookReservationListForOneUser(userOnSession.getId());
+        // todo update closedDateBack
+        List<BookUserWaitingReservationBean> bookwaitingReservationForUserIsSession =
+                bookUserWaitingReservationManager.getBookUserWaitingReservationById(userOnSession.getId());
+        for (int i = 0; i < bookwaitingReservationForUserIsSession.size(); i++) {
+            String closedDateback = bookReservationManager.getTheoricalEndReservationDateClosedThanToday(bookwaitingReservationForUserIsSession.get(i).getBookId());
+            bookwaitingReservationForUserIsSession.get(i).setClosedDateBack(closedDateback);
+            ResponseEntity responseEntity = bookUserWaitingReservationManager.updateBookUserWaitingReservation(bookwaitingReservationForUserIsSession.get(i));
+            if (responseEntity.getStatusCodeValue() == 202) {
+                logger.info("La date de retour la plus proche pour la reservation en liste d'attente d'ID: "
+                        + bookwaitingReservationForUserIsSession.get(i).getId() + " à été mise à jour.");
+            }
+        }
         //display list of waiting reservation
         List<BookUserWaitingReservationBean> bookUserWaitingReservationList =
                 bookUserWaitingReservationManager.getBookUserWaitingReservationById(userOnSession.getId());

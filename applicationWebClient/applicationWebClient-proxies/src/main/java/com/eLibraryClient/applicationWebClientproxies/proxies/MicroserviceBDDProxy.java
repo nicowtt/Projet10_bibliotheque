@@ -255,7 +255,7 @@ public interface MicroserviceBDDProxy {
      * @return
      */
     @PostMapping(value = "/UpdateWaitingReservation")
-    BookUserWaitingReservationBean updateWaitReservation(@RequestBody BookUserWaitingReservationBean bookUserWaitingReservationBean);
+    ResponseEntity<?> updateWaitReservation(@RequestBody BookUserWaitingReservationBean bookUserWaitingReservationBean);
 
     /**
      * Get User waiting Reservation

@@ -22,4 +22,5 @@ public interface BookUserWaitingReservationManager {
     ResponseEntity<?> deleteBookUserWaitingReservation(BookUserWaitingReservationBean bookUserWaitingReservationBean);
     boolean checkIfUserWaitForBook(int bookId, int userSessionId);
     void deleteBookUserWaitingReservationIfUserInSessionMakeReservation (int bookId, int userSessionId);
+    ResponseEntity<?> updateBookUserWaitingReservation(BookUserWaitingReservationBean bookUserWaitingReservationBean);
     }
