@@ -55,6 +55,6 @@ public class BookUserWaitingManagerImplUnitTest {
 
         manager.updateUsersStand(1);
 
-        //todo test
+        //todo make test
     }
 }
