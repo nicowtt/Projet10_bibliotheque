@@ -1,0 +1,492 @@
+{
+	"info": {
+		"_postman_id": "b114e32b-7165-4c20-9146-4e06b39b7dd9",
+		"name": "Bibliothèque p10-scénario",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "1/(microserviceBDD) Json ajouter un utilisateur",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "mdp",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "utilisateur",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userFirstName\": \"louis\",\n    \"userName\": \"marianno\",\n    \"userPassword\": \"mdp\",\n    \"userEmail\": \"louis.marianno@gmail.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9001/NewUser",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9001",
+					"path": [
+						"NewUser"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2/(microserviceBDD)Json ajouter une reservation liste d'attente (userId4, bookId1)",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "mdp",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "utilisateur",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"bookId\": 1,\n    \"libraryUserId\": 4,\n    \"waitReservationDate\": \"15/10/2019 17:45:00\",\n    \"closedDateBack\": \"08/11/2019 08:40:00\",\n    \"standOnWaitingList\": 1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9001/NewWaitingReservation",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9001",
+					"path": [
+						"NewWaitingReservation"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "3/(microserviceBDD) Json ajouter un autre utilisateur",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "mdp",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "utilisateur",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userFirstName\": \"jean-claude\",\n    \"userName\": \"vandamme\",\n    \"userPassword\": \"mdp\",\n    \"userEmail\": \"jean-claude.vandamme@gmail.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9001/NewUser",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9001",
+					"path": [
+						"NewUser"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "4/(microserviceBDD)Json ajouter une reservation liste d'attente (userId5, bookId1)",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "mdp",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "utilisateur",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"bookId\": 1,\n    \"libraryUserId\": 5,\n    \"waitReservationDate\": \"15/10/2019 18:00:00\",\n    \"closedDateBack\": \"08/11/2019 08:40:00\",\n    \"standOnWaitingList\": 2\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9001/NewWaitingReservation",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9001",
+					"path": [
+						"NewWaitingReservation"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "5/(microserviceBDD)Json user michel(id1) ramene le livre d'id1",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9001/BookBack/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9001",
+					"path": [
+						"BookBack",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "6/(microserviceBDD)Json voir les reservation en liste d'attente pour le livre 1",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9001/UserWaitingReservationByBookId/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9001",
+					"path": [
+						"UserWaitingReservationByBookId",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "7/(microserviceBDD)Json annulation de la reservation (liste d'attente) (userId4,bookId1)",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "mdp",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "utilisateur",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id\":1,\n    \"bookId\": 1,\n    \"libraryUserId\": 4,\n    \"waitReservationDate\": \"15/10/2019 17:45:00\",\n    \"closedDateBack\": \"08/11/2019 08:40:00\",\n    \"standOnWaitingList\": 1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9001/DeleteUserWaitingReservation",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9001",
+					"path": [
+						"DeleteUserWaitingReservation"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "8/(microserviceBDD)Json voir les reservation en liste d'attente pour le livre 1",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9001/UserWaitingReservationByBookId/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9001",
+					"path": [
+						"UserWaitingReservationByBookId",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "9/(microserviceBDD)Json update reservation liste attente (mail envoyé) pour utilisateur id5",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "mdp",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "utilisateur",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id\":2,\n    \"bookId\": 1,\n    \"libraryUserId\": 5,\n    \"waitReservationDate\": \"15/10/2019 18:00:00\",\n    \"closedDateBack\": \"08/11/2019 08:40:00\",\n    \"standOnWaitingList\": 1,\n    \"mailSend\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9001/UpdateWaitingReservation",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9001",
+					"path": [
+						"UpdateWaitingReservation"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "10/(microserviceBDD)Json l'utilisateur jean-claude (id5) reserve le livre d'id 1",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "mdp",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "utilisateur",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"beginOfReservationDate\": \"15/10/2019 19:00:00\",\n    \"endOfReservationDate\": \"16/11/2019 19:00:00\",\n    \"extensionOfReservation\": 0,\n    \"bookBack\": false,\n    \"userId\": 5,\n    \"bookId\": 1,\n    \"libraryId\": 1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9001/NewBookReservation",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9001",
+					"path": [
+						"NewBookReservation"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "11/(microserviceBDD)Json suppression de l'user id5 de la liste d'attente",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "mdp",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "utilisateur",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id\": 2,\n    \"bookId\": 1,\n    \"libraryUserId\": 5,\n    \"waitReservationDate\": \"15/10/2019 18:00:00\",\n    \"closedDateBack\": \"08/11/2019 08:40:00\",\n    \"standOnWaitingList\": 1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9001/DeleteUserWaitingReservation",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9001",
+					"path": [
+						"DeleteUserWaitingReservation"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "12/(microserviceBDD)Json voir les reservation en liste d'attente pour le livre 1",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9001/UserWaitingReservationByBookId/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9001",
+					"path": [
+						"UserWaitingReservationByBookId",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
