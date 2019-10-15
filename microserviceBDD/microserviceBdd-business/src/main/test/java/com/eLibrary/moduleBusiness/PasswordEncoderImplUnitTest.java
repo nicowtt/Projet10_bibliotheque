@@ -14,12 +14,17 @@ public class PasswordEncoderImplUnitTest {
     PasswordEncoderImpl manager;
 
     @Test
-    public void testhashPassword() {
+    public void testHashPassword() {
         String password = "mdp";
-
         String hashingPassword = manager.hashPassword(password);
         boolean passwordToTest = manager.checkPassword(password, hashingPassword);
-
         Assert.assertTrue(passwordToTest);
+    }
+
+    @Test
+    public void testCheckPassword() {
+        boolean testPassword = manager.checkPassword("mdp",
+                "$2a$10$ZrNev/FCEyfKp3.Zc/irx.OrtFuqL7X6t.tJytIOiYLQ458k2jasO");
+        Assert.assertTrue(testPassword);
     }
 }

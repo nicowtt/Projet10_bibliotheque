@@ -27,7 +27,7 @@ public class DateManagerImplUnitTest {
         SimpleDateFormat simpleDate = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         //result
         String todayDate = simpleDate.format(calendar.getTime());
-
+        // test for todayDate
         Assert.assertEquals(manager.todayDate(), todayDate);
     }
 
@@ -42,13 +42,13 @@ public class DateManagerImplUnitTest {
         String yesterday = simpleDate.format(calendar.getTime());
         todayEnum = manager.compareDateWithToday(yesterday);
 
-        Assert.assertTrue("test yesterday", todayEnum == ISAFTER);
+        Assert.assertTrue("test yesterday NOK", todayEnum == ISAFTER);
 
         //Tomorrow test
         calendar.add(Calendar.DATE, 2);
         String tomorrow = simpleDate.format(calendar.getTime());
         todayEnum = manager.compareDateWithToday(tomorrow);
 
-        Assert.assertTrue("test tomorrow", todayEnum == ISBEFORE);
+        Assert.assertTrue("test tomorrow NOK", todayEnum == ISBEFORE);
     }
 }

@@ -1,9 +1,9 @@
 package com.eLibrary.moduleBusiness;
 
+import com.eLibrary.moduleBusiness.impl.PasswordEncoderImpl;
 import com.eLibrary.moduleBusiness.impl.UserManagerImpl;
 import com.eLibrary.moduleDao.dao.LibraryUserDao;
 import com.eLibrary.moduleModel.beans.LibraryUser;
-import javafx.beans.binding.When;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,10 +14,6 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyBoolean;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.when;
 
@@ -31,7 +27,10 @@ public class UserManagerImplUnitTest {
     LibraryUserDao mockLibraryUserDao;
 
     @Mock
-    UserManagerImpl mockManager;
+    PasswordEncoderImpl mockPasswordEncoder;
+
+    @InjectMocks
+    PasswordEncoderImpl passwordEncoder;
 
     @Before
     public void setup() {
@@ -42,28 +41,36 @@ public class UserManagerImplUnitTest {
     @Test
     public void testCheckIfMailExist() {
         LibraryUser oneUser = Mockito.mock(LibraryUser.class);
-        oneUser.setId(1);
-        oneUser.setUserEmail("unTest@gmail.com");
 
-        when(mockLibraryUserDao.findByUserEmail(anyString())).thenReturn(oneUser);
-        boolean exist = manager.checkIfMailExist("unTest@Gmail.com");
+        when(mockLibraryUserDao.findByUserEmail("jean-claude.vandamme@Gmail.com")).thenReturn(oneUser);
+        boolean exist = manager.checkIfMailExist("jean-claude.vandamme@Gmail.com");
+        Assert.assertTrue("test mail present",exist);
 
-        Assert.assertTrue(exist);
+        exist = manager.checkIfMailExist("bruce.lee@gmail.com");
+        Assert.assertTrue("test mail not present",!exist);
+
     }
 
     @Test
     public void testCheckIfUserMailAndPassIsOk() {
         boolean mailExist = true;
         LibraryUser oneUser = Mockito.mock(LibraryUser.class);
-        oneUser.setId(1);
-        oneUser.setUserEmail("unTest@gmail.com");
+        oneUser.setUserEmail("jean-claude.vandamme@Gmail.com");
+        oneUser.setUserPassword("mdp");
 
-        when(mockLibraryUserDao.findByUserEmail(anyString())).thenReturn(oneUser);
-        //todo mock cette methode: mailExist = this.checkIfMailExist(userBeanInput.getUserEmail());
-//        doReturn(true).when(mockManager.checkIfMailExist(anyString()));
-//        when(mockManager.checkIfMailExist(anyString())).thenReturn(true);
+        LibraryUser userPresentOnBDD = Mockito.mock(LibraryUser.class);
+        userPresentOnBDD.setUserEmail("jean-claude.vandamme@Gmail.com");
+        userPresentOnBDD.setUserPassword("notGoodHash");
 
-        manager.checkIfUserMailAndPassIsOk(oneUser);
+        when(mockLibraryUserDao.findByUserEmail("jean-claude.vandamme@Gmail.com")).thenReturn(oneUser, userPresentOnBDD);
+
+        //for checkIfMailExist method
+        when(oneUser.getUserEmail()).thenReturn("jean-claude.vandamme@Gmail.com");
+        //for checkPassord method
+        when(oneUser.getUserPassword()).thenReturn("mdp");
+        when(userPresentOnBDD.getUserPassword()).thenReturn("notGoodHash");
+
+        boolean valid = manager.checkIfUserMailAndPassIsOk(oneUser);
+        Assert.assertFalse("test user and password", valid);
     }
-
 }

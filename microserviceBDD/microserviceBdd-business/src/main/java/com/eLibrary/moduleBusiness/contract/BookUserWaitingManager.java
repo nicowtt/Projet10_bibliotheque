@@ -2,7 +2,8 @@ package com.eLibrary.moduleBusiness.contract;
 
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 @Service
 public interface BookUserWaitingManager {
-    void updateUsersStand(int bookId);
+    List<Integer> updateUsersStand(int bookId);
 }
