@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:insert="_include/head.html"></div>
+</head>
+
+<header class="raw">
+    <div th:insert="_include/header.html"></div>
+</header>
+<body>
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-xs-4 col-sm-3 col-md-2">
+            <!-- Body
+               ================================================== -->
+            <!-- display site -->
+            <p></p>
+            <!-- cover and description (mouse over) -->
+            <img th:src="${waitReservation.book.bookPictureUrl}" style="width:150px;height:200px; border:0px;" class="img-rounded"
+                 th:title="'*Nom:'+${waitReservation.book.bookName}+' *Auteur:'+${waitReservation.book.bookAuthor}+' *Description:'+${waitReservation.book.bookDescription}">
+            <p></p>
+            <!-- information for reservation -->
+            <p th:text="'Ce livre sera disponible le: '+${waitReservation.getEndOfReservationDate()}+' pour la premiere personne en attente.'"></p>
+            <p th:text="'Il y a '+${nbrUserWaiting}+' personne(s) en attente de reservation.'"></p>
+            <p></p>
+            <!-- liste -->
+            <!--<p>Liste des personnes en attente:</p>-->
+            <!--<div th:each="u : ${userWaitReservation}" >-->
+            <!--<div th:each="v : ${u.userReservation}" >-->
+            <!--<p th:text="${v.libraryUser.userFirstName}"></p>-->
+            <!--</div>-->
+            <!--</div>-->
+            <a th:href="@{'/addUserReservation/'+${waitReservation.book.id}}" type="button" class="btn btn-xs btn-primary" id="onBookDispo"
+               th:if="${waitReservation.book.allBookReserved}">M'ajouter en liste d'attente </a>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <div th:insert="_include/footer.html"></div>
+</footer>
+
+</body>
+</html>

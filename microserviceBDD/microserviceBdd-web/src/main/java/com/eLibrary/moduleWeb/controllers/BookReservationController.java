@@ -1,6 +1,7 @@
 package com.eLibrary.moduleWeb.controllers;
 
 import com.eLibrary.moduleBusiness.contract.BookReservationManager;
+import com.eLibrary.moduleBusiness.contract.DateManager;
 import com.eLibrary.moduleDao.dao.BookReservationDao;
 import com.eLibrary.moduleModel.beans.BookReservation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,8 @@ public class BookReservationController {
     private BookReservationDao bookReservationDao;
     @Autowired
     private BookReservationManager bookReservationManager;
+    @Autowired
+    private DateManager dateManager;
 
     /**
      * get list all reservation
@@ -103,6 +106,47 @@ public class BookReservationController {
 
         return bookReservationListLate;
     }
+
+    /**
+     * get book reservation in progress by bookId in progress
+     * @param bookId
+     * @return
+     */
+    @GetMapping(value = "/BookReservationInProgressByBookId/{bookId}")
+    public List<BookReservation> bookReservationInProgressByBookId(@PathVariable Integer bookId) {
+
+        List<BookReservation> bookReservationList = bookReservationDao.getBookReservationByBookIdAndBookBackEquals(bookId, false);
+
+        return bookReservationList;
+    }
+
+    /**
+     * get book reservation ended by bookId
+     * @param bookId
+     * @return
+     */
+    @GetMapping(value = "/BookReservationEndedByBookId/{bookId}")
+    public List<BookReservation> bookReservationEndedByBookId(@PathVariable Integer bookId) {
+
+        List<BookReservation> bookReservationList = bookReservationDao.getBookReservationByBookIdAndBookBackEquals(bookId, true);
+
+        return bookReservationList;
+    }
+
+    /**
+     * get book Reservation ended for today
+     * @return
+     */
+    @GetMapping(value = "/BookReservationEndedForToday")
+    public List<BookReservation>  bookReservationEndedForToday() {
+        String todayDate = dateManager.todayDate();
+        String todaydateForSqlRequest = todayDate.substring(0,10) + "%";
+        List<BookReservation>bookReservationList = bookReservationDao.getEndBookReservationForToday(true, todaydateForSqlRequest);
+
+        return bookReservationList;
+    }
+
+
 
 
 }

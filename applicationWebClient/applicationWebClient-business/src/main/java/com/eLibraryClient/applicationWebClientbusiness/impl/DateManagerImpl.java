@@ -25,7 +25,7 @@ public class DateManagerImpl implements DateManager {
     @Override
     public String todayDate() {
         Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat simpleDate = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat simpleDate = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         return simpleDate.format(calendar.getTime());
     }
 
@@ -38,7 +38,7 @@ public class DateManagerImpl implements DateManager {
     @Override
     public String addDaysOnTodayDate(int pNbrOfDay) {
         Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat simpleDate = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat simpleDate = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         calendar.add(Calendar.DATE, pNbrOfDay);
         return simpleDate.format(calendar.getTime());
     }
@@ -54,8 +54,8 @@ public class DateManagerImpl implements DateManager {
         Date newDate = new Date();
         DateFormat formatter;
         Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat simpleDate = new SimpleDateFormat("dd/MM/yyyy");
-        formatter = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat simpleDate = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         try {
             newDate = (Date) formatter.parse(inputDate);
         } catch (ParseException e) {
@@ -78,7 +78,7 @@ public class DateManagerImpl implements DateManager {
         CompareDate CompareDateEnum = CompareDate.ISBEFORE;
         Calendar todayDate = Calendar.getInstance();
         Calendar dateToCompare = Calendar.getInstance();
-        DateFormat dateFormated = new SimpleDateFormat("dd/MM/yyyy");
+        DateFormat dateFormated = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         try {
             newDate = dateFormated.parse(pDate);
         } catch (ParseException e) {
@@ -102,5 +102,73 @@ public class DateManagerImpl implements DateManager {
         }
         return CompareDateEnum;
 
+    }
+
+    /**
+     * For compare two dates
+     * @param pFirstDate
+     * @param pSecondDate
+     * @return
+     */
+    @Override
+    public CompareDate compareTwoDate(String pFirstDate, String pSecondDate) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        CompareDate CompareDateEnum = CompareDate.ISBEFORE;
+        Date firstDate = new Date();
+        Date secondDate = new Date();
+
+        try {
+            firstDate = simpleDateFormat.parse(pFirstDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            secondDate = simpleDateFormat.parse(pSecondDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        if (pFirstDate.equals(pSecondDate)) {
+            logger.debug(pFirstDate + " is the same as " + pSecondDate);
+            CompareDateEnum = CompareDate.ISTODAY;
+        }
+
+        if (firstDate.after(secondDate)) {
+            logger.debug(pFirstDate + " is after " + pSecondDate);
+            CompareDateEnum = CompareDate.ISAFTER;
+        }
+        if (firstDate.before(secondDate)) {
+            logger.debug(firstDate + " is before " + secondDate);
+            CompareDateEnum = CompareDate.ISBEFORE;
+        }
+        return CompareDateEnum;
+    }
+
+    @Override
+    public int countNbrOfDayBetweenTwoDates(String date1, String date2) {
+        int CONST_DURATION_OF_DAY = 1000 * 60 * 60 * 24;
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        Date firstDate = new Date();
+        Date secondDate = new Date();
+
+        try {
+            firstDate = simpleDateFormat.parse(date1);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            secondDate = simpleDateFormat.parse(date2);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        // Différence
+        long diff = Math.abs(secondDate.getTime() - firstDate.getTime());
+        int numberOfDay = (int)diff/CONST_DURATION_OF_DAY;
+        System.err.println("Le nombre de jour est : " + numberOfDay);
+
+        return numberOfDay;
     }
 }

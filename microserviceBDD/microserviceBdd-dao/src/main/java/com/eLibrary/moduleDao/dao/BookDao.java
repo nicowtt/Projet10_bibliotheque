@@ -26,4 +26,8 @@ public interface BookDao extends JpaRepository<Book, Integer> {
     @Query(value = "SELECT DISTINCT bookname FROM book", nativeQuery = true)
     List<String> findDistinctByBookName();
 
+    @Modifying
+    @Query(value = "UPDATE book set waitReservationFull = ?2 WHERE id = ?1", nativeQuery = true)
+    void changeWaitReservationForOneBook(int bookId, boolean booleanStatus);
+
 }

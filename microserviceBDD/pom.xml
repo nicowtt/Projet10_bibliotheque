@@ -15,7 +15,7 @@
 	<!-- ===== Informations Maven ===== -->
 	<groupId>com.eLibrary</groupId>
 	<artifactId>microserviceBDD</artifactId>
-	<version>1.0.1</version>
+	<version>2.0.0</version>
 	<packaging>pom</packaging>
 
 	<!-- ===== Informations générales ===== -->
@@ -51,25 +51,25 @@
 			<dependency>
 				<groupId>${project.groupId}</groupId>
 				<artifactId>microserviceBdd-business</artifactId>
-				<version>1.0.1</version>
+				<version>2.0.0</version>
 			</dependency>
 
 			<dependency>
 				<groupId>${project.groupId}</groupId>
 				<artifactId>microserviceBdd-model</artifactId>
-				<version>1.0.1</version>
+				<version>2.0.0</version>
 			</dependency>
 
 			<dependency>
 				<groupId>${project.groupId}</groupId>
 				<artifactId>microservice-dao</artifactId>
-				<version>1.0.1</version>
+				<version>2.0.0</version>
 			</dependency>
 
 			<dependency>
 				<groupId>${project.groupId}</groupId>
 				<artifactId>microserviceBdd-web</artifactId>
-				<version>1.0.1</version>
+				<version>2.0.0</version>
 			</dependency>
 			<!-- ===== Bibliothèques tierces ===== -->
 			<dependency>
@@ -114,6 +114,28 @@
 				<artifactId>postgresql</artifactId>
 				<version>42.2.5</version>
 				<scope>runtime</scope>
+			</dependency>
+
+			<!-- Test unitaires -->
+			<dependency>
+				<groupId>junit</groupId>
+				<artifactId>junit</artifactId>
+				<version>4.12</version>
+				<scope>test</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>org.mockito</groupId>
+				<artifactId>mockito-core</artifactId>
+				<version>2.23.4</version>
+				<scope>test</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-test</artifactId>
+				<version>${spring.version}</version>
+				<scope>test</scope>
 			</dependency>
 
 		</dependencies>

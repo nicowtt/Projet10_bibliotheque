@@ -37,6 +37,27 @@
             </tr>
         </table>
     </div>
+
+    <p>En attente de réservation:</p>
+    <div id="listerAttenteReservation">
+        <table class="table">
+            <tr>
+                <th>Livre</th>
+                <th>Auteur</th>
+                <th>Date d'ajout en liste d'attente</th>
+                <th>Date de retour la plus proche</th>
+                <th>Position en liste d'attente</th>
+            </tr>
+            <tr th:each="w:${waitReservation}">
+                <td th:text="${w.book.bookName}" id="bookName"></td>
+                <td th:text="${w.book.bookAuthor}" id="bookAuthor"></td>
+                <td th:text="${w.waitReservationDate}" id="beginReservationDate"></td>
+                <td th:text="${w.closedDateBack}" id="closedDateBack"></td>
+                <td th:text="${w.standOnWaitingList}" id="standOnWaitingList"></td>
+                <td><a th:href="@{'/waitReservationDelete/' + ${w.id}}">Annuler la reservation sur liste d'attente</td>
+            </tr>
+        </table>
+    </div>
 </div>
 
 <footer>
