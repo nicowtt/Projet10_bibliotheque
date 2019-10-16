@@ -15,7 +15,7 @@
 	<!-- ===== Informations Maven ===== -->
 	<groupId>com.eLibraryClient</groupId>
 	<artifactId>applicationWebClient</artifactId>
-	<version>1.0.1</version>
+	<version>2.0.0</version>
 	<packaging>pom</packaging>
 
 	<!-- ===== Informations générales ===== -->
@@ -50,25 +50,25 @@
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>applicationWebClient-web</artifactId>
-			<version>1.0.1</version>
+			<version>2.0.0</version>
 		</dependency>
 
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>applicationWebClient-proxies</artifactId>
-			<version>1.0.1</version>
+			<version>2.0.0</version>
 		</dependency>
 
 		<dependency>
 			<groupId>com.eLibraryModel</groupId>
 			<artifactId>libraries-model</artifactId>
-			<version>1.0.1</version>
+			<version>2.0.0</version>
 		</dependency>
 
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>applicationWebClient-business</artifactId>
-			<version>1.0.1</version>
+			<version>2.0.0</version>
 		</dependency>
 
 		<!-- ===== Bibliothèques tierces ===== -->

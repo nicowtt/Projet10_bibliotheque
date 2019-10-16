@@ -174,15 +174,15 @@ public class EmailService {
             }
         }
 
-//        // ***** Only for developpementTime: add 2 days to todayDate  ******
-//        Calendar calDevelop = Calendar.getInstance();
-//        calDevelop.setTime(todayDate);
-//        calDevelop.add(Calendar.DATE,2); // here can set number of day:
-//        // nothing -> book is 48h reserved
-//        // 1 -> mail have been sending yesterday (system not re-send email) -> book is 24h reserved
-//        // 2 -> user waiting reservation is deleted -> book was not reserved
-//        todayDate = calDevelop.getTime();
-//        // ******* Only for developpementTime: add 2 days to todayDate *****
+        // ***** Only for developpementTime: add 2 days to todayDate  ******
+        Calendar calDevelop = Calendar.getInstance();
+        calDevelop.setTime(todayDate);
+        calDevelop.add(Calendar.DATE,2); // here can set number of day:
+        // nothing -> book is 48h reserved
+        // 1 -> mail have been sending yesterday (system not re-send email) -> book is 24h reserved
+        // 2 -> user waiting reservation is deleted -> book was not reserved
+        todayDate = calDevelop.getTime();
+        // ******* Only for developpementTime: add 2 days to todayDate *****
 
         //for each user who receive mail (reservation is possible for 48h)
         for (int i = 0; i < bookUserWaitingReservationListOnlyUserHaveReceiveMail.size(); i++) {

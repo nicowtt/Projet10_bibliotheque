@@ -1,5 +1,5 @@
-# Open Classrooms_Projet7 bibliotheque
-Voici un système de gestion de bibliothèques d'une ville.
+# Open Classrooms_Projet10 bibliotheque
+Voici l'amélioration du système de gestion de bibliothèques d'une ville.(V2.0.0)
 
 Il se compose de trois modules:
 
@@ -13,10 +13,27 @@ interface web:
  * Création et retour d'un prêt (fonctions qui seront tranférrées dans un futur logiciel 
  pour le personnels).
  
+ (Amélioration v2.0.0):
+ - Si un livre n'est pas disponible, l'utilisateur peut se mettre en liste  d'attente. 
+  (le nombre de place sur cette liste est égal à 2 x le nombre d'iteration du livre dans la ville).
+ - Affichage de la date de retour prévue la plus proche et du nombre de personne en liste d'attente.
+ Dans l'espace personnel:
+ - Affichage de la liste des réservations en liste d'attente personnelles, avec pour chaque ouvrage:
+    - La prochaine date de retour prévue.
+    - La position  de l'utilisateur en liste d'attente.
+    - La posibilitée d'annuler la réservation.
+ 
 **Un batch**<br/>
 Ce logiciel pour le traitement automatisé permettra d'envoyer des mails de relance
 aux usagers n'ayant pas rendu les livres en fin de période de prêt. L'envoi sera automatique
 à la fréquence d'un par jour.
+
+(Amélioration v2.0.0):
+- Dés qu'un livre est rendu, si il y a une liste d'attente, un mail est envoyé au premier sur la liste d'attente.
+- La personne a 48h pour prendre le livre (elle est prioritaire, personne d'autre ne peut reserver l'ouvrage)
+- Aprés 48h le premier utilisateur sur la liste d'attente est supprimmé.
+- Un mail est envoyé au suivant (s'il existe) qui devient à son tour prioritaire pour 48h.(ainsi de suite)
+- Si personne sur la liste d'attente, l'ouvrage est disponible directement à tous le monde.
 
 **L'API web**<br/>
 Le site web ainsi que le batch communiqueront avec ce logiciel en REST afin de connaitre
@@ -72,8 +89,8 @@ Base de donnée: PostgreSQL 9.6.12
 ```
     mvn package
 ```
-- Le fichier applicationWebClient-web-0.0.1-SNAPSHOT.war devrait être crée dans le dossier target du module web.
-- Copier / coller ce fichier **applicationWebClient-web-0.0.1-SNAPSHOT.war** dans le dossier webapps de tomcat.
+- Le fichier applicationWebClient-web-2.0.0-SNAPSHOT.war devrait être crée dans le dossier target du module web.
+- Copier / coller ce fichier **applicationWebClient-web-2.0.0-SNAPSHOT.war** dans le dossier webapps de tomcat.
 - Créez une base de données "bibliotheque" (pgadmin).
 - Restaurez la bdd avec le dump ou lancez le script de création Bdd p7 et celui du jeu de données de demo.
 
@@ -82,8 +99,8 @@ Base de donnée: PostgreSQL 9.6.12
 ```
     mvn package
 ```
-- Le fichier microserviceBdd-web-0.0.1-SNAPSHOT.war devrait être crée dans le dossier target du module web.
-- Copier / coller ce fichier **microserviceBdd-web-0.0.1-SNAPSHOT.war** dans le dossier webapps de tomcat.
+- Le fichier microserviceBdd-web-2.0.0-SNAPSHOT.war devrait être crée dans le dossier target du module web.
+- Copier / coller ce fichier **microserviceBdd-web-2.0.0-SNAPSHOT.war** dans le dossier webapps de tomcat.
 - Afin d'autoriser la connexion de l'application a la BDD, vous devez declarer une 
 Data source nommé "jdbc/bibliotheque" dans tomcat.
 
@@ -112,7 +129,7 @@ Réglez cette data source dans le fichier context.xml (repertoire conf de tomcat
     mvn package
 ```
 - Le fichier batchMail-business-0.0.1-SNAPSHOT.jar devrait être crée dans le dossier target du module business.
-- Copier coller ce fichier batchMail-business-0.0.1-SNAPSHOT.jar à l'endroit de votre choix sur votre serveur.
+- Copier coller ce fichier batchMail-business-2.0.0-SNAPSHOT.jar à l'endroit de votre choix sur votre serveur.
 - Veuillez mettre le fichier de configuration "application-gmail.properties" au même endroit.
 - Ecrivez le bon mot de passe dans ce fichier de configuration.
 - Fabriquer une variable d'environnement système:
@@ -121,9 +138,10 @@ Dans la console rentrez la commande:
 ```
 set CONF_DIR=C:\Users\nicob\Documents\GitHub\Projet7_bibliotheque\batchMail\batchMail-business\target
 ```
-- Fabriquez une tâche planifié (tous les 24h )qui lance la commande:
+- Fabriquez une tâche planifié (tous les 24h, lancement idéal à 23h55 (afin de prendre en compte les retours de livres
+de la journée))qui lance la commande:
 ```
-Java -jar batchMail-business-0.0.1-SNAPSHOT.jar
+Java -jar batchMail-business-2.0.0-SNAPSHOT.jar
 ```
 
 ## Contribution
