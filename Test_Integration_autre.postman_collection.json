@@ -1,0 +1,451 @@
+{
+	"info": {
+		"_postman_id": "a5f39b70-efa4-4d4c-b300-ff7ba433ae9b",
+		"name": "Bibliotheque p10_autre",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "(microserviceBDD) Json liste attente reservation par livre",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6d7331ef-4466-4528-8766-a0c802fe66e3",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "mdp",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "utilisateur",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9001/UserBookReservation/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9001",
+					"path": [
+						"UserBookReservation",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "(microserviceBDD) update wait reservation disponibility",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2f5559ae-3d3a-43eb-b9f7-ad3f4cee39c0",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "mdp",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "utilisateur",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9001/ChangeWaitReservationDisponibility/2/false",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9001",
+					"path": [
+						"ChangeWaitReservationDisponibility",
+						"2",
+						"false"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "(microserviceBDD) Json liste attente reservation par utilisateur",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5b9fb7c8-1c79-44ff-aa6d-bcb841a606c9",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "mdp",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "utilisateur",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9001/UserWaitingReservationbyUserId/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9001",
+					"path": [
+						"UserWaitingReservationbyUserId",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "(microserviceBDD) Json liste reservation in progress par livre",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0510ac5d-6baa-426e-bc3e-5d6b3966a653",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "mdp",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "utilisateur",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9001/BookReservationInProgressByBookId/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9001",
+					"path": [
+						"BookReservationInProgressByBookId",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "(microserviceBDD) Json liste attente reservation par waitReservationId",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7d3e10a3-5e64-45d7-b567-80744aa525e0",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "mdp",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "utilisateur",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9001/UserWaitingReservationByWaitingReservationId/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9001",
+					"path": [
+						"UserWaitingReservationByWaitingReservationId",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "(microserviceBDD) Json liste livre dont la reservation est fini par livre",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "812f1c68-959a-4dc2-a05e-25712eb47a04",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "mdp",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "utilisateur",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9001/BookReservationEndedByBookId/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9001",
+					"path": [
+						"BookReservationEndedByBookId",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "(microserviceBDD) Json reservation fini aujourd'hui",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "80234122-b536-44ce-b827-eed54260d31e",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "mdp",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "utilisateur",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9001/BookReservationEndedForToday",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9001",
+					"path": [
+						"BookReservationEndedForToday"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "(microserviceBDD) Json user Email with Id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b508cfa6-5491-4825-a19a-dc2e801a8281",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "mdp",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "utilisateur",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9001/userMail/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9001",
+					"path": [
+						"userMail",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "(microserviceBDD) Json liste d'attente en cours (tous les livres)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "bace1e1a-eb3e-458b-8519-c39d11735aea",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "mdp",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "utilisateur",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9001//UserWaitingReservation",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9001",
+					"path": [
+						"",
+						"UserWaitingReservation"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

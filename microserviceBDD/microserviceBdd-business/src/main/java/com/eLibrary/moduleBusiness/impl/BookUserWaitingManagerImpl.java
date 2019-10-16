@@ -6,6 +6,7 @@ import com.eLibrary.moduleModel.beans.BookUserWaitingReservation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -15,12 +16,13 @@ public class BookUserWaitingManagerImpl implements BookUserWaitingManager {
     private BookUserWaitingReservationDao bookUserWaitingReservationDao;
 
     /**
-     * update users stand if needed
+     * update users stand if needed (if there is someone on waiting list), other stand decrease of 1
      *
      * @param bookId
      */
     @Override
-    public void updateUsersStand(int bookId) {
+    public List<BookUserWaitingReservation> updateUsersStand(int bookId) {
+        List<BookUserWaitingReservation> listUserUpdated = new ArrayList<>();
         boolean toUpdate = false;
         List<BookUserWaitingReservation> bookUserWaitingInProgressListForOneBook =
                 bookUserWaitingReservationDao.getBookUserWaitingReservationByBookId(bookId);
@@ -40,10 +42,12 @@ public class BookUserWaitingManagerImpl implements BookUserWaitingManager {
                 if (standToUpdate > 1) {
                     standUpdated = standToUpdate - 1;
                     bookUserWaitingInProgressListForOneBook.get(j).setStandOnWaitingList(standUpdated);
+                    listUserUpdated.add(bookUserWaitingInProgressListForOneBook.get(j));
                     //update on BDD
                     bookUserWaitingReservationDao.save(bookUserWaitingInProgressListForOneBook.get(j));
                 }
             }
         }
+        return listUserUpdated;
     }
 }
