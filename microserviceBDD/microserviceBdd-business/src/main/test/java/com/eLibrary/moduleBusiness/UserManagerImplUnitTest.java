@@ -1,6 +1,6 @@
 package com.eLibrary.moduleBusiness;
 
-import com.eLibrary.moduleBusiness.impl.PasswordEncoderImpl;
+import com.eLibrary.moduleBusiness.contract.PasswordEncoder;
 import com.eLibrary.moduleBusiness.impl.UserManagerImpl;
 import com.eLibrary.moduleDao.dao.LibraryUserDao;
 import com.eLibrary.moduleModel.beans.LibraryUser;
@@ -8,13 +8,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
+import org.mockito.*;
 import org.mockito.junit.MockitoJUnitRunner;
-
-import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -27,10 +22,7 @@ public class UserManagerImplUnitTest {
     LibraryUserDao mockLibraryUserDao;
 
     @Mock
-    PasswordEncoderImpl mockPasswordEncoder;
-
-    @InjectMocks
-    PasswordEncoderImpl passwordEncoder;
+    PasswordEncoder mockPasswordEncoder;
 
     @Before
     public void setup() {
@@ -60,7 +52,7 @@ public class UserManagerImplUnitTest {
 
         LibraryUser userPresentOnBDD = Mockito.mock(LibraryUser.class);
         userPresentOnBDD.setUserEmail("jean-claude.vandamme@Gmail.com");
-        userPresentOnBDD.setUserPassword("notGoodHash");
+        userPresentOnBDD.setUserPassword("$2a$10$izLvX7nRBB6qohlBCiGEzOHwlCLRoUwAJ0hChn.JAnhXDZp2MT3P.");
 
         when(mockLibraryUserDao.findByUserEmail("jean-claude.vandamme@Gmail.com")).thenReturn(oneUser, userPresentOnBDD);
 
@@ -68,9 +60,10 @@ public class UserManagerImplUnitTest {
         when(oneUser.getUserEmail()).thenReturn("jean-claude.vandamme@Gmail.com");
         //for checkPassord method
         when(oneUser.getUserPassword()).thenReturn("mdp");
-        when(userPresentOnBDD.getUserPassword()).thenReturn("notGoodHash");
+        when(userPresentOnBDD.getUserPassword()).thenReturn("$2a$10$izLvX7nRBB6qohlBCiGEzOHwlCLRoUwAJ0hChn.JAnhXDZp2MT3P.");
+        when(mockPasswordEncoder.checkPassword(oneUser.getUserPassword(), userPresentOnBDD.getUserPassword())).thenReturn(true);
 
         boolean valid = manager.checkIfUserMailAndPassIsOk(oneUser);
-        Assert.assertFalse("test user and password", valid);
+        Assert.assertTrue("user or password NOK", valid);
     }
 }

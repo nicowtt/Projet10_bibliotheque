@@ -21,8 +21,8 @@ public class BookUserWaitingManagerImpl implements BookUserWaitingManager {
      * @param bookId
      */
     @Override
-    public List<Integer> updateUsersStand(int bookId) {
-        List<Integer> listStandUpdated = new ArrayList<>();
+    public List<BookUserWaitingReservation> updateUsersStand(int bookId) {
+        List<BookUserWaitingReservation> listUserUpdated = new ArrayList<>();
         boolean toUpdate = false;
         List<BookUserWaitingReservation> bookUserWaitingInProgressListForOneBook =
                 bookUserWaitingReservationDao.getBookUserWaitingReservationByBookId(bookId);
@@ -42,12 +42,12 @@ public class BookUserWaitingManagerImpl implements BookUserWaitingManager {
                 if (standToUpdate > 1) {
                     standUpdated = standToUpdate - 1;
                     bookUserWaitingInProgressListForOneBook.get(j).setStandOnWaitingList(standUpdated);
-                    listStandUpdated.add(standToUpdate);
+                    listUserUpdated.add(bookUserWaitingInProgressListForOneBook.get(j));
                     //update on BDD
                     bookUserWaitingReservationDao.save(bookUserWaitingInProgressListForOneBook.get(j));
                 }
             }
         }
-        return listStandUpdated;
+        return listUserUpdated;
     }
 }

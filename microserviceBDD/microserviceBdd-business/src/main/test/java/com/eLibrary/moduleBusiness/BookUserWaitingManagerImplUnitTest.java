@@ -29,30 +29,28 @@ public class BookUserWaitingManagerImplUnitTest {
     private BookUserWaitingReservationDao mockUserWaitingReservationDao;
 
     /** Jeu de données */
+    private BookUserWaitingReservation bookUserWaitingReservation;
     private List<BookUserWaitingReservation> bookUserWaitingReservationsList;
 
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this.getClass());
         bookUserWaitingReservationsList = new ArrayList<>();
+        //create list of bookuserWaitingreservationInProgress with stand 1 and 2
+        for (int i = 0; i < 2; i++) {
+            bookUserWaitingReservation = new BookUserWaitingReservation();
+            bookUserWaitingReservation.setStandOnWaitingList(i + 1);
+            bookUserWaitingReservationsList.add(bookUserWaitingReservation);
+        }
     }
 
 
     @Test
     public void testUpdateUsersStand() {
-        //create list of bookuserWaitingreservationInProgress with stand 1 and 2
-        for (int i = 0; i < 2; i++) {
-            BookUserWaitingReservation bookUserWaitingReservation = Mockito.mock(BookUserWaitingReservation.class);
-            bookUserWaitingReservation.setBookId(1);
-            when(bookUserWaitingReservation.getStandOnWaitingList()).thenReturn(i + 1);
-            bookUserWaitingReservationsList.add(bookUserWaitingReservation);
-            doCallRealMethod().when(bookUserWaitingReservation).setStandOnWaitingList(any(Integer.class));
-        }
         when(mockUserWaitingReservationDao.getBookUserWaitingReservationByBookId(1)).thenReturn(bookUserWaitingReservationsList);
-        List<Integer> listStandUpdated = manager.updateUsersStand(1);
+        List<BookUserWaitingReservation> listStandUpdated = manager.updateUsersStand(1);
 
         //test if only stand 2 is taken by method updateUsersStand
-        Assert.assertTrue("stand 2 not updated",listStandUpdated.get(0) == 2);
-
+        Assert.assertTrue("",listStandUpdated.get(0).getStandOnWaitingList() == 1);
     }
 }
