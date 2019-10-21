@@ -128,7 +128,7 @@ Réglez cette data source dans le fichier context.xml (repertoire conf de tomcat
 ```
     mvn package
 ```
-- Le fichier batchMail-business-0.0.1-SNAPSHOT.jar devrait être crée dans le dossier target du module business.
+- Le fichier batchMail-business-2.0.0-SNAPSHOT.jar devrait être crée dans le dossier target du module business.
 - Copier coller ce fichier batchMail-business-2.0.0-SNAPSHOT.jar à l'endroit de votre choix sur votre serveur.
 - Veuillez mettre le fichier de configuration "application-gmail.properties" au même endroit.
 - Ecrivez le bon mot de passe dans ce fichier de configuration.
@@ -143,6 +143,25 @@ de la journée))qui lance la commande:
 ```
 Java -jar batchMail-business-2.0.0-SNAPSHOT.jar
 ```
+
+## Mise à jour (v1 -> v2)
+- Faire un dump de la base de donnée: <br/>
+Sous windows vous pouvez utiliser le fichier "saveBdd_bibliotheque.bat", ce fichier créera un dump "pg_dump_bibliotheque_(date du jour).dmp"
+dans le dossier c:\temp <br/>
+Réglage du script: <br/>
+   - DATABASENAME: nom de la base à sauvegarder.
+   - PGPASSWORD: mot de passe de la base.
+   - DUMPOUT: chemin de la sauvegarde du dump.
+   - PGDUMP: chemin de pg_dump.exe <br/>
+   
+Pour information, il est possible de crée une tâche planifiée afin de lancer ce script tous les 24h et ainsi faire une 
+sauvegarde régulière de la base de donnée.
+
+- Lancer le script sql: Script_update_BDD_p7_to_p10.
+
+- Si vous voulez restaurer la base de donnée en version v1 (avant la mise à jour):<br/>
+Utiliser le fichier "restoreBdd_bibliotheque.bat". (Ce script efface, recrée et lance le dump du jour sur la BDD bibliotheque)
+
 
 ## Contribution
 
