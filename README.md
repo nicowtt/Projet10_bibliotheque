@@ -157,7 +157,7 @@ Réglage du script: <br/>
 Pour information, il est possible de crée une tâche planifiée afin de lancer ce script tous les 24h et ainsi faire une 
 sauvegarde régulière de la base de donnée.
 
-- Lancer le script sql: Script_update_BDD_p7_to_p10.
+- Lancer le script sql: Script_update_BDD_v1_to_v2.
 
 - Si vous voulez restaurer la base de donnée en version v1 (avant la mise à jour):<br/>
 Utiliser le fichier "restoreBdd_bibliotheque.bat". (Ce script efface, recrée et lance le dump du jour sur la BDD bibliotheque)
