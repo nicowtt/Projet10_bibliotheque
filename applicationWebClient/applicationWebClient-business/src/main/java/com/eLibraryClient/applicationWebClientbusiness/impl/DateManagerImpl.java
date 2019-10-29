@@ -44,30 +44,6 @@ public class DateManagerImpl implements DateManager {
     }
 
     /**
-     * For add day on input date (String -> dd/MM/yyyy)
-     * @param inputDate
-     * @param nbrOfDay
-     * @return
-     */
-    @Override
-    public String addDaysOnOneDate(String inputDate, int nbrOfDay) {
-        Date newDate = new Date();
-        DateFormat formatter;
-        Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat simpleDate = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-        formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-        try {
-            newDate = (Date) formatter.parse(inputDate);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        calendar.setTime(newDate);
-
-        calendar.add(Calendar.DATE, nbrOfDay);
-        return simpleDate.format(calendar.getTime());
-    }
-
-    /**
      * For compare one date with today date
      * @param pDate -> date for compare
      * @return-> enum CompareDate
