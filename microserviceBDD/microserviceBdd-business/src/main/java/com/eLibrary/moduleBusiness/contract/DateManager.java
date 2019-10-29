@@ -7,4 +7,5 @@ import org.springframework.stereotype.Service;
 public interface DateManager {
     String todayDate();
     ComparisonDate compareDateWithToday(String pDate);
+    String addDaysOnOneDate(String inputDate, int nbrOfDay);
 }

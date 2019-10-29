@@ -1,13 +1,13 @@
 <component name="ArtifactManager">
   <artifact type="exploded-war" name="applicationWebClient-web:war exploded">
-    <output-path>$PROJECT_DIR$/applicationWebClient/applicationWebClient-web/target/applicationWebClient-web-2.0.1</output-path>
+    <output-path>$PROJECT_DIR$/applicationWebClient/applicationWebClient-web/target/applicationWebClient-web-2.0.2</output-path>
     <root id="root">
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
           <element id="module-output" name="applicationWebClient-web" />
         </element>
         <element id="directory" name="lib">
-          <element id="archive" name="applicationWebClient-business-2.0.1.jar">
+          <element id="archive" name="applicationWebClient-business-2.0.2.jar">
             <element id="module-output" name="applicationWebClient-business" />
           </element>
           <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot-starter:2.1.5.RELEASE" />
@@ -21,14 +21,14 @@
           <element id="library" level="project" name="Maven: org.slf4j:jul-to-slf4j:1.7.26" />
           <element id="library" level="project" name="Maven: org.yaml:snakeyaml:1.23" />
           <element id="library" level="project" name="Maven: org.springframework.security:spring-security-crypto:5.1.5.RELEASE" />
-          <element id="archive" name="libraries-model-2.0.1.jar">
+          <element id="archive" name="libraries-model-2.0.2.jar">
             <element id="module-output" name="libraries-model" />
           </element>
           <element id="library" level="project" name="Maven: org.hibernate.validator:hibernate-validator:6.0.16.Final" />
           <element id="library" level="project" name="Maven: org.jboss.logging:jboss-logging:3.3.2.Final" />
           <element id="library" level="project" name="Maven: com.fasterxml:classmate:1.4.0" />
           <element id="library" level="project" name="Maven: javax.validation:validation-api:2.0.1.Final" />
-          <element id="archive" name="applicationWebClient-proxies-2.0.1.jar">
+          <element id="archive" name="applicationWebClient-proxies-2.0.2.jar">
             <element id="module-output" name="applicationWebClient-proxies" />
           </element>
           <element id="library" level="project" name="Maven: org.springframework.cloud:spring-cloud-openfeign-core:2.1.1.RELEASE" />
@@ -86,7 +86,7 @@
         </element>
       </element>
       <element id="directory" name="META-INF">
-        <element id="file-copy" path="$PROJECT_DIR$/applicationWebClient/applicationWebClient-web/target/applicationWebClient-web-2.0.1/META-INF/MANIFEST.MF" />
+        <element id="file-copy" path="$PROJECT_DIR$/applicationWebClient/applicationWebClient-web/target/applicationWebClient-web-2.0.2/META-INF/MANIFEST.MF" />
       </element>
       <element id="javaee-facet-resources" facet="applicationWebClient-web/web/Web" />
     </root>

@@ -5,6 +5,8 @@ import com.eLibraryClient.applicationWebClientbusiness.contract.*;
 import com.eLibraryModel.beans.*;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -118,23 +120,11 @@ public class BookReservationController {
     public String extendReservationTime(@PathVariable Integer reservationId,
                                         @SessionAttribute(value = "userSession", required = false) LibraryUserBean userSession,
                                         Model model) {
-        boolean extendOk = false;
-        CompareDate compareDate;
         LibraryUserBean beanUserOnSession = libraryUserManager.getOneUser(userSession.getUserEmail());
-
         BookReservationBean bookReservationBeanToUpdate = bookReservationManager.getOneBookReservation(reservationId);
-        // check if today is after reservation endTime
-        extendOk = bookReservationManager.checkIfUserCanExtendReservation(reservationId);
-        if (!extendOk) {
-            model.addAttribute("log", userSession);
-            model.addAttribute("bookName", new BookBean());
-            return "/errorHtml/errorDateExtend";
-        } else {
-            String extendDate = dateManager.addDaysOnOneDate(bookReservationBeanToUpdate.getEndOfReservationDate(), 28);
-            bookReservationBeanToUpdate.setExtensionOfReservation(true);
-            bookReservationBeanToUpdate.setEndOfReservationDate(extendDate);
-            bookReservationManager.updateBookReservation(bookReservationBeanToUpdate);
 
+        HttpStatus status = bookReservationManager.updateBookReservation(bookReservationBeanToUpdate, 28);
+        if (status == HttpStatus.CREATED) {
             List<BookReservationBean> bookReservationListForOneUser = bookReservationManager.bookReservationListForOneUser(beanUserOnSession.getId());
             model.addAttribute("reservation", bookReservationListForOneUser);
             model.addAttribute("log", userSession);
@@ -143,8 +133,12 @@ public class BookReservationController {
             logger.info("L'utilisateur " + beanUserOnSession.getUserEmail() + " à prolongé la reservation du livre:"
                     + bookReservationBeanToUpdate.getBook().getBookName() + " dans la bibliothèque:"
                     + bookReservationBeanToUpdate.getLibrary().getLibraryName() + ".");
+            return "/PersonalSpace";
+        } else {
+            model.addAttribute("log", userSession);
+            model.addAttribute("bookName", new BookBean());
+            return "/errorHtml/errorDateExtend";
         }
-        return "/PersonalSpace";
     }
 
     /**
@@ -163,7 +157,7 @@ public class BookReservationController {
         // write BookBackDate on BDD
         String todayDate = dateManager.todayDate();
         bookReservationBeanToUpdate.setBookBackDate(todayDate);
-        bookReservationManager.updateBookReservation(bookReservationBeanToUpdate);
+        bookReservationManager.updateBookReservation(bookReservationBeanToUpdate, 0);
         // change bookBack boolean attribute
         bookReservationManager.bookBack(reservationId);
         // check book disponibility
