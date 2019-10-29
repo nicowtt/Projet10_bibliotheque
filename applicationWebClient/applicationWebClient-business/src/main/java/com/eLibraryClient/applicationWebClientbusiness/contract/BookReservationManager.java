@@ -18,4 +18,5 @@ public interface BookReservationManager {
     void bookBack(int reservationId);
     List<BookReservationBean> getBookReservationInProgressByBookId(int bookId);
     String getTheoricalEndReservationDateClosedThanToday(int bookId);
+    boolean checkIfUserCanExtendReservation(int reservationId);
 }
