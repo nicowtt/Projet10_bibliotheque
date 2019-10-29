@@ -3,6 +3,7 @@ package com.eLibraryClient.applicationWebClientproxies.proxies;
 
 import com.eLibraryModel.beans.*;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -195,8 +196,9 @@ public interface MicroserviceBDDProxy {
      * @param bookReservationBean
      * @return
      */
-    @PostMapping(value = "/UpdateBookReservation")
-    BookReservationBean updateReservation(@RequestBody BookReservationBean bookReservationBean);
+    @PostMapping(value = "/UpdateBookReservation/{nbrOfDay}")
+    HttpStatus updateReservation(@RequestBody BookReservationBean bookReservationBean,
+                                 @PathVariable("nbrOfDay") Integer nbrOfDay);
 
     /**
      * For reservation bookBack
@@ -221,13 +223,6 @@ public interface MicroserviceBDDProxy {
     @GetMapping(value = "/BookReservationEndedByBookId/{bookId}")
     List<BookReservationBean> getReservationEndedByBookId(@PathVariable("bookId") Integer bookId);
 
-    /**
-     * For check if user can extend his reservation (reservation end date must be before today)
-     * @param reservationId
-     * @return
-     */
-    @GetMapping(value = "/checkIfUserCanExtendReservation/{reservationId}")
-    boolean checkIfUserCanExtendReservation(@PathVariable("reservationId") Integer reservationId);
 
     //*******************************************//
     //************ BookUserWaitingReservation ***//

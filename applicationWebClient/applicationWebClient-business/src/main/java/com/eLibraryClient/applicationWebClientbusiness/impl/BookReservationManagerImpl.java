@@ -8,6 +8,8 @@ import com.eLibraryClient.applicationWebClientproxies.proxies.MicroserviceBDDPro
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -133,8 +135,9 @@ public class BookReservationManagerImpl implements BookReservationManager {
      * @param bookReservationBean
      */
     @Override
-    public void updateBookReservation(BookReservationBean bookReservationBean) {
-        microserviceBDDProxy.updateReservation(bookReservationBean);
+    public HttpStatus updateBookReservation(BookReservationBean bookReservationBean, int nbrOfDay) {
+        HttpStatus status = microserviceBDDProxy.updateReservation(bookReservationBean, nbrOfDay);
+        return status;
     }
 
     /**
@@ -184,17 +187,4 @@ public class BookReservationManagerImpl implements BookReservationManager {
         }
         return  closedFromTodayDate;
     }
-
-    /**
-     * For check if user can extend his reservation (reservation end date must be before today)
-     * @param reservationId
-     * @return
-     */
-    @Override
-    public boolean checkIfUserCanExtendReservation(int reservationId) {
-        boolean isOk = false;
-        isOk = microserviceBDDProxy.checkIfUserCanExtendReservation(reservationId);
-        return isOk;
-    }
-
 }

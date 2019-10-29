@@ -445,26 +445,6 @@
 				}
 			},
 			"response": []
-		},
-		{
-			"name": "check if user can extend his reservation (end reservation date must be before today)",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:9001/checkIfUserCanExtendReservation/2",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "9001",
-					"path": [
-						"checkIfUserCanExtendReservation",
-						"2"
-					]
-				}
-			},
-			"response": []
 		}
 	],
 	"protocolProfileBehavior": {}

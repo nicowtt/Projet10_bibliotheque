@@ -5,6 +5,7 @@ import com.eLibrary.moduleBusiness.contract.DateManager;
 import com.eLibrary.moduleBusiness.enums.ComparisonDate;
 import com.eLibrary.moduleDao.dao.BookReservationDao;
 import com.eLibrary.moduleModel.beans.BookReservation;
+import com.eLibrary.moduleModel.beans.BookUserWaitingReservation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -76,14 +77,24 @@ public class BookReservationController {
     }
 
     /**
-     * For update Book Reservation ( extend endtime and one boolean for avoid another extend to true)
-     * @param bookReservation
+     * For update bookReservation : attribute -> endOfReservationDate.
+     * @param bookReservation -> bean to update
+     * @param nbrOfDay -> nbr of to add on endOfReservationDate
+     * @return
      */
-    @RequestMapping(method = RequestMethod.POST, value = "/UpdateBookReservation", consumes = "application/json")
-    public void updateBookReservation(@RequestBody BookReservation bookReservation) {
-
-        bookReservationDao.save(bookReservation);
-
+    @RequestMapping(method = RequestMethod.POST, value = "/UpdateBookReservation/{nbrOfDay}", consumes = "application/json")
+    public HttpStatus updateBookReservation(@RequestBody BookReservation bookReservation,
+                                                                 @PathVariable Integer nbrOfDay) {
+        ComparisonDate comparisonDate = dateManager.compareDateWithToday(bookReservation.getEndOfReservationDate());
+        if (comparisonDate == ComparisonDate.ISBEFORE) {
+            String extendDate = dateManager.addDaysOnOneDate(bookReservation.getEndOfReservationDate(), nbrOfDay);
+            bookReservation.setExtensionOfReservation(true);
+            bookReservation.setEndOfReservationDate(extendDate);
+            bookReservationDao.save(bookReservation);
+            return HttpStatus.CREATED;
+          } else {
+            return HttpStatus.FORBIDDEN;
+        }
     }
 
     /**
@@ -146,25 +157,4 @@ public class BookReservationController {
 
         return bookReservationList;
     }
-
-    /**
-     * For check if user can extend time of his reservation (reservation end date must be before today)
-     * @param reservationId
-     * @return
-     */
-    @GetMapping(value = "/checkIfUserCanExtendReservation/{reservationId}")
-    public Boolean checkIfUserCanExtendReservation(@PathVariable Integer reservationId) {
-        String todayDate = dateManager.todayDate();
-        Boolean isOk = false;
-        BookReservation bookReservationInProgress = bookReservationDao.getBookReservationById(reservationId);
-        ComparisonDate comparisonDate = dateManager.compareDateWithToday(bookReservationInProgress.getEndOfReservationDate());
-        if (comparisonDate == ComparisonDate.ISBEFORE) {
-            isOk = true;
-        }
-        return isOk;
-    }
-
-
-
-
 }
