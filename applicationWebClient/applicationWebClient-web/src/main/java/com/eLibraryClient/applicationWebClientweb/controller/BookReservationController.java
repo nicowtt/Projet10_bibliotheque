@@ -118,13 +118,14 @@ public class BookReservationController {
     public String extendReservationTime(@PathVariable Integer reservationId,
                                         @SessionAttribute(value = "userSession", required = false) LibraryUserBean userSession,
                                         Model model) {
+        boolean extendOk = false;
         CompareDate compareDate;
         LibraryUserBean beanUserOnSession = libraryUserManager.getOneUser(userSession.getUserEmail());
 
         BookReservationBean bookReservationBeanToUpdate = bookReservationManager.getOneBookReservation(reservationId);
         // check if today is after reservation endTime
-        compareDate = dateManager.compareDateWithToday(bookReservationBeanToUpdate.getEndOfReservationDate());
-        if (compareDate == CompareDate.ISAFTER) {
+        extendOk = bookReservationManager.checkIfUserCanExtendReservation(reservationId);
+        if (!extendOk) {
             model.addAttribute("log", userSession);
             model.addAttribute("bookName", new BookBean());
             return "/errorHtml/errorDateExtend";

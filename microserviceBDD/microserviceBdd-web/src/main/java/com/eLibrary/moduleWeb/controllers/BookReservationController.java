@@ -2,6 +2,7 @@ package com.eLibrary.moduleWeb.controllers;
 
 import com.eLibrary.moduleBusiness.contract.BookReservationManager;
 import com.eLibrary.moduleBusiness.contract.DateManager;
+import com.eLibrary.moduleBusiness.enums.ComparisonDate;
 import com.eLibrary.moduleDao.dao.BookReservationDao;
 import com.eLibrary.moduleModel.beans.BookReservation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -144,6 +145,23 @@ public class BookReservationController {
         List<BookReservation>bookReservationList = bookReservationDao.getEndBookReservationForToday(true, todaydateForSqlRequest);
 
         return bookReservationList;
+    }
+
+    /**
+     * For check if user can extend time of his reservation (reservation end date must be before today)
+     * @param reservationId
+     * @return
+     */
+    @GetMapping(value = "/checkIfUserCanExtendReservation/{reservationId}")
+    public Boolean checkIfUserCanExtendReservation(@PathVariable Integer reservationId) {
+        String todayDate = dateManager.todayDate();
+        Boolean isOk = false;
+        BookReservation bookReservationInProgress = bookReservationDao.getBookReservationById(reservationId);
+        ComparisonDate comparisonDate = dateManager.compareDateWithToday(bookReservationInProgress.getEndOfReservationDate());
+        if (comparisonDate == ComparisonDate.ISBEFORE) {
+            isOk = true;
+        }
+        return isOk;
     }
 
 

@@ -1,5 +1,5 @@
 # Open Classrooms_Projet10 bibliotheque
-Voici l'amélioration du système de gestion de bibliothèques d'une ville.(V2.0.0)
+Voici l'amélioration du système de gestion de bibliothèques d'une ville.(V2.0.1)
 
 Il se compose de trois modules:
 
@@ -13,7 +13,7 @@ interface web:
  * Création et retour d'un prêt (fonctions qui seront tranférrées dans un futur logiciel 
  pour le personnels).
  
- (Amélioration v2.0.0):
+ (Amélioration v2.0.1):
  - Si un livre n'est pas disponible, l'utilisateur peut se mettre en liste  d'attente. 
   (le nombre de place sur cette liste est égal à 2 x le nombre d'iteration du livre dans la ville).
  - Affichage de la date de retour prévue la plus proche et du nombre de personne en liste d'attente.
@@ -28,7 +28,7 @@ Ce logiciel pour le traitement automatisé permettra d'envoyer des mails de rela
 aux usagers n'ayant pas rendu les livres en fin de période de prêt. L'envoi sera automatique
 à la fréquence d'un par jour.
 
-(Amélioration v2.0.0):
+(Amélioration v2.0.1):
 - Dés qu'un livre est rendu, si il y a une liste d'attente, un mail est envoyé au premier sur la liste d'attente.
 - La personne a 48h pour prendre le livre (elle est prioritaire, personne d'autre ne peut reserver l'ouvrage)
 - Aprés 48h le premier utilisateur sur la liste d'attente est supprimmé.
@@ -89,8 +89,8 @@ Base de donnée: PostgreSQL 9.6.12
 ```
     mvn package
 ```
-- Le fichier applicationWebClient-web-2.0.0-SNAPSHOT.war devrait être crée dans le dossier target du module web.
-- Copier / coller ce fichier **applicationWebClient-web-2.0.0-SNAPSHOT.war** dans le dossier webapps de tomcat.
+- Le fichier applicationWebClient-web-2.0.1-SNAPSHOT.war devrait être crée dans le dossier target du module web.
+- Copier / coller ce fichier **applicationWebClient-web-2.0.1-SNAPSHOT.war** dans le dossier webapps de tomcat.
 - Créez une base de données "bibliotheque" (pgadmin).
 - Restaurez la bdd avec le dump ou lancez le script de création Bdd p7 et celui du jeu de données de demo.
 
@@ -99,8 +99,8 @@ Base de donnée: PostgreSQL 9.6.12
 ```
     mvn package
 ```
-- Le fichier microserviceBdd-web-2.0.0-SNAPSHOT.war devrait être crée dans le dossier target du module web.
-- Copier / coller ce fichier **microserviceBdd-web-2.0.0-SNAPSHOT.war** dans le dossier webapps de tomcat.
+- Le fichier microserviceBdd-web-2.0.1-SNAPSHOT.war devrait être crée dans le dossier target du module web.
+- Copier / coller ce fichier **microserviceBdd-web-2.0.1-SNAPSHOT.war** dans le dossier webapps de tomcat.
 - Afin d'autoriser la connexion de l'application a la BDD, vous devez declarer une 
 Data source nommé "jdbc/bibliotheque" dans tomcat.
 
@@ -128,8 +128,8 @@ Réglez cette data source dans le fichier context.xml (repertoire conf de tomcat
 ```
     mvn package
 ```
-- Le fichier batchMail-business-2.0.0-SNAPSHOT.jar devrait être crée dans le dossier target du module business.
-- Copier coller ce fichier batchMail-business-2.0.0-SNAPSHOT.jar à l'endroit de votre choix sur votre serveur.
+- Le fichier batchMail-business-2.0.1-SNAPSHOT.jar devrait être crée dans le dossier target du module business.
+- Copier coller ce fichier batchMail-business-2.0.1-SNAPSHOT.jar à l'endroit de votre choix sur votre serveur.
 - Veuillez mettre le fichier de configuration "application-gmail.properties" au même endroit.
 - Ecrivez le bon mot de passe dans ce fichier de configuration.
 - Fabriquer une variable d'environnement système:
