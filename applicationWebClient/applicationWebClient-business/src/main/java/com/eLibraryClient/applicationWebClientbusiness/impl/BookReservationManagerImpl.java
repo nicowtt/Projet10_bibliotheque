@@ -185,4 +185,16 @@ public class BookReservationManagerImpl implements BookReservationManager {
         return  closedFromTodayDate;
     }
 
+    /**
+     * For check if user can extend his reservation (reservation end date must be before today)
+     * @param reservationId
+     * @return
+     */
+    @Override
+    public boolean checkIfUserCanExtendReservation(int reservationId) {
+        boolean isOk = false;
+        isOk = microserviceBDDProxy.checkIfUserCanExtendReservation(reservationId);
+        return isOk;
+    }
+
 }

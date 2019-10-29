@@ -221,6 +221,14 @@ public interface MicroserviceBDDProxy {
     @GetMapping(value = "/BookReservationEndedByBookId/{bookId}")
     List<BookReservationBean> getReservationEndedByBookId(@PathVariable("bookId") Integer bookId);
 
+    /**
+     * For check if user can extend his reservation (reservation end date must be before today)
+     * @param reservationId
+     * @return
+     */
+    @GetMapping(value = "/checkIfUserCanExtendReservation/{reservationId}")
+    boolean checkIfUserCanExtendReservation(@PathVariable("reservationId") Integer reservationId);
+
     //*******************************************//
     //************ BookUserWaitingReservation ***//
     //*******************************************//
