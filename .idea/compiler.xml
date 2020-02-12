@@ -6,21 +6,21 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="applicationWebClient-business" />
-        <module name="applicationWebClient-proxies" />
-        <module name="applicationWebClient-web" />
-        <module name="batchMail-business" />
-        <module name="batchMail-proxies" />
-        <module name="libraries-model" />
-        <module name="mDao" />
-        <module name="microserviceBdd-business" />
-        <module name="microserviceBdd-dao" />
-        <module name="microserviceBdd-Dao" />
-        <module name="microserviceBdd-Model" />
-        <module name="microserviceBdd-model" />
         <module name="microserviceBdd-web" />
+        <module name="batchMail-business" />
+        <module name="microserviceBdd-Model" />
+        <module name="libraries-model" />
+        <module name="microserviceBdd-model" />
+        <module name="applicationWebClient-web" />
         <module name="mModel" />
         <module name="mWeb" />
+        <module name="microserviceBdd-dao" />
+        <module name="microserviceBdd-Dao" />
+        <module name="applicationWebClient-business" />
+        <module name="applicationWebClient-proxies" />
+        <module name="batchMail-proxies" />
+        <module name="mDao" />
+        <module name="microserviceBdd-business" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -44,5 +44,18 @@
       <module name="mModel" target="1.8" />
       <module name="mWeb" target="1.8" />
     </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="applicationWebClient-business" options="-parameters" />
+      <module name="applicationWebClient-proxies" options="-parameters" />
+      <module name="applicationWebClient-web" options="-parameters" />
+      <module name="batchMail-business" options="-parameters" />
+      <module name="batchMail-proxies" options="-parameters" />
+      <module name="microserviceBdd-business" options="-parameters" />
+      <module name="microserviceBdd-dao" options="-parameters" />
+      <module name="microserviceBdd-model" options="-parameters" />
+      <module name="microserviceBdd-web" options="-parameters" />
+    </option>
   </component>
 </project>
