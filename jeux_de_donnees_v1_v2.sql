@@ -1,179 +1,178 @@
--- Remplissage base de données--
+-- Remplissage base de donnÃ©es--
 
 -- 1/utilisateur (1-3)-- ->id1
 
 INSERT INTO public.libraryuser
-        (userfirstname, username, userpassword, useremail)
+(userfirstname, username, userpassword, useremail)
 VALUES
-        ('michel', 'apeupres','$2a$10$izLvX7nRBB6qohlBCiGEzOHwlCLRoUwAJ0hChn.JAnhXDZp2MT3P.', 'apeupres.michel@gmail.com');
+('michel', 'apeupres','$2a$10$izLvX7nRBB6qohlBCiGEzOHwlCLRoUwAJ0hChn.JAnhXDZp2MT3P.', 'apeupres.michel@gmail.com');
 
 -- 1/utilisateur (2-3)-- ->id2
 
 INSERT INTO public.libraryuser
-        (userfirstname, username, userpassword, useremail)
+(userfirstname, username, userpassword, useremail)
 VALUES
-        ('bruno', 'michu', '$2a$10$ZrNev/FCEyfKp3.Zc/irx.OrtFuqL7X6t.tJytIOiYLQ458k2jasO', 'michu.bruno@gmail.com');
-        
+('bruno', 'michu', '$2a$10$ZrNev/FCEyfKp3.Zc/irx.OrtFuqL7X6t.tJytIOiYLQ458k2jasO', 'michu.bruno@gmail.com');
+
 -- 1/utilisateur (3-3)-- ->id2
 
 INSERT INTO public.libraryuser
-        (userfirstname, username, userpassword, useremail)
+(userfirstname, username, userpassword, useremail)
 VALUES
-        ('alain', 'deloin', '$2a$10$wNxNPwWl3.2U1l8kn0I0NeOM0CQaTDCY/tvlGv/TVV/0OBBcJGbAK', 'deloin.alain@gmail.com');
+('alain', 'deloin', '$2a$10$wNxNPwWl3.2U1l8kn0I0NeOM0CQaTDCY/tvlGv/TVV/0OBBcJGbAK', 'deloin.alain@gmail.com');
 
 -- 2/library (1-2) -> id1
 INSERT INTO public.library
-        (libraryname)
+(libraryname)
 VALUES
-        ('isidore');
+('isidore');
 
 -- 2/library (2-2) -> id2
 INSERT INTO public.library
-        (libraryname)
+(libraryname)
 VALUES
-        ('lejeune');
-        
+('lejeune');
+
 -- 3/ book (1-7) -> book id 1
 INSERT INTO public.book
-        (bookname, bookauthor, bookpictureurl, bookdescription, booklabel, allbookreserved, waitreservationfull)
+(bookname, bookauthor, bookpictureurl, bookdescription, booklabel, allbookreserved, waitreservationfull)
 VALUES
-        ('elevation', 'Stephen King', 'https://image.noelshack.com/fichiers/2019/25/3/1560934849-elevation-stephen-king.jpg', 'Dans la petite ville de Castle Rock, les rumeurs circulent vite. Trop vite. C''est pourquoi Scott Carey ne veut confier son secret à nul autre que son ami le docteur Bob Ellis. Car avec ou sans vêtements, sa balance affiche la même chose, et chaque jour son poids diminue invariablement. Que se passera-t-il quand il ne pèsera plus rien ?Scott doit également faire face à un autre problème : les chiens de ses nouvelles voisines ont décidé que sa pelouse était le lieu idéal pour faire leurs besoins.
-Entre le couple et Scott, la guerre est déclarée. Mais lorsqu''il comprend que le comportement des habitants de Castle Rock, y compris le sien, envers les deux femmes mariées met en péril le restaurant qu''elles ont ouvert en ville, il décide de mettre son « pouvoir » à contribution pour les aider. Un roman joyeux, exaltant et teinté de tristesse.', 'fantastique', true, false);
-     
+('elevation', 'Stephen King', 'https://image.noelshack.com/fichiers/2020/07/3/1581497717-elevation-stephen-king.jpg', 'Dans la petite ville de Castle Rock, les rumeurs circulent vite. Trop vite. C''est pourquoi Scott Carey ne veut confier son secret Ã  nul autre que son ami le docteur Bob Ellis. Car avec ou sans vÃªtements, sa balance affiche la mÃªme chose, et chaque jour son poids diminue invariablement. Que se passera-t-il quand il ne pÃ¨sera plus rien ?Scott doit Ã©galement faire face Ã  un autre problÃ¨me : les chiens de ses nouvelles voisines ont dÃ©cidÃ© que sa pelouse Ã©tait le lieu idÃ©al pour faire leurs besoins.
+Entre le couple et Scott, la guerre est dÃ©clarÃ©e. Mais lorsqu''il comprend que le comportement des habitants de Castle Rock, y compris le sien, envers les deux femmes mariÃ©es met en pÃ©ril le restaurant qu''elles ont ouvert en ville, il dÃ©cide de mettre son Â« pouvoir Â» Ã  contribution pour les aider. Un roman joyeux, exaltant et teintÃ© de tristesse.', 'fantastique', true, false);
+
 -- 3/ book (2-7) -> book id 2
 INSERT INTO public.book
-        (bookname, bookauthor, bookpictureurl, bookdescription, booklabel, allbookreserved, waitreservationfull)
+(bookname, bookauthor, bookpictureurl, bookdescription, booklabel, allbookreserved, waitreservationfull)
 VALUES
-        ('player one', 'Ernest Cline', 'https://image.noelshack.com/fichiers/2019/25/3/1560934846-ready-player-one-ernest-cline.jpeg', 'Un monde remis en jeu Un prix ultime Êtes-vous prêt ? Nous sommes en 2044, et la Terre n''est pas belle à voir. Les ressources manquent et les conditions climatiques sont catastrophiques. Comme la majeure partie de l''humanité, Wade Watts passe son temps dans l''Oasis, un monde virtuel où chacun peut faire et être tout ce qui lui chante. Pour oublier la réalité. Oublier les coups de sa tante qui l''a adopté et la misère dans laquelle il vit. Et comme la majeure partie de l''humanité, Wade rêve d''être celui qui décrochera le ticket gagnant de la grande loterie. James Halliday, le créateur de l''Oasis, est mort quelques années auparavant sans laisser de successeur. Pour décider du sort de sa fortune, il a créé une véritable chasse au trésor qui guidera les plus rusés vers l''énigme finale. Wade n''a plus d''autre choix s''il veut survivre : il doit gagner.', 'fiction', false, false);
+('player one', 'Ernest Cline', 'https://image.noelshack.com/fichiers/2020/07/3/1581497747-ready-player-one-ernest-cline.jpeg', 'Un monde remis en jeu Un prix ultime ÃŠtes-vous prÃªt ? Nous sommes en 2044, et la Terre n''est pas belle Ã  voir. Les ressources manquent et les conditions climatiques sont catastrophiques. Comme la majeure partie de l''humanitÃ©, Wade Watts passe son temps dans l''Oasis, un monde virtuel oÃ¹ chacun peut faire et Ãªtre tout ce qui lui chante. Pour oublier la rÃ©alitÃ©. Oublier les coups de sa tante qui l''a adoptÃ© et la misÃ¨re dans laquelle il vit. Et comme la majeure partie de l''humanitÃ©, Wade rÃªve d''Ãªtre celui qui dÃ©crochera le ticket gagnant de la grande loterie. James Halliday, le crÃ©ateur de l''Oasis, est mort quelques annÃ©es auparavant sans laisser de successeur. Pour dÃ©cider du sort de sa fortune, il a crÃ©Ã© une vÃ©ritable chasse au trÃ©sor qui guidera les plus rusÃ©s vers l''Ã©nigme finale. Wade n''a plus d''autre choix s''il veut survivre : il doit gagner.', 'fiction', false, false);
 
 -- 3/ book (3-7) -> book id 3
 INSERT INTO public.book
-        (bookname, bookauthor, bookpictureurl, bookdescription, booklabel, allbookreserved, waitreservationfull)
+(bookname, bookauthor, bookpictureurl, bookdescription, booklabel, allbookreserved, waitreservationfull)
 VALUES
-        ('cari Mora', 'Thomas Harris', 'https://image.noelshack.com/fichiers/2019/30/3/1563973871-cari-mora.jpeg', 'Des lingots d’or sommeillent depuis des années sous l’ancienne villa de Pablo Escobar à Miami Beach. Gangs et malfrats se battent pour mettre la main dessus.Aujourd’hui, c’est au tour du maléfique Hans-Peter Schneider de tenter sa chance. Mais c’était sans prévoir la présence de la sublime Cari Mora, qui veille sur les lieux. En matière de violence et d’armes à feu, personne n’a rien à lui apprendre.Entre désirs et instinct de survie, avidité et obsessions macabres, le mal se faufile à chaque page. Aucun auteur de ces dernières décennies n’aura autant exploré les démons. Thomas Harris, au talent terrifiant, revient ici avec un sixième roman événement. ', 'fiction', false, false);
+('cari Mora', 'Thomas Harris', 'https://image.noelshack.com/fichiers/2020/07/3/1581497781-cari-mora.jpeg', 'Des lingots dâ€™or sommeillent depuis des annÃ©es sous lâ€™ancienne villa de Pablo Escobar Ã  Miami Beach. Gangs et malfrats se battent pour mettre la main dessus.Aujourdâ€™hui, câ€™est au tour du malÃ©fique Hans-Peter Schneider de tenter sa chance. Mais câ€™Ã©tait sans prÃ©voir la prÃ©sence de la sublime Cari Mora, qui veille sur les lieux. En matiÃ¨re de violence et dâ€™armes Ã  feu, personne nâ€™a rien Ã  lui apprendre.Entre dÃ©sirs et instinct de survie, aviditÃ© et obsessions macabres, le mal se faufile Ã  chaque page. Aucun auteur de ces derniÃ¨res dÃ©cennies nâ€™aura autant explorÃ© les dÃ©mons. Thomas Harris, au talent terrifiant, revient ici avec un sixiÃ¨me roman Ã©vÃ©nement. ', 'fiction', false, false);
 
 -- 3/ book (4-7) -> book id 4
 INSERT INTO public.book
-        (bookname, bookauthor, bookpictureurl, bookdescription, booklabel, allbookreserved, waitreservationfull)
+(bookname, bookauthor, bookpictureurl, bookdescription, booklabel, allbookreserved, waitreservationfull)
 VALUES
-        ('le signal', 'Maxime Chattam', 'https://image.noelshack.com/fichiers/2019/30/3/1563974338-le-signal.jpg', 'La famille Spencer emménage dans la petite ville perdue de Mahingan Falls. Pourtant les nouveaux venus n’y trouvent pas la tranquillité espérée : suicides mystérieux, disparitions de jeunes filles et autres accidents peu naturels s’enchaînent, semant l’angoisse chez les enfants Spencer. Ethan Cobb se doit d’enquêter.', 'fantastique', false, false);
+('le signal', 'Maxime Chattam', 'https://image.noelshack.com/fichiers/2020/07/3/1581497806-le-signal.jpg', 'La famille Spencer emmÃ©nage dans la petite ville perdue de Mahingan Falls. Pourtant les nouveaux venus nâ€™y trouvent pas la tranquillitÃ© espÃ©rÃ©e : suicides mystÃ©rieux, disparitions de jeunes filles et autres accidents peu naturels sâ€™enchaÃ®nent, semant lâ€™angoisse chez les enfants Spencer. Ethan Cobb se doit dâ€™enquÃªter.', 'fantastique', false, false);
 
 -- 3/ book (5-7) -> book id 5
 INSERT INTO public.book
-        (bookname, bookauthor, bookpictureurl, bookdescription, booklabel, allbookreserved, waitreservationfull)
+(bookname, bookauthor, bookpictureurl, bookdescription, booklabel, allbookreserved, waitreservationfull)
 VALUES
-        ('american elsewhere', 'Robert Jackson Bennet', 'https://image.noelshack.com/fichiers/2019/30/3/1563974656-albin-michel-imaginaire-robert-jackson-bennett-american-elsewhere-hd.jpg', 'Veillée par une lune rose, Wink, au Nouveau-Mexique, est une petite ville idéale. À un détail près?: elle ne figure sur aucune carte. Après deux ans d’errance, Mona Bright, ex-flic, vient d’y hériter de la maison de sa mère, qui s’est suicidée trente ans plus tôt. Très vite, Mona s’attache au calme des rues, aux jolis petits pavillons, aux habitants qui semblent encore vivre dans l’utopique douceur des années cinquante. Pourtant, au fil de ses rencontres et de son enquête sur le passé de sa mère et les circonstances de sa mort (fuyez le naturel…), Mona doit se rendre à l’évidence : une menace plane sur Wink et ses étranges habitants.
-Sera-t-elle vraiment de taille à affronter les forces occultes à l’œuvre dans ce lieu hors d’Amérique ?', 'Science-fiction', false, false);
+('american elsewhere', 'Robert Jackson Bennet', 'https://image.noelshack.com/fichiers/2020/07/3/1581497829-albin-michel-imaginaire-robert-jackson-bennett-american-elsewhere-hd.jpg', 'VeillÃ©e par une lune rose, Wink, au Nouveau-Mexique, est une petite ville idÃ©ale. Ã€ un dÃ©tail prÃ¨s?: elle ne figure sur aucune carte. AprÃ¨s deux ans dâ€™errance, Mona Bright, ex-flic, vient dâ€™y hÃ©riter de la maison de sa mÃ¨re, qui sâ€™est suicidÃ©e trente ans plus tÃ´t. TrÃ¨s vite, Mona sâ€™attache au calme des rues, aux jolis petits pavillons, aux habitants qui semblent encore vivre dans lâ€™utopique douceur des annÃ©es cinquante. Pourtant, au fil de ses rencontres et de son enquÃªte sur le passÃ© de sa mÃ¨re et les circonstances de sa mort (fuyez le naturelâ€¦), Mona doit se rendre Ã  lâ€™Ã©vidence : une menace plane sur Wink et ses Ã©tranges habitants.
+Sera-t-elle vraiment de taille Ã  affronter les forces occultes Ã  lâ€™Å“uvre dans ce lieu hors dâ€™AmÃ©rique ?', 'Science-fiction', false, false);
 
 -- 3/ book (6-7) -> book id 6
 INSERT INTO public.book
-        (bookname, bookauthor, bookpictureurl, bookdescription, booklabel, allbookreserved, waitreservationfull)
+(bookname, bookauthor, bookpictureurl, bookdescription, booklabel, allbookreserved, waitreservationfull)
 VALUES
-        ('la bibliotheque du mount char', 'Scott hawkins', 'https://image.noelshack.com/fichiers/2019/30/4/1564065240-mount-char.jpg', 'Carolyn était une jeune Américaine comme les autres. Mais ça, c’était avant. Avant la mort de ses parents. Avant qu’un mystérieux personnage, Père, ne la prenne sous son aile avec d’autres orphelins.
-Depuis, Carolyn n’a pas eu tant d’occasions de sortir. Elle et sa fratrie d’adoption ont été élevés suivant les coutumes anciennes de Père. Ils ont étudié les livres de sa Bibliothèque et appris quelques-uns des secrets de sa puissance. Parfois, ils se sont demandé si leur tuteur intransigeant ne pourrait pas être Dieu lui-même.
-Mais Père a disparu – peut-être même est-il mort – et il n’y a maintenant plus personne pour protéger la Bibliothèque des féroces combattants qui cherchent à s’en emparer.
-Carolyn se prépare pour la bataille qui s’annonce. Le destin de l’univers est en jeu, mais Carolyn a tout prévu. Carolyn a un plan.', 'fantasy', false, false);
+('la bibliotheque du mount char', 'Scott hawkins', 'https://image.noelshack.com/fichiers/2020/07/3/1581497858-mount-char.jpg', 'Carolyn Ã©tait une jeune AmÃ©ricaine comme les autres. Mais Ã§a, câ€™Ã©tait avant. Avant la mort de ses parents. Avant quâ€™un mystÃ©rieux personnage, PÃ¨re, ne la prenne sous son aile avec dâ€™autres orphelins.
+Depuis, Carolyn nâ€™a pas eu tant dâ€™occasions de sortir. Elle et sa fratrie dâ€™adoption ont Ã©tÃ© Ã©levÃ©s suivant les coutumes anciennes de PÃ¨re. Ils ont Ã©tudiÃ© les livres de sa BibliothÃ¨que et appris quelques-uns des secrets de sa puissance. Parfois, ils se sont demandÃ© si leur tuteur intransigeant ne pourrait pas Ãªtre Dieu lui-mÃªme.
+Mais PÃ¨re a disparu â€“ peut-Ãªtre mÃªme est-il mort â€“ et il nâ€™y a maintenant plus personne pour protÃ©ger la BibliothÃ¨que des fÃ©roces combattants qui cherchent Ã  sâ€™en emparer.
+Carolyn se prÃ©pare pour la bataille qui sâ€™annonce. Le destin de lâ€™univers est en jeu, mais Carolyn a tout prÃ©vu. Carolyn a un plan.', 'fantasy', false, false);
 
 -- 3/ book (7-7) -> book id 7
 INSERT INTO public.book
-        (bookname, bookauthor, bookpictureurl, bookdescription, booklabel, allbookreserved, waitreservationfull)
+(bookname, bookauthor, bookpictureurl, bookdescription, booklabel, allbookreserved, waitreservationfull)
 VALUES
-        ('a quelques secondes prés', 'Harlan coben', 'https://image.noelshack.com/fichiers/2019/30/4/1564065738-a-quelques-secondes-pres.jpg', 'À 16 ans, Mickey Bolitar a déjà vécu son lot de tragédies : la disparition de son père, les difficultés de sa mère à surmonter ce choc, l’installation chez son oncle Myron avec qui il ne s’entend pas. Des questions sur le passé de ses parents et sur ce qui est vraiment arrivé à son père le taraudent. Et le cauchemar ne s’arrête pas là. Ce matin, ce sont les policiers qui le réveillent pour lui apprendre une terrible nouvelle : son amie Rachel a été prise dans une fusillade. Il doit absolument découvrir ce qui lui est arrivé. Pour cela, il peut compter sur le soutien de l’énigmatique Ema et du déjanté Spoon.
-Comme son oncle Myron, Mickey ne renonce jamais quand il est question d’aider les siens, mais comment les protéger s’il ignore de qui et de quoi exactement ?', 'Policier', false, false);
+('a quelques secondes prÃ©s', 'Harlan coben', 'https://image.noelshack.com/fichiers/2020/07/3/1581497873-a-quelques-secondes-pres.jpg', 'Ã€ 16 ans, Mickey Bolitar a dÃ©jÃ  vÃ©cu son lot de tragÃ©dies : la disparition de son pÃ¨re, les difficultÃ©s de sa mÃ¨re Ã  surmonter ce choc, lâ€™installation chez son oncle Myron avec qui il ne sâ€™entend pas. Des questions sur le passÃ© de ses parents et sur ce qui est vraiment arrivÃ© Ã  son pÃ¨re le taraudent. Et le cauchemar ne sâ€™arrÃªte pas lÃ . Ce matin, ce sont les policiers qui le rÃ©veillent pour lui apprendre une terrible nouvelle : son amie Rachel a Ã©tÃ© prise dans une fusillade. Il doit absolument dÃ©couvrir ce qui lui est arrivÃ©. Pour cela, il peut compter sur le soutien de lâ€™Ã©nigmatique Ema et du dÃ©jantÃ© Spoon.
+Comme son oncle Myron, Mickey ne renonce jamais quand il est question dâ€™aider les siens, mais comment les protÃ©ger sâ€™il ignore de qui et de quoi exactement ?', 'Policier', false, false);
 
 -- 4/ book catalog (1-9)
--- library id:1 bibliothèque isidore contient le livre id 1: elevation
+-- library id:1 bibliothÃ¨que isidore contient le livre id 1: elevation
 INSERT INTO public.librarycatalog
-        (library_id, book_id, bookiteration)
+(library_id, book_id, bookiteration)
 VALUES
-        ( 1, 1, 2);  
+( 1, 1, 2);
 
 -- 4/ book catalog (2-9)
--- library id:1 bibliothèque isidore contient le livre id 2: player one
+-- library id:1 bibliothÃ¨que isidore contient le livre id 2: player one
 INSERT INTO public.librarycatalog
-        (library_id, book_id, bookiteration)
+(library_id, book_id, bookiteration)
 VALUES
-        ( 1, 2, 1);  
+( 1, 2, 1);
 
 -- 4/ book catalog (3-9)
--- library id:2 bibliothèque lejeune contient le livre id 1: elevation
+-- library id:2 bibliothÃ¨que lejeune contient le livre id 1: elevation
 INSERT INTO public.librarycatalog
-        (library_id, book_id, bookiteration)
+(library_id, book_id, bookiteration)
 VALUES
-        ( 2, 1, 1); 
+( 2, 1, 1);
 
 -- 4/ book catalog (4-9)
--- library id:1 bibliothèque isidore contient le livre id 3: cari mora
+-- library id:1 bibliothÃ¨que isidore contient le livre id 3: cari mora
 INSERT INTO public.librarycatalog
-        (library_id, book_id, bookiteration)
+(library_id, book_id, bookiteration)
 VALUES
-        ( 1, 3, 3); 
+( 1, 3, 3);
 
 -- 4/ book catalog (5-9)
--- library id:1 bibliothèque isidore contient le livre id 4: le signal
+-- library id:1 bibliothÃ¨que isidore contient le livre id 4: le signal
 INSERT INTO public.librarycatalog
-        (library_id, book_id, bookiteration)
+(library_id, book_id, bookiteration)
 VALUES
-        ( 1, 4, 1); 
-        
+( 1, 4, 1);
+
 -- 4/ book catalog (6-9)
--- library id:2 bibliothèque le jeune contient le livre id 4: le signal
+-- library id:2 bibliothÃ¨que le jeune contient le livre id 4: le signal
 INSERT INTO public.librarycatalog
-        (library_id, book_id, bookiteration)
+(library_id, book_id, bookiteration)
 VALUES
-        ( 2, 4, 1);
-        
+( 2, 4, 1);
+
 -- 4/ book catalog (7-9)
--- library id:1 bibliothèque isidore contient le livre id 5: american elsewhere
+-- library id:1 bibliothÃ¨que isidore contient le livre id 5: american elsewhere
 INSERT INTO public.librarycatalog
-        (library_id, book_id, bookiteration)
+(library_id, book_id, bookiteration)
 VALUES
-        ( 2, 5, 2);
-        
+( 2, 5, 2);
+
 -- 4/ book catalog (8-9)
--- library id:1 bibliothèque isidore contient le livre id 6: la bibliotheque de mount char
+-- library id:1 bibliothÃ¨que isidore contient le livre id 6: la bibliotheque de mount char
 INSERT INTO public.librarycatalog
-        (library_id, book_id, bookiteration)
+(library_id, book_id, bookiteration)
 VALUES
-        ( 1, 6, 1);
+( 1, 6, 1);
 
 -- 4/ book catalog (9-9)
--- library id:1 bibliothèque isidore contient le livre id 7: a quelques secondes pr?s
+-- library id:1 bibliothÃ¨que isidore contient le livre id 7: a quelques secondes pr?s
 INSERT INTO public.librarycatalog
-        (library_id, book_id, bookiteration)
+(library_id, book_id, bookiteration)
 VALUES
-        ( 1, 7, 2);
-        
+( 1, 7, 2);
+
 -- 4/ book catalog (9-9)
--- library id:2 bibliothèque lejeune contient le livre id 7: a quelques secondes pr?s
+-- library id:2 bibliothÃ¨que lejeune contient le livre id 7: a quelques secondes pr?s
 INSERT INTO public.librarycatalog
-        (library_id, book_id, bookiteration)
+(library_id, book_id, bookiteration)
 VALUES
-        ( 2, 7, 1);
-        
+( 2, 7, 1);
+
 -- 5/ reservation de livre
 -- utilisateur id1:1   book id:1  library id:1
 INSERT INTO public.bookreservation
-        (beginofreservationdate, endofreservationdate, extensionofreservation, bookback, bookbackdate, user_id, book_id, library_id)
+(beginofreservationdate, endofreservationdate, extensionofreservation, bookback, bookbackdate, user_id, book_id, library_id)
 VALUES
-        ('10/10/2019 08:10:00', '10/11/2019 08:10:00', false, false, null, 1, 1, 1);
-        
--- utilisateur id1:2   book id:1  library id:1        
-INSERT INTO public.bookreservation
-        (beginofreservationdate, endofreservationdate, extensionofreservation, bookback, bookbackdate, user_id, book_id, library_id)
-VALUES
-        ('9/10/2019 08:30:00', '09/11/2019 08:30:00', false, false, null, 2, 1, 1);
+('10/10/2019 08:10:00', '10/11/2019 08:10:00', false, false, null, 1, 1, 1);
 
--- utilisateur id1:3   book id:1  library id:2        
+-- utilisateur id1:2   book id:1  library id:1
 INSERT INTO public.bookreservation
-        (beginofreservationdate, endofreservationdate, extensionofreservation, bookback, bookbackdate, user_id, book_id, library_id)
+(beginofreservationdate, endofreservationdate, extensionofreservation, bookback, bookbackdate, user_id, book_id, library_id)
 VALUES
-        ('8/10/2019 08:40:00', '08/11/2019 08:40:00', false, false, null, 3, 1, 2);
-                
+('9/10/2019 08:30:00', '09/11/2019 08:30:00', false, false, null, 2, 1, 1);
+
+-- utilisateur id1:3   book id:1  library id:2
+INSERT INTO public.bookreservation
+(beginofreservationdate, endofreservationdate, extensionofreservation, bookback, bookbackdate, user_id, book_id, library_id)
+VALUES
+('8/10/2019 08:40:00', '08/11/2019 08:40:00', false, false, null, 3, 1, 2);
+
 -- Explication
 --5 livres different avec diferente iteration
 --3 reservation  du livre id 1 est dans les bibliotheque -> il n'y a donc plus d'exemplaire dans aucune bibliotheque de la ville
-    
+
 -- 6/ liste d'attente de reservation (1-1)
 -- aucune
-        

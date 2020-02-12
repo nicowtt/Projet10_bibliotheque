@@ -1,7 +1,13 @@
 <component name="ArtifactManager">
   <artifact type="war" name="applicationWebClient-web:war">
     <output-path>$PROJECT_DIR$/applicationWebClient/applicationWebClient-web/target</output-path>
-    <root id="archive" name="applicationWebClient-web-2.0.2.war">
+    <properties id="maven-jee-properties">
+      <options>
+        <module>applicationWebClient-web</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="applicationWebClient-web-2.0.3.war">
       <element id="artifact" artifact-name="applicationWebClient-web:war exploded" />
     </root>
   </artifact>

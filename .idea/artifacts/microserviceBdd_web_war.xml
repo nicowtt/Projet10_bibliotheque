@@ -1,7 +1,13 @@
 <component name="ArtifactManager">
   <artifact type="war" name="microserviceBdd-web:war">
     <output-path>$PROJECT_DIR$/microserviceBDD/microserviceBdd-web/target</output-path>
-    <root id="archive" name="microserviceBdd-web-2.0.2.war">
+    <properties id="maven-jee-properties">
+      <options>
+        <module>microserviceBdd-web</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="microserviceBdd-web-2.0.3.war">
       <element id="artifact" artifact-name="microserviceBdd-web:war exploded" />
     </root>
   </artifact>
